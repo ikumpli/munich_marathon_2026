@@ -347,7 +347,7 @@ def build_dashboard(runs, weekly, targets):
     days_to_race = (race_ts - pd.Timestamp(today)).days
     weeks_to_race = days_to_race // 7
     current_week_num = ((today - PLAN_START).days // 7) + 1
-    current_week_num = max(1, min(current_week_num, 19))
+    current_week_num = max(1, min(current_week_num, 18))
 
     four_week_avg = float(weekly['total_km'].tail(4).mean()) if not weekly.empty else 0.0
     latest_weekly = float(weekly['total_km'].iloc[-1]) if not weekly.empty else 0.0
@@ -355,7 +355,7 @@ def build_dashboard(runs, weekly, targets):
     last_date = runs['Date'].max().strftime('%b %d, %Y') if not runs.empty else 'N/A'
     total_runs = len(runs)
     current_pace_str = weekly['avg_pace_str'].iloc[-1] if not weekly.empty else '—'
-    current_phase = WEEKLY_PLAN[current_week_num - 1][5] if current_week_num <= 19 else '—'
+    current_phase = WEEKLY_PLAN[current_week_num - 1][5] if current_week_num <= 18 else '—'
     current_week_entry = WEEKLY_PLAN[current_week_num - 1]
     calendar_html = _week_calendar_html(current_week_entry, targets, today)
 
@@ -505,18 +505,17 @@ def build_dashboard(runs, weekly, targets):
         <div class="countdown-block">
           <div class="cdown-item">
             <div class="cdown-num">{days_to_race}</div>
-            <div class="cdown-label">Days</div>
+            <div class="cdown-label">Days to go</div>
           </div>
           <div class="cdown-sep">·</div>
           <div class="cdown-item">
-            <div class="cdown-num">{weeks_to_race}</div>
-            <div class="cdown-label">Weeks</div>
+            <div class="cdown-num">W{current_week_num}<span style="font-size:1.4rem;opacity:.6">/18</span></div>
+            <div class="cdown-label">Training week</div>
           </div>
-          <div class="cdown-sep">to go</div>
         </div>
       </div>
       <div class="col-md-4 mt-3 mt-md-0 text-md-end">
-        <div class="phase-pill mb-2">Week {current_week_num} of 19 — {current_phase}</div><br>
+        <div class="phase-pill mb-2">Week {current_week_num} / 18 — {current_phase}</div><br>
         <span class="badge {load_badge} fs-6 px-3 py-2">{load_status}</span>
         <div class="text-muted small mt-2">{total_runs} runs logged</div>
       </div>
