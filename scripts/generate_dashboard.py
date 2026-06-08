@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate an interactive dashboard from Intervals.icu CSV export.
+"""Generate an interactive dashboard from Intervals.icu CSV export. Siuuu!
 
 CSV columns (Intervals.icu export):
   id, Type, Date, Distance (meters), Moving Time (seconds), Name, Avg HR, Norm Power,
