@@ -212,6 +212,78 @@ def build_plan_gantt(targets):
 
 # ── HTML helpers ─────────────────────────────────────────────────────────────
 
+def _week_calendar_html(week_entry, targets, today):
+    """7-day calendar card for the current training week."""
+    wnum, wdate_str, orig_km, long_km, quality, phase = week_entry
+
+    # Parse explicit day sessions from quality string: "Tue: ... · Thu: ... · Sat: ..."
+    parsed = {}
+    for part in quality.split(' · '):
+        if ': ' in part:
+            day_key, desc = part.split(': ', 1)
+            parsed[day_key.strip()] = desc.strip()
+
+    target_km_val = targets[wnum - 1] if wnum - 1 < len(targets) else orig_km
+
+    days_info = [
+        ('Mon', parsed.get('Mon', 'Rest or easy swim'), '💤'),
+        ('Tue', parsed.get('Tue', 'Quality session'),   '⚡'),
+        ('Wed', parsed.get('Wed', 'Easy recovery run'), '🏃'),
+        ('Thu', parsed.get('Thu', 'Tempo / MP run'),    '🔥'),
+        ('Fri', parsed.get('Fri', 'Easy run or rest'),  '🏃'),
+        ('Sat', parsed.get('Sat', 'Medium-long run'),   '🏃'),
+        ('Sun', parsed.get('Sun', f'Long run {long_km}k'), '📏'),
+    ]
+
+    week_monday = today - timedelta(days=today.weekday())
+    phase_color = PHASE_COLORS.get(phase, '#94a3b8')
+
+    cards = ''
+    for i, (short, session, icon) in enumerate(days_info):
+        day_date = week_monday + timedelta(days=i)
+        is_today = (day_date == today)
+        is_past = day_date < today
+
+        if is_today:
+            card_bg, card_border = '#1e3a5f', '2px solid #3b82f6'
+            day_color, date_color, text_color, opacity = '#60a5fa', '#93c5fd', '#f1f5f9', '1'
+        elif is_past:
+            card_bg, card_border = '#0a0f1a', '1px solid #1e293b'
+            day_color, date_color, text_color, opacity = '#334155', '#334155', '#475569', '0.55'
+        else:
+            card_bg, card_border = '#0f172a', '1px solid #334155'
+            day_color, date_color, text_color, opacity = '#64748b', '#475569', '#94a3b8', '1'
+
+        today_dot = (
+            '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;'
+            'background:#3b82f6;margin-left:5px;vertical-align:middle"></span>'
+        ) if is_today else ''
+
+        cards += (
+            f'<div style="flex:1;min-width:110px;border-radius:10px;padding:.75rem .65rem;'
+            f'background:{card_bg};border:{card_border};opacity:{opacity}">'
+            f'<div style="font-size:.68rem;font-weight:700;text-transform:uppercase;'
+            f'letter-spacing:.07em;color:{day_color};margin-bottom:.15rem">{short}{today_dot}</div>'
+            f'<div style="font-size:.65rem;color:{date_color};margin-bottom:.5rem">{day_date.strftime("%b %d")}</div>'
+            f'<div style="font-size:1rem;margin-bottom:.3rem">{icon}</div>'
+            f'<div style="font-size:.75rem;color:{text_color};line-height:1.4">{session}</div>'
+            f'</div>'
+        )
+
+    return (
+        f'<div style="background:#1e293b;border:1px solid #334155;border-radius:14px;'
+        f'padding:1.25rem;margin-bottom:1.5rem">'
+        f'<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;'
+        f'color:#475569;margin-bottom:.85rem">'
+        f'Week {wnum} &nbsp;·&nbsp; {wdate_str} &nbsp;·&nbsp; '
+        f'<span style="color:{phase_color}">{phase}</span> &nbsp;·&nbsp; '
+        f'Target: <span style="color:#f1f5f9">{target_km_val:.0f} km</span>'
+        f'</div>'
+        f'<div style="display:flex;gap:.5rem;flex-wrap:wrap">{cards}</div>'
+        f'</div>'
+    )
+
+
 def _recent_runs_table(runs, n=10):
     recent = runs.tail(n)[['Date', 'Name', 'distance_km', 'pace_str', 'avg_hr']].copy()
     recent['Date'] = recent['Date'].dt.strftime('%a %b %d')
@@ -285,6 +357,8 @@ def build_dashboard(runs, weekly, targets):
     total_runs = len(runs)
     current_pace_str = weekly['avg_pace_str'].iloc[-1] if not weekly.empty else '—'
     current_phase = WEEKLY_PLAN[current_week_num - 1][5] if current_week_num <= 19 else '—'
+    current_week_entry = WEEKLY_PLAN[current_week_num - 1]
+    calendar_html = _week_calendar_html(current_week_entry, targets, today)
 
     # Determine load status for current week
     current_target = targets[current_week_num - 1] if current_week_num - 1 < len(targets) else 0
@@ -314,7 +388,7 @@ def build_dashboard(runs, weekly, targets):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Munich Marathon 2026 — Training Dashboard LOL</title>
+  <title>Munich Marathon 2026 — Training Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -428,7 +502,7 @@ def build_dashboard(runs, weekly, targets):
           <span style="font-size:1.8rem">🏃</span>
           <h1 class="hero-title mb-0">Munich Marathon 2026</h1>
         </div>
-        <p class="hero-sub">Training Dashboard · Iker · Goal: Sub 4:00 · Last sync: {last_date}</p>
+        <p class="hero-sub">Training Dashboard · Iker · Goal: Sub 4:00 &nbsp;·&nbsp; <span style="color:#93c5fd;font-weight:600">{today.strftime('%A, %B %d, %Y')}</span> &nbsp;·&nbsp; Last sync: {last_date}</p>
         <div class="countdown-block">
           <div class="cdown-item">
             <div class="cdown-num">{days_to_race}</div>
@@ -498,6 +572,9 @@ def build_dashboard(runs, weekly, targets):
       </div>
     </div>
   </div>
+
+  <!-- CURRENT WEEK CALENDAR -->
+  {calendar_html}
 
   <!-- TABS -->
   <ul class="nav nav-tabs" id="mainTabs" role="tablist">
