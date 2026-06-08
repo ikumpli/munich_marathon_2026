@@ -1,6 +1,8 @@
 name: Build and deploy dashboard to GitHub Pages
 
 on:
+  schedule:
+    - cron: '0 6 * * *'   # every day at 06:00 UTC — auto-sync & rebuild
   push:
     branches: [ main, master ]
   workflow_dispatch:
@@ -23,6 +25,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Sync activities from Intervals.icu
+        env:
+          INTERVALS_ICU_API_KEY: ${{ secrets.INTERVALS_ICU_API_KEY }}
+        run: python scripts/sync_data.py
+
       - name: Generate dashboard
         run: |
           python scripts/generate_dashboard.py
@@ -31,6 +38,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html
-          git diff --cached --quiet || git commit -m "chore: regenerate dashboard [skip ci]"
+          git add docs/index.html i600311_activities.csv
+          git diff --cached --quiet || git commit -m "chore: sync data + regenerate dashboard [skip ci]"
           git push
