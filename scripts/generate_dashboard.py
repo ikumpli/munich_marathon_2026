@@ -84,15 +84,9 @@ def weekly_aggregates(runs):
     return weekly
 
 
-def make_targets(starting_km, weeks=19):
-    prog = []
-    cur = starting_km
-    for i in range(weeks):
-        prog.append(round(cur, 1))
-        cur = cur * 1.10
-    for i in range(3, weeks, 4):
-        prog[i] = round(prog[i] * 0.85, 1)
-    return prog
+def make_targets():
+    """Extract planned weekly km directly from WEEKLY_PLAN — no computed projection."""
+    return [row[2] for row in WEEKLY_PLAN]
 
 
 # ── Charts ──────────────────────────────────────────────────────────────────
@@ -724,7 +718,5 @@ def build_dashboard(runs, weekly, targets):
 if __name__ == '__main__':
     runs = load_and_clean(DATA)
     weekly = weekly_aggregates(runs)
-    recent_2w_km = runs[runs['Date'] >= runs['Date'].max() - pd.Timedelta(days=13)]['distance_km'].sum()
-    start_avg = round(recent_2w_km / 2.0, 1) if recent_2w_km > 0 else 10.0
-    targets = make_targets(start_avg, weeks=18)
+    targets = make_targets()
     build_dashboard(runs, weekly, targets)
