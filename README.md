@@ -2,7 +2,7 @@
 
 An auto-generated interactive dashboard published to **GitHub Pages** — tracking Iker's training for the Munich Marathon on **October 11, 2026**.
 
-**Live dashboard:** [your-github-username.github.io/munich_marathon_2026](https://your-github-username.github.io/munich_marathon_2026)
+**Live dashboard:** [ikumpli.github.io/munich_marathon_2026](https://ikumpli.github.io/munich_marathon_2026)
 
 ---
 
