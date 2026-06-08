@@ -18,30 +18,29 @@ OUT = ROOT.joinpath('..').joinpath('docs')
 OUT.mkdir(parents=True, exist_ok=True)
 
 MARATHON_DATE = date(2026, 10, 11)
-PLAN_START = date(2026, 6, 1)
+PLAN_START = date(2026, 6, 8)
 TARGET_PACE_MIN_KM = 5.0 + 40.0 / 60.0  # 5:40/km
 
-# Weekly plan: (week_num, total_km, long_km, quality_description, phase)
+# Weekly plan: (week_num, date_label, orig_km, long_km, quality_description, phase)
 WEEKLY_PLAN = [
-    (1,  "Jun 1",  32, 14, "Tue: 6×400m intervals · Thu: Easy 8k · Sat: 10k steady",       "Base"),
-    (2,  "Jun 8",  35, 16, "Tue: 6km tempo · Thu: Easy 9k · Sat: 10k steady",               "Base"),
-    (3,  "Jun 15", 38, 18, "Tue: 5×1k @VO2 · Thu: Easy 10k · Sat: 10k steady",             "Base"),
-    (4,  "Jun 22", 30, 12, "Tue: Easy tempo 5k · Thu: Easy 8k · Sat: 10k easy",             "Base ↩ Recovery"),
-    (5,  "Jun 29", 40, 20, "Tue: 8k tempo · Thu: Easy 10k · Sat: 10k steady",               "Build"),
-    (6,  "Jul 6",  44, 22, "Tue: 6×1k @VO2 · Thu: Easy 11k · Sat: 11k steady",             "Build"),
-    (7,  "Jul 13", 48, 24, "Tue: 10k tempo · Thu: Easy 12k · Sat: 12k steady",              "Build"),
-    (8,  "Jul 20", 36, 16, "Tue: 5×1k @VO2 · Thu: Easy 9k · Sat: 11k steady",              "Build ↩ Recovery"),
-    (9,  "Jul 27", 50, 26, "Tue: 12k progression · Thu: Easy 12k · Sat: 12k steady",        "Build"),
-    (10, "Aug 3",  54, 28, "Tue: 6–8×1k @VO2 · Thu: Easy 13k · Sat: 13k steady",           "Build"),
-    (11, "Aug 10", 58, 30, "Tue: 10–12k tempo · Thu: Easy 14k · Sat: 14k steady",           "Build"),
-    (12, "Aug 17", 42, 18, "Tue: Easy tempo 8k · Thu: Easy 12k · Sat: 12k easy",            "Build ↩ Recovery"),
-    (13, "Aug 24", 60, 32, "Tue: 6×2k @MP · Thu: Easy 14k · Sat: 14k with MP segments",    "Specific"),
-    (14, "Aug 31", 62, 34, "Tue: MP intervals · Thu: Easy 14k · Sat: Long with final @MP",  "Specific"),
-    (15, "Sep 7",  64, 32, "Tue: MP intervals · Thu: Easy 14k · Sat: 16–20k @MP blocks",    "Specific"),
-    (16, "Sep 14", 48, 20, "Tue: 8–10k @MP · Thu: Easy 12k · Sat: 16k steady",              "Taper start"),
-    (17, "Sep 21", 40, 16, "Tue: Short sharp intervals · Thu: Easy 10k · Sat: MP pickups",  "Taper"),
-    (18, "Sep 28", 30, 13, "Tue: Few strides · Thu: Easy 8k · Sat: Easy 9k",                "Taper"),
-    (19, "Oct 5",  22,  0, "Mon: Easy 5k · Wed: 3k strides · Thu: Rest · Sun: RACE DAY 🏁", "Race week"),
+    (1,  "Jun 8",  30, 14, "Tue: 6×400m (3 steady ~4:50/km + 3 progressive↗, 2min rest) · Thu: Easy 7k · Sat: 10k steady",          "Base"),
+    (2,  "Jun 15", 33, 16, "Tue: 6×400m (3 steady ~4:45/km + 3 progressive↗, 2min rest) · Thu: Easy 8k · Sat: 11k steady",          "Base"),
+    (3,  "Jun 22", 28, 12, "Tue: 4×400m easy strides — recovery week · Thu: Easy 7k · Sat: 9k easy",                                "Base ↩ Recovery"),
+    (4,  "Jun 29", 36, 18, "Tue: 8×400m (4 steady ~4:45/km + 4 progressive↗, 90s rest) · Thu: Easy 9k · Sat: 11k steady",          "Build"),
+    (5,  "Jul 6",  40, 20, "Tue: 8k tempo (4:50–5:20/km) · Thu: Easy 10k · Sat: 12k steady",                                       "Build"),
+    (6,  "Jul 13", 44, 22, "Tue: 6×1k @VO2 (4:10–4:20/km, 90s rest) · Thu: Easy 10k · Sat: 13k steady",                           "Build"),
+    (7,  "Jul 20", 37, 16, "Tue: 5×1k @VO2 — recovery week · Thu: Easy 9k · Sat: 12k steady",                                    "Build ↩ Recovery"),
+    (8,  "Jul 27", 48, 24, "Tue: 10k tempo (4:50–5:20/km) · Thu: Easy 12k · Sat: 14k steady",                                      "Build"),
+    (9,  "Aug 3",  52, 26, "Tue: 8×1k @VO2 (4:10–4:20/km, 90s rest) · Thu: Easy 13k · Sat: 14k steady",                           "Build"),
+    (10, "Aug 10", 56, 28, "Tue: 12k tempo · Thu: Easy 14k · Sat: 15k steady",                                                     "Build"),
+    (11, "Aug 17", 46, 20, "Tue: 6×1k @VO2 easy — recovery week · Thu: Easy 12k · Sat: 14k steady",                             "Build ↩ Recovery"),
+    (12, "Aug 24", 58, 30, "Tue: 6×2k @MP (5:40/km) · Thu: Easy 13k · Sat: 17k with 8k @MP segments",                            "Specific"),
+    (13, "Aug 31", 62, 32, "Tue: 8×1k @MP strides · Thu: Easy 14k · Sat: 32k long with final 10k @MP",                           "Specific"),
+    (14, "Sep 7",  64, 32, "Tue: MP intervals 4×2k · Thu: Easy 14k · Sat: 32k long with 16–20k @MP blocks",                       "Specific"),
+    (15, "Sep 14", 52, 24, "Tue: 6×1k @MP — recovery week · Thu: Easy 12k · Sat: 24k with short MP effort",                      "Specific ↩ Recovery"),
+    (16, "Sep 21", 40, 16, "Tue: Short sharp intervals · Thu: Easy 10k · Sat: 14k with MP pickups",                                "Taper start"),
+    (17, "Sep 28", 28, 12, "Tue: Few strides · Thu: Easy 7k · Sat: Easy 9k",                                                      "Taper"),
+    (18, "Oct 5",  20,  0, "Mon: Easy 4k · Wed: 3k strides · Thu: Rest · Fri: Rest · Sun: RACE DAY 🏁",                            "Race week"),
 ]
 
 PHASE_COLORS = {
@@ -641,7 +640,7 @@ def build_dashboard(runs, weekly, targets):
           <h6>📆 Weekly Template (5 runs)</h6>
           <ul>
             <li><strong>Mon:</strong> Rest or easy swim (optional).</li>
-            <li><strong>Tue:</strong> Quality session — intervals or hill repeats.</li>
+            <li><strong>Tue:</strong> Quality session — 400m intervals (Base) or VO2/tempo (Build+).</li>
             <li><strong>Wed:</strong> Easy recovery run (+ strength 30 min).</li>
             <li><strong>Thu:</strong> Tempo or marathon-pace run.</li>
             <li><strong>Fri:</strong> Easy run or rest.</li>
@@ -684,8 +683,9 @@ def build_dashboard(runs, weekly, targets):
         <div class="strategy-card">
           <h6>⚡ Key Session Types</h6>
           <ul>
-            <li><strong>VO2 intervals:</strong> 6×1k or 5×1200m at 3–5k effort, 2–3 min recovery.</li>
-            <li><strong>Tempo / Threshold:</strong> 20–40 min continuous at comfortably hard pace.</li>
+            <li><strong>400m intervals (Base, W1–3):</strong> 6×400m with 2 min rest — first 3 reps at constant rhythm (~4:45–4:50/km), last 3 progressive getting faster each rep. Add 2 more reps in W3 when ready.</li>
+            <li><strong>VO2 intervals (Build+):</strong> 6×1k or 5×1200m at 3–5k effort with 90 s–2 min recovery.</li>
+            <li><strong>Tempo / Threshold:</strong> 20–40 min continuous at comfortably hard pace (4:50–5:20/km).</li>
             <li><strong>MP runs:</strong> 8–16k blocks at target 5:40 pace.</li>
             <li><strong>Long run:</strong> From W13 include MP segments (final 8–16k at MP).</li>
           </ul>
@@ -726,5 +726,5 @@ if __name__ == '__main__':
     weekly = weekly_aggregates(runs)
     recent_2w_km = runs[runs['Date'] >= runs['Date'].max() - pd.Timedelta(days=13)]['distance_km'].sum()
     start_avg = round(recent_2w_km / 2.0, 1) if recent_2w_km > 0 else 10.0
-    targets = make_targets(start_avg, weeks=19)
+    targets = make_targets(start_avg, weeks=18)
     build_dashboard(runs, weekly, targets)

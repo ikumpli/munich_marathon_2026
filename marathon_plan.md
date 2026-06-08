@@ -2,20 +2,20 @@
 
 Assumptions
 - Athlete: Iker (25 y, 182 cm, 74 kg). Good aerobic base; marathon debutant.
-- Race: Sunday, October 11, 2026. Plan start: Monday, June 1, 2026 (19 weeks).
+- Race: Sunday, October 11, 2026. **Official plan start: Monday, June 8, 2026 (18 weeks).**
 - Goal: Sub 4:00 (target marathon pace ~5:40 / km).
 - Availability: 5 running days per week + 1 optional cross-training day.
-- If your current weekly mileage is very different from this plan, I can adapt it after analysing your recent data in `i600311_activities.csv`.
+- Pre-plan runs (before Jun 8) are visible in the dashboard as historical context.
 
-Overview & Phases (19 weeks)
-- Phase A — Base (Weeks 1–4): Build consistency. Focus on easy mileage, form, 1 long run per week.
-- Phase B — Build (Weeks 5–12): Introduce quality workouts (tempo, threshold, intervals), steady long-run increases.
-- Phase C — Specific (Weeks 13–17): Marathon-specific workouts (long runs with marathon-pace segments, longer MP efforts).
-- Phase D — Taper (Weeks 18–19): Reduce volume, maintain intensity, sharpen for race day.
+Overview & Phases (18 weeks)
+- Phase A — Base (Weeks 1–3): Build consistency and leg speed with 400m interval sessions on Tuesdays.
+- Phase B — Build (Weeks 4–11): Transition to longer intervals (1k VO2) and tempo runs; long run grows steadily.
+- Phase C — Specific (Weeks 12–15): Marathon-pace work enters long runs; MP interval blocks on Tuesdays.
+- Phase D — Taper (Weeks 16–18): Reduce volume, keep sharpness, race week rest.
 
 Weekly template (5-run structure)
 - Mon: Rest or optional easy cross-train (swim).
-- Tue: Quality session (intervals/VO2 or hill repeats).
+- Tue: Quality session — **400m intervals** in Base phase; VO2 / tempo in Build+ phase.
 - Wed: Easy recovery run + optional strength (30–40 min core/legs).
 - Thu: Tempo or marathon-pace run.
 - Fri: Easy run or rest.
@@ -31,35 +31,39 @@ Training paces (approx.)
 Adjust these conservatively; your heart rate zones and perceived effort matter more than rigid paces.
 
 Weekly plan (Week = Monday start)
-- Week 1 (Jun 1): 32 km — Long 14k — Quality: short intervals 6×400m
-- Week 2: 35 km — Long 16k — Quality: 6 km tempo
-- Week 3: 38 km — Long 18k — Quality: 5×1k @VO2
-- Week 4 (recovery): 30 km — Long 12k easy — Quality: easy tempo 5k
 
-- Week 5: 40 km — Long 20k — Quality: 8k tempo
-- Week 6: 44 km — Long 22k — Quality: 6×1k VO2
-- Week 7: 48 km — Long 24k — Quality: 10k tempo
-- Week 8 (step-back): 36 km — Long 16k — Quality: 5×1k
+**Phase A — Base**
+- Week 1 (Jun 8): ~30 km — Long 14k easy — Quality: **6×400m** (3 reps steady ~4:50/km + 3 reps progressive↗, 2 min rest)
+- Week 2 (Jun 15): ~33 km — Long 16k easy — Quality: **6×400m** (3 steady ~4:45/km + 3 progressive↗, 2 min rest)
+- Week 3 (Jun 22) ↩ Recovery: ~28 km — Long 12k easy — Quality: 4×400m easy strides, keep it light
 
-- Week 9: 50 km — Long 26k — Quality: 12k progression run
-- Week 10: 54 km — Long 28k — Quality: 6–8×1k VO2
-- Week 11: 58 km — Long 30k — Quality: 10–12k tempo or MP segments
-- Week 12 (recovery): 42 km — Long 18k — Quality: easy tempo 8k
+**Phase B — Build**
+- Week 4 (Jun 29): ~36 km — Long 18k — Quality: **8×400m** (4 steady ~4:45/km + 4 progressive↗, 90s rest)
+- Week 5 (Jul 6): ~40 km — Long 20k — Quality: 8k tempo (4:50–5:20/km)
+- Week 6 (Jul 13): ~44 km — Long 22k — Quality: 6×1k @VO2 (4:10–4:20/km, 90s rest)
+- Week 7 (Jul 20) ↩ Recovery: ~37 km — Long 16k — Quality: 5×1k @VO2 easy
+- Week 8 (Jul 27): ~48 km — Long 24k — Quality: 10k tempo (4:50–5:20/km)
+- Week 9 (Aug 3): ~52 km — Long 26k — Quality: 8×1k @VO2 (4:10–4:20/km, 90s rest)
+- Week 10 (Aug 10): ~56 km — Long 28k — Quality: 12k tempo
+- Week 11 (Aug 17) ↩ Recovery: ~46 km — Long 20k — Quality: 6×1k @VO2 easy
 
-- Week 13: 60 km — Long 32k (incl 10–12k @MP) — Quality: MP intervals 6×2k
-- Week 14: 62 km — Long 34k (progressive, final 8–12k @MP)
-- Week 15: 64 km — Long 30–32k with sustained MP blocks (16–20k total at or near MP)
-- Week 16 (taper start): 48 km — Long 20k — Quality: short MP effort 8–10k
+**Phase C — Specific**
+- Week 12 (Aug 24): ~58 km — Long 30k (incl 8k @MP) — Quality: 6×2k @MP (5:40/km)
+- Week 13 (Aug 31): ~62 km — Long 32k (final 10k @MP) — Quality: 8×1k @MP strides
+- Week 14 (Sep 7): ~64 km — Long 32k (16–20k @MP blocks) — Quality: 4×2k @MP intervals
+- Week 15 (Sep 14) ↩ Recovery: ~52 km — Long 24k (short MP effort) — Quality: 6×1k @MP
 
-- Week 17: 40 km — Long 16k with short MP pickups — Quality: short sharp intervals
-- Week 18 (Taper): 30 km — Long 12–14k easy — few strides only
-- Week 19 (Race week): 18–25 km total — 2 very short runs with strides, rest 2 days pre-race
+**Phase D — Taper**
+- Week 16 (Sep 21): ~40 km — Long 16k — Quality: short sharp intervals, stride-outs
+- Week 17 (Sep 28): ~28 km — Long 12k easy — Quality: few strides only
+- Week 18 / Race (Oct 5): ~20 km total — Mon easy 4k · Wed 3k strides · Thu–Sat rest · **Sun Oct 11: RACE DAY 🏁**
 
 Notes on long runs
 - Build the long run progressively (no more than ~10% weekly increase overall). Every 3–4 weeks, step-back week reduces volume for recovery.
 - From Week 13 onward include marathon-pace segments in long runs. Example: 32k long run = 20k comfortable + 12k @MP.
 
 Key sessions explained
+- **400m intervals (Base, W1–3):** 6×400m with 2 min rest — first 3 reps at constant steady rhythm (~4:45–4:50/km), last 3 reps progressive getting a bit faster each rep (down toward 4:10–4:20/km). This builds leg turnover and aerobic speed without over-stressing your body. Progress to 8 reps in W3 when you feel ready. Do this on **Tuesday** (not Wednesday) — you want fresh legs after Monday rest and a full recovery day before Thursday's tempo.
 - VO2 intervals: Short repeats (e.g., 6×1k or 5×1200m) at 3–5k effort with 2–3 min recovery.
 - Tempo / Threshold: Sustained 20–40 minute efforts at comfortably hard pace (about 10–20 sec/km faster than MP).
 - Marathon-pace runs: Practice holding target pace for blocks (e.g., 8–16k at MP) once per week in the specific phase.
