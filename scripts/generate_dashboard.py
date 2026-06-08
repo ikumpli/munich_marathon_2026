@@ -22,25 +22,26 @@ PLAN_START = date(2026, 6, 8)
 TARGET_PACE_MIN_KM = 5.0 + 40.0 / 60.0  # 5:40/km
 
 # Weekly plan: (week_num, date_label, orig_km, long_km, quality_description, phase)
+# quality string encodes all 7 days: "Mon: ... · Tue: ... · Wed: ... · Thu: ... · Fri: ... · Sat: ... · Sun: ..."
 WEEKLY_PLAN = [
-    (1,  "Jun 8",  30, 14, "Tue: 6×400m (3 steady ~4:50/km + 3 progressive↗, 2min rest) · Thu: Easy 7k · Sat: 10k steady",          "Base"),
-    (2,  "Jun 15", 33, 16, "Tue: 6×400m (3 steady ~4:45/km + 3 progressive↗, 2min rest) · Thu: Easy 8k · Sat: 11k steady",          "Base"),
-    (3,  "Jun 22", 28, 12, "Tue: 4×400m easy strides — recovery week · Thu: Easy 7k · Sat: 9k easy",                                "Base ↩ Recovery"),
-    (4,  "Jun 29", 36, 18, "Tue: 8×400m (4 steady ~4:45/km + 4 progressive↗, 90s rest) · Thu: Easy 9k · Sat: 11k steady",          "Build"),
-    (5,  "Jul 6",  40, 20, "Tue: 8k tempo (4:50–5:20/km) · Thu: Easy 10k · Sat: 12k steady",                                       "Build"),
-    (6,  "Jul 13", 44, 22, "Tue: 6×1k @VO2 (4:10–4:20/km, 90s rest) · Thu: Easy 10k · Sat: 13k steady",                           "Build"),
-    (7,  "Jul 20", 37, 16, "Tue: 5×1k @VO2 — recovery week · Thu: Easy 9k · Sat: 12k steady",                                    "Build ↩ Recovery"),
-    (8,  "Jul 27", 48, 24, "Tue: 10k tempo (4:50–5:20/km) · Thu: Easy 12k · Sat: 14k steady",                                      "Build"),
-    (9,  "Aug 3",  52, 26, "Tue: 8×1k @VO2 (4:10–4:20/km, 90s rest) · Thu: Easy 13k · Sat: 14k steady",                           "Build"),
-    (10, "Aug 10", 56, 28, "Tue: 12k tempo · Thu: Easy 14k · Sat: 15k steady",                                                     "Build"),
-    (11, "Aug 17", 46, 20, "Tue: 6×1k @VO2 easy — recovery week · Thu: Easy 12k · Sat: 14k steady",                             "Build ↩ Recovery"),
-    (12, "Aug 24", 58, 30, "Tue: 6×2k @MP (5:40/km) · Thu: Easy 13k · Sat: 17k with 8k @MP segments",                            "Specific"),
-    (13, "Aug 31", 62, 32, "Tue: 8×1k @MP strides · Thu: Easy 14k · Sat: 32k long with final 10k @MP",                           "Specific"),
-    (14, "Sep 7",  64, 32, "Tue: MP intervals 4×2k · Thu: Easy 14k · Sat: 32k long with 16–20k @MP blocks",                       "Specific"),
-    (15, "Sep 14", 52, 24, "Tue: 6×1k @MP — recovery week · Thu: Easy 12k · Sat: 24k with short MP effort",                      "Specific ↩ Recovery"),
-    (16, "Sep 21", 40, 16, "Tue: Short sharp intervals · Thu: Easy 10k · Sat: 14k with MP pickups",                                "Taper start"),
-    (17, "Sep 28", 28, 12, "Tue: Few strides · Thu: Easy 7k · Sat: Easy 9k",                                                      "Taper"),
-    (18, "Oct 5",  20,  0, "Mon: Easy 4k · Wed: 3k strides · Thu: Rest · Fri: Rest · Sun: RACE DAY 🏁",                            "Race week"),
+    (1,  "Jun 8",  30, 14, "Mon: Rest or swim · Tue: 6×400m (3 steady ~4:50/km + 3 progressive↗, 2min rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 7k @6:10–6:30/km · Fri: Rest · Sat: 9k steady @5:50–6:10/km · Sun: Long 14k @6:10–6:30/km",   "Base"),
+    (2,  "Jun 15", 33, 16, "Mon: Rest or swim · Tue: 6×400m (3 steady ~4:45/km + 3 progressive↗, 2min rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 8k @6:10–6:30/km · Fri: Rest · Sat: 10k steady @5:50–6:10/km · Sun: Long 16k @6:10–6:30/km",  "Base"),
+    (3,  "Jun 22", 28, 12, "Mon: Rest or swim · Tue: 4×400m easy strides — light recovery · Wed: Easy 5k @6:20–6:40/km · Thu: Easy 6k @6:20–6:40/km · Fri: Rest · Sat: 8k easy @6:10–6:30/km · Sun: Long 12k @6:20–6:40/km",                       "Base ↩ Recovery"),
+    (4,  "Jun 29", 36, 18, "Mon: Rest or swim · Tue: 8×400m (4 steady ~4:45/km + 4 progressive↗, 90s rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 9k @6:10–6:30/km · Fri: Rest · Sat: 10k steady @5:50–6:10/km · Sun: Long 18k @6:10–6:20/km",  "Build"),
+    (5,  "Jul 6",  40, 20, "Mon: Rest or swim · Tue: 8k tempo @4:50–5:20/km · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 10k @6:10–6:30/km · Fri: Rest · Sat: 11k steady @5:50–6:10/km · Sun: Long 20k @6:00–6:20/km",                                "Build"),
+    (6,  "Jul 13", 44, 22, "Mon: Rest or swim · Tue: 6×1k @VO2 (4:10–4:20/km, 90s rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 10k @6:10–6:30/km · Fri: Rest · Sat: 12k steady @5:50–6:10/km · Sun: Long 22k @6:00–6:20/km",                    "Build"),
+    (7,  "Jul 20", 37, 16, "Mon: Rest or swim · Tue: 5×1k @VO2 easy (4:15–4:25/km) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 9k @6:10–6:30/km · Fri: Rest · Sat: 10k steady @5:50–6:10/km · Sun: Long 16k @6:10–6:20/km",                          "Build ↩ Recovery"),
+    (8,  "Jul 27", 48, 24, "Mon: Rest or swim · Tue: 10k tempo @4:50–5:20/km · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 12k @6:10–6:30/km · Fri: Rest · Sat: 12k steady @5:50–6:10/km · Sun: Long 24k @6:00–6:20/km",                               "Build"),
+    (9,  "Aug 3",  52, 26, "Mon: Rest or swim · Tue: 8×1k @VO2 (4:10–4:20/km, 90s rest) · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 13k @6:10–6:30/km · Fri: Rest · Sat: 13k steady @5:50–6:10/km · Sun: Long 26k @6:00–6:20/km",                    "Build"),
+    (10, "Aug 10", 56, 28, "Mon: Rest or swim · Tue: 12k tempo @4:50–5:20/km · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 14k @6:10–6:30/km · Fri: Rest · Sat: 13k steady @5:50–6:10/km · Sun: Long 28k @5:55–6:15/km",                               "Build"),
+    (11, "Aug 17", 46, 20, "Mon: Rest or swim · Tue: 6×1k @VO2 easy (4:15–4:25/km) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 12k @6:10–6:30/km · Fri: Rest · Sat: 12k steady @5:50–6:10/km · Sun: Long 20k @6:10–6:20/km",                         "Build ↩ Recovery"),
+    (12, "Aug 24", 58, 30, "Mon: Rest or swim · Tue: 6×2k @MP (5:40/km, 2min rest) · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 13k @6:10–6:30/km · Fri: Rest · Sat: 14k incl 8k @5:40/km · Sun: Long 30k (final 8k @5:40/km)",                       "Specific"),
+    (13, "Aug 31", 62, 32, "Mon: Rest or swim · Tue: 8×1k @MP (5:40/km, 90s rest) · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 14k @6:10–6:30/km · Fri: Rest · Sat: 15k incl 10k @5:40/km · Sun: Long 32k (final 10k @5:40/km)",                      "Specific"),
+    (14, "Sep 7",  64, 32, "Mon: Rest or swim · Tue: 4×2k @MP (5:40/km, 2min rest) · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 14k @6:10–6:30/km · Fri: Rest · Sat: 15k incl 12k @5:40/km · Sun: Long 32k (16–20k @5:40/km)",                        "Specific"),
+    (15, "Sep 14", 52, 24, "Mon: Rest or swim · Tue: 6×1k @MP easy (5:40/km, 90s rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 12k @6:10–6:30/km · Fri: Rest · Sat: 13k incl short MP effort · Sun: Long 24k (8k @5:40/km)",                     "Specific ↩ Recovery"),
+    (16, "Sep 21", 40, 16, "Mon: Rest or swim · Tue: 8×200m fast strides (3:50–4:00/km, 60s rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 10k @6:10–6:30/km · Fri: Rest · Sat: 10k incl 3×2k @5:40/km · Sun: Long 16k @6:00–6:20/km",            "Taper start"),
+    (17, "Sep 28", 28, 12, "Mon: Rest or swim · Tue: 6×100m easy strides · Wed: Easy 5k @6:20–6:40/km · Thu: Easy 7k @6:20–6:40/km · Fri: Rest · Sat: Easy 7k @6:20–6:40/km · Sun: Long 12k @6:10–6:30/km",                                       "Taper"),
+    (18, "Oct 5",  20,  0, "Mon: Easy 4k @6:20–6:40/km · Tue: Rest · Wed: 3k easy strides · Thu: Rest · Fri: Rest · Sat: Rest · Sun: RACE DAY 🏁 — 5:40/km avg, negative split",                                                                    "Race week"),
 ]
 
 PHASE_COLORS = {
@@ -225,13 +226,13 @@ def _week_calendar_html(week_entry, targets, today):
     target_km_val = targets[wnum - 1] if wnum - 1 < len(targets) else orig_km
 
     days_info = [
-        ('Mon', parsed.get('Mon', 'Rest or easy swim'), '💤'),
-        ('Tue', parsed.get('Tue', 'Quality session'),   '⚡'),
-        ('Wed', parsed.get('Wed', 'Easy recovery run'), '🏃'),
-        ('Thu', parsed.get('Thu', 'Tempo / MP run'),    '🔥'),
-        ('Fri', parsed.get('Fri', 'Easy run or rest'),  '🏃'),
-        ('Sat', parsed.get('Sat', 'Medium-long run'),   '🏃'),
-        ('Sun', parsed.get('Sun', f'Long run {long_km}k'), '📏'),
+        ('Mon', parsed.get('Mon', 'Rest or easy swim'),              '💤'),
+        ('Tue', parsed.get('Tue', 'Quality session'),                '⚡'),
+        ('Wed', parsed.get('Wed', 'Easy recovery run @6:10–6:30/km'),'🏃'),
+        ('Thu', parsed.get('Thu', 'Easy run @6:10–6:30/km'),         '🏃'),
+        ('Fri', parsed.get('Fri', 'Rest'),                           '💤'),
+        ('Sat', parsed.get('Sat', 'Steady run @5:50–6:10/km'),       '🏃'),
+        ('Sun', parsed.get('Sun', f'Long run {long_km}k @6:10–6:20/km'), '📏'),
     ]
 
     week_monday = today - timedelta(days=today.weekday())
