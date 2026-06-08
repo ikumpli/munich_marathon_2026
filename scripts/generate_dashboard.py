@@ -62,7 +62,9 @@ def load_and_clean(path):
     runs = df[df['Type'].str.lower() == 'run'].copy()
     runs['distance_km'] = runs['Distance'].astype(float) / 1000.0
     runs['moving_time_min'] = runs['Moving Time'].astype(float) / 60.0
+    runs = runs[runs['distance_km'] > 0].copy()
     runs['pace'] = runs['moving_time_min'] / runs['distance_km']
+    runs = runs[runs['pace'].apply(lambda p: pd.notna(p) and p != float('inf'))].copy()
     runs['pace_str'] = runs['pace'].apply(lambda p: f"{int(p)}:{int((p % 1)*60):02d}")
     runs['week_start'] = runs['Date'].dt.to_period('W-MON').apply(lambda r: r.start_time)
     runs['avg_hr'] = pd.to_numeric(runs.get('Avg HR', float('nan')), errors='coerce')
