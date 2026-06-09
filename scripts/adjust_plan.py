@@ -275,7 +275,7 @@ def adjust_with_llm(week: dict, mismatches: list, github_token: str):
 
     system_prompt = (
         "You are an expert marathon coach assistant for Iker (25 y/o, marathon debut, goal: sub 4:00). "
-        "Adjust a training week schedule when the athlete deviates from the plan. "
+        "Your job is MINIMAL adjustments only — change as little as possible. "
         "Return ONLY a valid JSON array — no prose, no markdown fences."
     )
 
@@ -283,15 +283,18 @@ def adjust_with_llm(week: dict, mismatches: list, github_token: str):
         f"Week {week['week']} — Phase: {week['phase']} — Target: {week['target_km']} km.\n\n"
         f"PAST DAYS:\n" + "\n".join(past_lines) + "\n\n"
         f"MISMATCHES:\n" + ("\n".join(mismatch_lines) if mismatch_lines else "- None") + "\n\n"
-        f"REMAINING DAYS TO ADJUST:\n" + "\n".join(future_lines) + "\n\n"
-        f"RULES:\n"
-        f"1. Already covered {covered_km:.1f} km. Remaining budget: {remaining_budget:.1f} km "
-        f"(weekly target ±10 % = {week['target_km']*0.9:.0f}–{week['target_km']*1.1:.0f} km).\n"
-        f"2. Preserve the long run on Sunday ({week['long_km']} km @ 6:00–6:20/km) unless Sunday is past.\n"
-        f"3. If a quality session was missed, reschedule it to the next non-rest day if Iker is not fatigued.\n"
-        f"4. Mon and Fri are rest/swim days — do not add runs there unless essential.\n"
-        f"5. session_type must be one of: rest, easy, quality, long, race.\n\n"
-        f"Return ONLY a JSON array for the remaining days:\n"
+        f"REMAINING DAYS (return ALL of these, unchanged unless you must modify):\n" + "\n".join(future_lines) + "\n\n"
+        f"RULES — follow strictly:\n"
+        f"1. Change ONLY the minimum necessary. If a day does not need to change, return it exactly as planned.\n"
+        f"2. If a quality session was missed, find the FIRST available non-rest future day and reschedule "
+        f"the exact same quality session description there. Do NOT invent warm-ups, cool-downs, or extra km.\n"
+        f"3. If you reschedule quality to a day that already had an easy run, replace that easy run with the "
+        f"quality session. The displaced easy run is simply dropped — do not add it elsewhere.\n"
+        f"4. Mon and Fri are rest/swim days — never add runs there.\n"
+        f"5. Preserve the long run on Sunday ({week['long_km']} km @ 6:00–6:20/km) exactly as planned.\n"
+        f"6. Do NOT add warm-up/cool-down blocks. Do NOT change distances or descriptions of unchanged days.\n"
+        f"7. session_type must be one of: rest, easy, quality, long, race.\n\n"
+        f"Return a JSON array for ALL remaining days (include unchanged ones with was_adjusted=false):\n"
         f'[{{"date":"YYYY-MM-DD","day":"DDD","session_type":"TYPE",'
         f'"adjusted_plan":"description","was_adjusted":true/false,"adjustment_note":"reason or null"}}]'
     )
