@@ -69,13 +69,13 @@
         {
           "date": "2026-06-13",
           "day": "Sat",
-          "session_type": "quality",
+          "session_type": "easy",
           "planned": "9k steady @5:50–6:10/km",
-          "adjusted_plan": "3k warm-up + 9k steady @5:50–6:10/km + 3k cool-down",
+          "adjusted_plan": "9k steady @5:50–6:10/km",
           "actual_km": null,
           "actual_pace_min_km": null,
-          "was_adjusted": true,
-          "adjustment_note": "Rescheduled quality session from Tue due to missed workout."
+          "was_adjusted": false,
+          "adjustment_note": null
         },
         {
           "date": "2026-06-14",
