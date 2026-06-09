@@ -232,8 +232,8 @@ def adjust_with_llm(week: dict, mismatches: list, github_token: str):
         return None
 
     today = date.today()
-    past_days = [d for d in week["days"] if d["date"] < today.isoformat()]
-    future_days = [d for d in week["days"] if d["date"] >= today.isoformat()]
+    past_days = [d for d in week["days"] if d["date"] <= today.isoformat()]
+    future_days = [d for d in week["days"] if d["date"] > today.isoformat()]
 
     if not future_days:
         return None  # nothing left to adjust
