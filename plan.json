@@ -26,12 +26,12 @@
           "session_type": "quality",
           "planned": "6×400m (3 steady ~4:50/km + 3 progressive↗, 2min rest)",
           "adjusted_plan": "6×400m (3 steady ~4:50/km + 3 progressive↗, 2min rest)",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "was_adjusted": false,
-          "adjustment_note": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 7.24,
+          "actual_pace_min_km": 5.4874,
+          "was_adjusted": true,
+          "adjustment_note": "rescheduled quality session from Tue due to missed session",
+          "actual_hr": 146.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-06-10",
@@ -69,7 +69,7 @@
         {
           "date": "2026-06-13",
           "day": "Sat",
-          "session_type": "easy",
+          "session_type": "steady",
           "planned": "9k steady @5:50–6:10/km",
           "adjusted_plan": "9k steady @5:50–6:10/km",
           "actual_km": null,
