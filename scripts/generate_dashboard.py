@@ -285,24 +285,32 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
         if actual_km is not None and actual_km > 0:
             pace_val = plan_day_map[short].get('actual_pace_min_km') if short in plan_day_map else None
             hr_val = plan_day_map[short].get('actual_hr') if short in plan_day_map else None
+            act_name = plan_day_map[short].get('actual_name') if short in plan_day_map else None
             pace_str = f"{int(pace_val)}:{int((pace_val % 1)*60):02d}/km" if pace_val else ''
             hr_str = f'{int(hr_val)} bpm' if hr_val else ''
             metrics = ' · '.join(filter(None, [f'{actual_km:.1f} km', pace_str, hr_str]))
+            name_html = (
+                f'<div style="font-size:.6rem;color:#64748b;margin-top:.1rem">{act_name}</div>'
+            ) if act_name else ''
             actual_html = (
                 f'<div style="margin-top:.45rem;padding:.35rem .4rem;border-radius:6px;'
                 f'background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25)">'
                 f'<div style="font-size:.6rem;font-weight:700;color:#22c55e;'
                 f'letter-spacing:.04em;margin-bottom:.15rem">✓ DONE</div>'
                 f'<div style="font-size:.68rem;color:#86efac;line-height:1.5">{metrics}</div>'
+                f'{name_html}'
                 f'</div>'
             )
-            # If the planned session was different (mismatch), show what was planned in faded text
+            # If a quality session was planned but activity name has no quality keywords, warn
             planned_orig = plan_day_map[short].get('planned', '') if short in plan_day_map else ''
-            if planned_orig and planned_orig != session and session_type_str == 'quality':
-                actual_html += (
-                    f'<div style="font-size:.6rem;color:#64748b;margin-top:.2rem;'
-                    f'font-style:italic">Planned: {planned_orig[:50]}{"…" if len(planned_orig)>50 else ""}</div>'
-                )
+            if planned_orig and session_type_str == 'quality':
+                _quality_kws = ('interval', 'intervals', 'tempo', 'mp run', 'mp pace')
+                name_lower = (act_name or '').lower()
+                if not any(kw in name_lower for kw in _quality_kws):
+                    actual_html += (
+                        f'<div style="font-size:.6rem;color:#f97316;margin-top:.2rem">'
+                        f'⚠ Planned: {planned_orig[:45]}{"…" if len(planned_orig)>45 else ""}</div>'
+                    )
         elif is_past and session_type_str not in ('rest', None):
             actual_html = (
                 '<div style="margin-top:.45rem;padding:.3rem .4rem;border-radius:6px;'
@@ -409,7 +417,10 @@ def build_dashboard(runs, weekly, targets):
     current_week_num = max(1, min(current_week_num, 18))
 
     four_week_avg = float(weekly['total_km'].tail(4).mean()) if not weekly.empty else 0.0
-    latest_weekly = float(weekly['total_km'].iloc[-1]) if not weekly.empty else 0.0
+    # Current week = last row; previous completed week = second-to-last (if it exists)
+    this_week_km = float(weekly['total_km'].iloc[-1]) if not weekly.empty else 0.0
+    last_week_km = float(weekly['total_km'].iloc[-2]) if len(weekly) >= 2 else 0.0
+    last_week_pace_str = weekly['avg_pace_str'].iloc[-2] if len(weekly) >= 2 else '—'
     longest_run = float(runs['distance_km'].max()) if not runs.empty else 0.0
     last_date = runs['Date'].max().strftime('%b %d, %Y') if not runs.empty else 'N/A'
     total_runs = len(runs)
@@ -429,10 +440,10 @@ def build_dashboard(runs, weekly, targets):
     current_target = targets[current_week_num - 1] if current_week_num - 1 < len(targets) else 0
     load_status = ''
     load_badge = ''
-    if latest_weekly < current_target * 0.80:
+    if this_week_km < current_target * 0.80:
         load_status = 'Underloaded'
         load_badge = 'bg-warning text-dark'
-    elif latest_weekly > current_target * 1.10:
+    elif this_week_km > current_target * 1.10:
         load_status = 'Overloaded ⚠️'
         load_badge = 'bg-danger'
     else:
@@ -607,7 +618,7 @@ def build_dashboard(runs, weekly, targets):
     <div class="col-6 col-md-2">
       <div class="kpi-card">
         <div class="kpi-icon">📆</div>
-        <div class="kpi-value">{latest_weekly:.1f}</div>
+        <div class="kpi-value">{last_week_km:.1f}</div>
         <div class="kpi-label">km last week</div>
       </div>
     </div>
@@ -621,7 +632,7 @@ def build_dashboard(runs, weekly, targets):
     <div class="col-6 col-md-2">
       <div class="kpi-card">
         <div class="kpi-icon">⏱️</div>
-        <div class="kpi-value">{current_pace_str}</div>
+        <div class="kpi-value">{last_week_pace_str}</div>
         <div class="kpi-label">avg pace (last week)</div>
       </div>
     </div>
@@ -770,6 +781,43 @@ def build_dashboard(runs, weekly, targets):
             <li>If resting HR is elevated or legs feel heavy → swap quality for easy miles.</li>
             <li>Swim as low-impact cross-training when legs need a break.</li>
           </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-1">
+      <div class="col-12">
+        <div class="strategy-card" style="border-color:#f97316">
+          <h6 style="color:#f97316">🏷️ Activity Naming Guide — How the plan agent detects your sessions</h6>
+          <p style="font-size:.85rem;color:#94a3b8;margin-bottom:.75rem">
+            The adaptive plan agent reads your <strong>Garmin / Intervals.icu activity name</strong> to
+            decide whether you completed a quality session or just ran easy.
+            Name your sessions accordingly so the agent adjusts your week correctly.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem">
+            <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
+              <div style="font-size:.7rem;font-weight:700;color:#f97316;text-transform:uppercase;margin-bottom:.5rem">⚡ Quality — include one of these keywords</div>
+              <div style="display:flex;flex-wrap:wrap;gap:.3rem">
+                <code style="background:#1e293b;color:#fbbf24;padding:.15rem .4rem;border-radius:4px;font-size:.8rem">Intervals</code>
+                <code style="background:#1e293b;color:#fbbf24;padding:.15rem .4rem;border-radius:4px;font-size:.8rem">Tempo</code>
+                <code style="background:#1e293b;color:#fbbf24;padding:.15rem .4rem;border-radius:4px;font-size:.8rem">MP Run</code>
+              </div>
+              <div style="font-size:.72rem;color:#64748b;margin-top:.5rem">Examples: <em>"Intervals 6×400m"</em>, <em>"Tempo 8k"</em>, <em>"MP Run 10k"</em></div>
+            </div>
+            <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
+              <div style="font-size:.7rem;font-weight:700;color:#22c55e;text-transform:uppercase;margin-bottom:.5rem">🏃 Easy / Long — name freely</div>
+              <div style="font-size:.82rem;color:#94a3b8">Any name works — the agent won't flag these as mismatches regardless of name.</div>
+              <div style="font-size:.72rem;color:#64748b;margin-top:.5rem">Examples: <em>"Munich Running"</em>, <em>"Easy 10k"</em>, <em>"Long Run Sunday"</em></div>
+            </div>
+            <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
+              <div style="font-size:.7rem;font-weight:700;color:#a78bfa;text-transform:uppercase;margin-bottom:.5rem">🔄 How to rename</div>
+              <ol style="font-size:.8rem;color:#94a3b8;padding-left:1.1rem;margin:0">
+                <li>Open <strong>Intervals.icu</strong> → Activities</li>
+                <li>Click the activity → edit the title</li>
+                <li>Push the updated CSV or wait for the daily auto-sync</li>
+              </ol>
+            </div>
+          </div>
         </div>
       </div>
     </div>

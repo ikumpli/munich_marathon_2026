@@ -30,7 +30,8 @@
           "actual_pace_min_km": 5.4874,
           "was_adjusted": false,
           "adjustment_note": null,
-          "actual_hr": 146.0
+          "actual_hr": 146.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-06-10",

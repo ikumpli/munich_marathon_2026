@@ -85,6 +85,7 @@ def generate_plan_json() -> dict:
                 "actual_km": None,
                 "actual_pace_min_km": None,
                 "actual_hr": None,
+                "actual_name": None,
                 "was_adjusted": False,
                 "adjustment_note": None,
             })
@@ -124,12 +125,15 @@ def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
     for _, row in runs_df.iterrows():
         d = row["Date"].date().isoformat()
         if d not in activity_by_date:
-            activity_by_date[d] = {"km": 0.0, "paces": [], "hrs": []}
+            activity_by_date[d] = {"km": 0.0, "paces": [], "hrs": [], "names": []}
         activity_by_date[d]["km"] += row["distance_km"]
         activity_by_date[d]["paces"].append(row["pace"])
         hr = row.get("avg_hr") if "avg_hr" in row.index else None
         if hr and pd.notna(hr):
             activity_by_date[d]["hrs"].append(float(hr))
+        name = row.get("Name") if "Name" in row.index else None
+        if name and pd.notna(name):
+            activity_by_date[d]["names"].append(str(name))
 
     for week in plan_data["weeks"]:
         for day in week["days"]:
@@ -145,6 +149,8 @@ def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
                     )
                 if act["hrs"]:
                     day["actual_hr"] = round(sum(act["hrs"]) / len(act["hrs"]), 0)
+                if act["names"]:
+                    day["actual_name"] = " + ".join(act["names"])
             else:
                 # Explicitly mark past run days as 0 so the dashboard can show ✗
                 if day["session_type"] in ("easy", "quality", "long"):
@@ -155,12 +161,32 @@ def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
 
 # ── Mismatch detection ────────────────────────────────────────────────────────
 
+# Keywords in the Garmin activity Name that confirm a quality session was done
+_QUALITY_KEYWORDS = (
+    "interval", "intervals", "tempo", "mp run", "mp pace",
+)
+
+
+def _activity_looks_like_quality(day: dict) -> bool:
+    """Return True if the actual activity signals a quality session was performed."""
+    name = (day.get("actual_name") or "").lower()
+    if any(kw in name for kw in _QUALITY_KEYWORDS):
+        return True
+    # Interval sessions produce short total distances (warmup + reps + cooldown ≈ 4–7 km)
+    # AND a clearly fast average pace (sub-5:10/km reflects hard rep efforts)
+    pace = day.get("actual_pace_min_km")
+    km = day.get("actual_km") or 0
+    if pace and pace < 5.17 and km < 9:
+        return True
+    return False
+
+
 def detect_mismatches(week: dict, today: date) -> list:
     """Return mismatches for past days in this week only."""
     mismatches = []
     for day in week["days"]:
-        if day["date"] >= today.isoformat():
-            break  # only examine past days
+        if day["date"] > today.isoformat():
+            break  # only examine past days and today
         stype = day["session_type"]
         actual_km = day.get("actual_km")
 
@@ -172,16 +198,17 @@ def detect_mismatches(week: dict, today: date) -> list:
                 "planned": day["adjusted_plan"],
                 "actual_km": actual_km,
             })
-        elif stype == "quality" and actual_km and day.get("actual_pace_min_km"):
-            # Quality planned but ran easy (pace slower than 5:45/km)
-            if day["actual_pace_min_km"] > 5.75:
+        elif stype == "quality" and actual_km and actual_km > 1.0:
+            # Quality planned — check if it was actually a quality session
+            if not _activity_looks_like_quality(day):
                 mismatches.append({
                     "date": day["date"],
                     "day": day["day"],
                     "issue": "quality_missed",
                     "planned": day["adjusted_plan"],
                     "actual_km": actual_km,
-                    "actual_pace": day["actual_pace_min_km"],
+                    "actual_pace": day.get("actual_pace_min_km"),
+                    "actual_name": day.get("actual_name"),
                 })
     return mismatches
 
