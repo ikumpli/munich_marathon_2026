@@ -280,14 +280,36 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
             'background:#3b82f6;margin-left:5px;vertical-align:middle"></span>'
         ) if is_today else ''
 
+        # Actual metrics block
         actual_html = ''
         if actual_km is not None and actual_km > 0:
+            pace_val = plan_day_map[short].get('actual_pace_min_km') if short in plan_day_map else None
+            hr_val = plan_day_map[short].get('actual_hr') if short in plan_day_map else None
+            pace_str = f"{int(pace_val)}:{int((pace_val % 1)*60):02d}/km" if pace_val else ''
+            hr_str = f'{int(hr_val)} bpm' if hr_val else ''
+            metrics = ' · '.join(filter(None, [f'{actual_km:.1f} km', pace_str, hr_str]))
             actual_html = (
-                f'<div style="font-size:.65rem;color:#22c55e;font-weight:600;margin-top:.3rem">'
-                f'✓ {actual_km:.1f} km</div>'
+                f'<div style="margin-top:.45rem;padding:.35rem .4rem;border-radius:6px;'
+                f'background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25)">'
+                f'<div style="font-size:.6rem;font-weight:700;color:#22c55e;'
+                f'letter-spacing:.04em;margin-bottom:.15rem">✓ DONE</div>'
+                f'<div style="font-size:.68rem;color:#86efac;line-height:1.5">{metrics}</div>'
+                f'</div>'
             )
+            # If the planned session was different (mismatch), show what was planned in faded text
+            planned_orig = plan_day_map[short].get('planned', '') if short in plan_day_map else ''
+            if planned_orig and planned_orig != session and session_type_str == 'quality':
+                actual_html += (
+                    f'<div style="font-size:.6rem;color:#64748b;margin-top:.2rem;'
+                    f'font-style:italic">Planned: {planned_orig[:50]}{"…" if len(planned_orig)>50 else ""}</div>'
+                )
         elif is_past and session_type_str not in ('rest', None):
-            actual_html = '<div style="font-size:.65rem;color:#ef4444;margin-top:.3rem">✗ no run</div>'
+            actual_html = (
+                '<div style="margin-top:.45rem;padding:.3rem .4rem;border-radius:6px;'
+                'background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2)">'
+                '<div style="font-size:.6rem;font-weight:700;color:#ef4444">✗ NOT DONE</div>'
+                '</div>'
+            )
 
         adjusted_html = (
             '<div style="font-size:.6rem;color:#f97316;margin-top:.15rem">✱ plan adjusted</div>'

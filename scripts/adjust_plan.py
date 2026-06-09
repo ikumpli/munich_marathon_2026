@@ -84,6 +84,7 @@ def generate_plan_json() -> dict:
                 "adjusted_plan": desc,
                 "actual_km": None,
                 "actual_pace_min_km": None,
+                "actual_hr": None,
                 "was_adjusted": False,
                 "adjustment_note": None,
             })
@@ -123,15 +124,18 @@ def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
     for _, row in runs_df.iterrows():
         d = row["Date"].date().isoformat()
         if d not in activity_by_date:
-            activity_by_date[d] = {"km": 0.0, "paces": []}
+            activity_by_date[d] = {"km": 0.0, "paces": [], "hrs": []}
         activity_by_date[d]["km"] += row["distance_km"]
         activity_by_date[d]["paces"].append(row["pace"])
+        hr = row.get("avg_hr") if "avg_hr" in row.index else None
+        if hr and pd.notna(hr):
+            activity_by_date[d]["hrs"].append(float(hr))
 
     for week in plan_data["weeks"]:
         for day in week["days"]:
             d = day["date"]
-            if d >= today_iso:
-                continue  # don't touch future days
+            if d > today_iso:
+                continue  # don't touch future days (but do fill today)
             if d in activity_by_date:
                 act = activity_by_date[d]
                 day["actual_km"] = round(act["km"], 2)
@@ -139,6 +143,8 @@ def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
                     day["actual_pace_min_km"] = round(
                         sum(act["paces"]) / len(act["paces"]), 4
                     )
+                if act["hrs"]:
+                    day["actual_hr"] = round(sum(act["hrs"]) / len(act["hrs"]), 0)
             else:
                 # Explicitly mark past run days as 0 so the dashboard can show ✗
                 if day["session_type"] in ("easy", "quality", "long"):
@@ -309,6 +315,7 @@ def main():
     runs = runs[runs["distance_km"] > 0].copy()
     runs["pace"] = runs["moving_time_min"] / runs["distance_km"]
     runs = runs[runs["pace"].apply(lambda p: pd.notna(p) and p != float("inf"))].copy()
+    runs["avg_hr"] = pd.to_numeric(runs.get("Avg HR", float("nan")), errors="coerce")
 
     # Load or create plan.json
     plan_data = load_or_init_plan()
