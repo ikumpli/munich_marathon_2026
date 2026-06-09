@@ -101,6 +101,30 @@ def make_targets():
     return [row[2] for row in WEEKLY_PLAN]
 
 
+# Shared dark layout defaults applied to every chart
+_DARK_LAYOUT = dict(
+    paper_bgcolor='#1e293b',
+    plot_bgcolor='#0f172a',
+    font=dict(family='Inter, system-ui, sans-serif', color='#94a3b8', size=12),
+    xaxis=dict(
+        gridcolor='#1e293b', zerolinecolor='#334155',
+        tickfont=dict(color='#64748b'), title_font=dict(color='#64748b'),
+    ),
+    yaxis=dict(
+        gridcolor='#1e293b', zerolinecolor='#334155',
+        tickfont=dict(color='#64748b'), title_font=dict(color='#64748b'),
+    ),
+    legend=dict(
+        bgcolor='rgba(0,0,0,0)', bordercolor='#334155', borderwidth=1,
+        font=dict(color='#94a3b8'),
+    ),
+    hoverlabel=dict(
+        bgcolor='#0f172a', bordercolor='#334155',
+        font=dict(color='#e2e8f0', family='Inter, system-ui, sans-serif'),
+    ),
+    margin=dict(t=20, b=40),
+)
+
 # ── Charts ──────────────────────────────────────────────────────────────────
 
 def build_volume_chart(weekly, targets, plan_start):
@@ -109,26 +133,35 @@ def build_volume_chart(weekly, targets, plan_start):
     fig = go.Figure()
     fig.add_trace(go.Bar(
         x=obs_index, y=weekly['total_km'], name='Observed km',
-        marker_color='#3b82f6',
+        marker_color='#3b82f6', marker_line_color='#1e40af', marker_line_width=1,
         hovertemplate='<b>%{x|%b %d}</b><br>%{y:.1f} km<extra>Observed</extra>',
     ))
     fig.add_trace(go.Scatter(
         x=obs_index, y=weekly['rolling_km_4w'], mode='lines+markers',
-        name='4-week rolling avg', line=dict(color='#f97316', width=2.5),
+        name='4-week rolling avg',
+        line=dict(color='#f97316', width=2.5),
+        marker=dict(size=6, color='#f97316', line=dict(color='#0f172a', width=1.5)),
         hovertemplate='<b>%{x|%b %d}</b><br>%{y:.1f} km<extra>4w avg</extra>',
     ))
     fig.add_trace(go.Scatter(
         x=target_dates, y=targets, mode='lines+markers',
-        name='Plan target', line=dict(color='#22c55e', dash='dash', width=2),
+        name='Plan target',
+        line=dict(color='#22c55e', dash='dash', width=2),
+        marker=dict(size=5, color='#22c55e', symbol='diamond'),
         hovertemplate='<b>%{x|%b %d}</b><br>%{y:.1f} km<extra>Target</extra>',
     ))
-    fig.add_vline(x=str(MARATHON_DATE), line_dash='dot', line_color='#ef4444',
-                  annotation_text='Race day 🏁', annotation_position='top right')
+    fig.add_vline(x=str(MARATHON_DATE), line_dash='dot', line_color='#ef4444', line_width=1.5,
+                  annotation_text='Race day 🏁',
+                  annotation_font=dict(color='#ef4444', size=11),
+                  annotation_position='top right')
+    layout = {**_DARK_LAYOUT}
+    layout['xaxis'] = {**_DARK_LAYOUT['xaxis'], 'title': 'Week (Monday)'}
+    layout['yaxis'] = {**_DARK_LAYOUT['yaxis'], 'title': 'Kilometers'}
+    layout['legend'] = {**_DARK_LAYOUT['legend'], 'orientation': 'h', 'y': 1.08}
     fig.update_layout(
-        title=None, xaxis_title='Week (Monday)', yaxis_title='Kilometers',
-        template='plotly_white', hovermode='x unified',
-        legend=dict(orientation='h', y=1.1), height=400,
-        margin=dict(t=20, b=40),
+        **layout,
+        hovermode='x unified',
+        height=400,
     )
     return fig
 
@@ -137,8 +170,8 @@ def build_pace_chart(weekly, runs):
     fig = go.Figure()
     fig.add_trace(go.Scatter(
         x=runs['Date'], y=runs['pace'], mode='markers', name='Session pace',
-        marker=dict(color='#a78bfa', size=7, opacity=0.75,
-                    line=dict(color='white', width=1)),
+        marker=dict(color='#818cf8', size=8, opacity=0.8,
+                    line=dict(color='#0f172a', width=1.5)),
         hovertemplate='<b>%{x|%b %d}</b><br>%{customdata}<extra>Session</extra>',
         customdata=runs['pace_str'],
     ))
@@ -146,17 +179,27 @@ def build_pace_chart(weekly, runs):
         x=pd.to_datetime(weekly['week_start']), y=weekly['rolling_pace_4w'],
         mode='lines+markers', name='4-week rolling avg',
         line=dict(color='#ec4899', width=2.5),
+        marker=dict(size=6, color='#ec4899', line=dict(color='#0f172a', width=1.5)),
         hovertemplate='<b>%{x|%b %d}</b><br>%{customdata}<extra>4w avg</extra>',
         customdata=weekly['avg_pace_str'],
     ))
-    fig.add_hline(y=TARGET_PACE_MIN_KM, line_dash='dot', line_color='#22c55e',
-                  annotation_text='Target MP 5:40', annotation_position='bottom right')
-    fig.update_yaxes(autorange='reversed', title_text='Pace (min/km)',
-                     tickformat='.2f')
+    fig.add_hline(y=TARGET_PACE_MIN_KM, line_dash='dot', line_color='#22c55e', line_width=1.5,
+                  annotation_text='Target MP 5:40',
+                  annotation_font=dict(color='#22c55e', size=11),
+                  annotation_position='bottom right')
+    layout = {**_DARK_LAYOUT}
+    layout['xaxis'] = {**_DARK_LAYOUT['xaxis'], 'title': 'Date'}
+    layout['yaxis'] = {
+        **_DARK_LAYOUT['yaxis'],
+        'autorange': 'reversed',
+        'title': 'Pace (min/km)',
+        'tickformat': '.2f',
+    }
+    layout['legend'] = {**_DARK_LAYOUT['legend'], 'orientation': 'h', 'y': 1.08}
     fig.update_layout(
-        title=None, xaxis_title='Date', template='plotly_white',
-        hovermode='x unified', legend=dict(orientation='h', y=1.1),
-        height=400, margin=dict(t=20, b=40),
+        **layout,
+        hovermode='x unified',
+        height=400,
     )
     return fig
 
@@ -205,12 +248,21 @@ def build_plan_gantt(targets):
                 name=phase, showlegend=True,
             ))
 
-    fig.update_layout(
+        fig.update_layout(
         barmode='stack', title=None,
         xaxis_title='Target km / week',
-        yaxis=dict(autorange='reversed', tickfont=dict(size=11)),
-        template='plotly_white', height=580,
-        legend=dict(orientation='h', y=1.05),
+        paper_bgcolor='#1e293b',
+        plot_bgcolor='#0f172a',
+        font=dict(family='Inter, system-ui, sans-serif', color='#94a3b8', size=11),
+        xaxis=dict(gridcolor='#1e293b', zerolinecolor='#334155',
+                   tickfont=dict(color='#64748b'), title_font=dict(color='#64748b')),
+        yaxis=dict(autorange='reversed', tickfont=dict(size=11, color='#94a3b8'),
+                   gridcolor='#1e293b'),
+        legend=dict(orientation='h', y=1.05,
+                    bgcolor='rgba(0,0,0,0)', font=dict(color='#94a3b8')),
+        hoverlabel=dict(bgcolor='#0f172a', bordercolor='#334155',
+                        font=dict(color='#e2e8f0', family='Inter, system-ui, sans-serif')),
+        height=580,
         margin=dict(t=10, b=40),
     )
     return fig
