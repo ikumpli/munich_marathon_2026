@@ -2,7 +2,7 @@ name: Build and deploy dashboard to GitHub Pages
 
 on:
   schedule:
-    - cron: '0 6 * * *'   # every day at 06:00 UTC — auto-sync & rebuild
+    - cron: '20 9 * * *'   # every day at 09:20 UTC = 11:20 CEST (Munich)
   push:
     branches: [ main, master ]
   workflow_dispatch:
