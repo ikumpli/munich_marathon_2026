@@ -5,6 +5,7 @@ CSV columns (Intervals.icu export):
   id, Type, Date, Distance (meters), Moving Time (seconds), Name, Avg HR, Norm Power,
   Intensity, Load, FTP, Weight, W'
 """
+import json
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -16,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[0]
 DATA = ROOT.joinpath('..').joinpath('i600311_activities.csv').resolve()
 OUT = ROOT.joinpath('..').joinpath('docs')
 OUT.mkdir(parents=True, exist_ok=True)
+PLAN_JSON = ROOT.joinpath('..').joinpath('plan.json').resolve()
 
 MARATHON_DATE = date(2026, 10, 11)
 PLAN_START = date(2026, 6, 8)
@@ -54,6 +56,14 @@ PHASE_COLORS = {
     "Taper": "#86efac",
     "Race week": "#ef4444",
 }
+
+
+def _load_plan():
+    """Load plan.json if it exists, return None otherwise."""
+    if PLAN_JSON.exists():
+        with open(PLAN_JSON) as f:
+            return json.load(f)
+    return None
 
 
 def load_and_clean(path):
@@ -208,7 +218,7 @@ def build_plan_gantt(targets):
 
 # ── HTML helpers ─────────────────────────────────────────────────────────────
 
-def _week_calendar_html(week_entry, targets, today):
+def _week_calendar_html(week_entry, targets, today, plan_days=None):
     """7-day calendar card for the current training week."""
     wnum, wdate_str, orig_km, long_km, quality, phase = week_entry
 
@@ -233,10 +243,25 @@ def _week_calendar_html(week_entry, targets, today):
 
     week_monday = today - timedelta(days=today.weekday())
     phase_color = PHASE_COLORS.get(phase, '#94a3b8')
+    plan_day_map = {d['day']: d for d in plan_days} if plan_days else {}
+    _icon_map = {'rest': '💤', 'easy': '🏃', 'quality': '⚡', 'long': '📏', 'race': '🏁'}
 
     cards = ''
     for i, (short, session, icon) in enumerate(days_info):
         day_date = week_monday + timedelta(days=i)
+
+        # Override with live plan.json data when available
+        actual_km = None
+        was_adjusted = False
+        session_type_str = None
+        if short in plan_day_map:
+            day_entry = plan_day_map[short]
+            session = day_entry['adjusted_plan']
+            icon = _icon_map.get(day_entry.get('session_type', 'easy'), icon)
+            actual_km = day_entry.get('actual_km')
+            was_adjusted = day_entry.get('was_adjusted', False)
+            session_type_str = day_entry.get('session_type')
+
         is_today = (day_date == today)
         is_past = day_date < today
 
@@ -255,6 +280,19 @@ def _week_calendar_html(week_entry, targets, today):
             'background:#3b82f6;margin-left:5px;vertical-align:middle"></span>'
         ) if is_today else ''
 
+        actual_html = ''
+        if actual_km is not None and actual_km > 0:
+            actual_html = (
+                f'<div style="font-size:.65rem;color:#22c55e;font-weight:600;margin-top:.3rem">'
+                f'✓ {actual_km:.1f} km</div>'
+            )
+        elif is_past and session_type_str not in ('rest', None):
+            actual_html = '<div style="font-size:.65rem;color:#ef4444;margin-top:.3rem">✗ no run</div>'
+
+        adjusted_html = (
+            '<div style="font-size:.6rem;color:#f97316;margin-top:.15rem">✱ plan adjusted</div>'
+        ) if was_adjusted else ''
+
         cards += (
             f'<div style="flex:1;min-width:110px;border-radius:10px;padding:.75rem .65rem;'
             f'background:{card_bg};border:{card_border};opacity:{opacity}">'
@@ -263,6 +301,8 @@ def _week_calendar_html(week_entry, targets, today):
             f'<div style="font-size:.65rem;color:{date_color};margin-bottom:.5rem">{day_date.strftime("%b %d")}</div>'
             f'<div style="font-size:1rem;margin-bottom:.3rem">{icon}</div>'
             f'<div style="font-size:.75rem;color:{text_color};line-height:1.4">{session}</div>'
+            f'{actual_html}'
+            f'{adjusted_html}'
             f'</div>'
         )
 
@@ -354,7 +394,14 @@ def build_dashboard(runs, weekly, targets):
     current_pace_str = weekly['avg_pace_str'].iloc[-1] if not weekly.empty else '—'
     current_phase = WEEKLY_PLAN[current_week_num - 1][5] if current_week_num <= 18 else '—'
     current_week_entry = WEEKLY_PLAN[current_week_num - 1]
-    calendar_html = _week_calendar_html(current_week_entry, targets, today)
+    _plan_data = _load_plan()
+    _plan_days = None
+    if _plan_data:
+        for _wk in _plan_data.get('weeks', []):
+            if _wk['week'] == current_week_num:
+                _plan_days = _wk['days']
+                break
+    calendar_html = _week_calendar_html(current_week_entry, targets, today, plan_days=_plan_days)
 
     # Determine load status for current week
     current_target = targets[current_week_num - 1] if current_week_num - 1 < len(targets) else 0
