@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-09",
-  "last_adjusted": "2026-06-11",
+  "last_adjusted": "2026-06-12",
   "weeks": [
     {
       "week": 1,
@@ -42,7 +42,7 @@
           "actual_km": 6.42,
           "actual_pace_min_km": 5.9487,
           "was_adjusted": true,
-          "adjustment_note": "rescheduled quality session from Tue due to missed session",
+          "adjustment_note": "rescheduled missed quality session from Tue and Wed",
           "actual_hr": 138.0,
           "actual_name": "Munich Running"
         },
@@ -63,10 +63,12 @@
           "session_type": "rest",
           "planned": "Rest",
           "adjusted_plan": "Rest",
-          "actual_km": null,
-          "actual_pace_min_km": null,
+          "actual_km": 14.62,
+          "actual_pace_min_km": 5.2621,
           "was_adjusted": false,
-          "adjustment_note": null
+          "adjustment_note": null,
+          "actual_hr": 158.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-06-13",
@@ -76,8 +78,8 @@
           "adjusted_plan": "6×400m (3 steady ~4:50/km + 3 progressive↗, 2min rest)",
           "actual_km": null,
           "actual_pace_min_km": null,
-          "was_adjusted": true,
-          "adjustment_note": "Rescheduled missed quality session from earlier in the week."
+          "was_adjusted": false,
+          "adjustment_note": null
         },
         {
           "date": "2026-06-14",
