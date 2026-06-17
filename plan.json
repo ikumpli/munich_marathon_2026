@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-09",
-  "last_adjusted": "2026-06-16",
+  "last_adjusted": "2026-06-17",
   "weeks": [
     {
       "week": 1,
@@ -129,7 +129,7 @@
           "session_type": "quality",
           "planned": "Easy 6k @6:10–6:30/km",
           "adjusted_plan": "6×400m (3 steady ~4:45/km + 3 progressive↗, 2min rest)",
-          "actual_km": null,
+          "actual_km": 0.0,
           "actual_pace_min_km": null,
           "was_adjusted": true,
           "adjustment_note": "rescheduled missed quality session from Tue"
@@ -137,13 +137,13 @@
         {
           "date": "2026-06-18",
           "day": "Thu",
-          "session_type": "easy",
+          "session_type": "quality",
           "planned": "Easy 8k @6:10–6:30/km",
-          "adjusted_plan": "Easy 8k @6:10–6:30/km",
+          "adjusted_plan": "6×400m (3 steady ~4:45/km + 3 progressive↗, 2min rest)",
           "actual_km": null,
           "actual_pace_min_km": null,
-          "was_adjusted": false,
-          "adjustment_note": null
+          "was_adjusted": true,
+          "adjustment_note": "rescheduled missed quality session from Tue"
         },
         {
           "date": "2026-06-19",
@@ -159,7 +159,7 @@
         {
           "date": "2026-06-20",
           "day": "Sat",
-          "session_type": "easy",
+          "session_type": "10k steady",
           "planned": "10k steady @5:50–6:10/km",
           "adjusted_plan": "10k steady @5:50–6:10/km",
           "actual_km": null,
