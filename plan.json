@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-09",
-  "last_adjusted": "2026-06-18",
+  "last_adjusted": "2026-06-19",
   "weeks": [
     {
       "week": 1,
@@ -164,8 +164,8 @@
           "adjusted_plan": "6×400m (3 steady ~4:45/km + 3 progressive↗, 2min rest)",
           "actual_km": null,
           "actual_pace_min_km": null,
-          "was_adjusted": true,
-          "adjustment_note": "rescheduled missed quality session from Tue"
+          "was_adjusted": false,
+          "adjustment_note": null
         },
         {
           "date": "2026-06-21",
