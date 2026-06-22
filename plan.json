@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-09",
-  "last_adjusted": "2026-06-21",
+  "last_adjusted": "2026-06-22",
   "weeks": [
     {
       "week": 1,
@@ -193,10 +193,12 @@
           "session_type": "rest",
           "planned": "Rest or swim",
           "adjusted_plan": "Rest or swim",
-          "actual_km": null,
-          "actual_pace_min_km": null,
+          "actual_km": 8.14,
+          "actual_pace_min_km": 5.7227,
           "was_adjusted": false,
-          "adjustment_note": null
+          "adjustment_note": null,
+          "actual_hr": 154.0,
+          "actual_name": "Laredo Running"
         },
         {
           "date": "2026-06-23",
