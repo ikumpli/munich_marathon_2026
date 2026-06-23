@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-09",
-  "last_adjusted": "2026-06-22",
+  "last_adjusted": "2026-06-23",
   "weeks": [
     {
       "week": 1,
@@ -206,7 +206,7 @@
           "session_type": "quality",
           "planned": "4×400m easy strides — light recovery",
           "adjusted_plan": "4×400m easy strides — light recovery",
-          "actual_km": null,
+          "actual_km": 0.0,
           "actual_pace_min_km": null,
           "was_adjusted": false,
           "adjustment_note": null
@@ -214,13 +214,13 @@
         {
           "date": "2026-06-24",
           "day": "Wed",
-          "session_type": "easy",
+          "session_type": "quality",
           "planned": "Easy 5k @6:20–6:40/km",
-          "adjusted_plan": "Easy 5k @6:20–6:40/km",
+          "adjusted_plan": "4×400m easy strides — light recovery",
           "actual_km": null,
           "actual_pace_min_km": null,
-          "was_adjusted": false,
-          "adjustment_note": null
+          "was_adjusted": true,
+          "adjustment_note": "rescheduled missed session from Tue"
         },
         {
           "date": "2026-06-25",
