@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-09",
-  "last_adjusted": "2026-06-25",
+  "last_adjusted": "2026-06-26",
   "weeks": [
     {
       "week": 1,
@@ -253,7 +253,7 @@
           "actual_km": null,
           "actual_pace_min_km": null,
           "was_adjusted": true,
-          "adjustment_note": "Rescheduled missed quality session from Tue"
+          "adjustment_note": "rescheduled missed quality session from Tue, Wed, Thu"
         },
         {
           "date": "2026-06-28",
