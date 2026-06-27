@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-09",
-  "last_adjusted": "2026-06-26",
+  "last_adjusted": "2026-06-27",
   "weeks": [
     {
       "week": 1,
@@ -250,7 +250,7 @@
           "session_type": "quality",
           "planned": "8k easy @6:10–6:30/km",
           "adjusted_plan": "4×400m easy strides — light recovery",
-          "actual_km": null,
+          "actual_km": 0.0,
           "actual_pace_min_km": null,
           "was_adjusted": true,
           "adjustment_note": "rescheduled missed quality session from Tue, Wed, Thu"
