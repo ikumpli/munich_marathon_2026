@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-09",
-  "last_adjusted": "2026-06-27",
+  "last_adjusted": "2026-06-28",
   "weeks": [
     {
       "week": 1,
@@ -250,10 +250,12 @@
           "session_type": "quality",
           "planned": "8k easy @6:10–6:30/km",
           "adjusted_plan": "4×400m easy strides — light recovery",
-          "actual_km": 0.0,
-          "actual_pace_min_km": null,
+          "actual_km": 8.29,
+          "actual_pace_min_km": 5.737,
           "was_adjusted": true,
-          "adjustment_note": "rescheduled missed quality session from Tue, Wed, Thu"
+          "adjustment_note": "rescheduled missed quality session from Tue, Wed, Thu",
+          "actual_hr": 162.0,
+          "actual_name": "Valle de Mena Running"
         },
         {
           "date": "2026-06-28",
@@ -261,10 +263,12 @@
           "session_type": "long",
           "planned": "Long 12k @6:20–6:40/km",
           "adjusted_plan": "Long 12k @6:20–6:40/km",
-          "actual_km": null,
-          "actual_pace_min_km": null,
+          "actual_km": 16.02,
+          "actual_pace_min_km": 5.0066,
           "was_adjusted": false,
-          "adjustment_note": null
+          "adjustment_note": null,
+          "actual_hr": 164.0,
+          "actual_name": "Bilbao Running"
         }
       ]
     },
