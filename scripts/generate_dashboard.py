@@ -29,7 +29,7 @@ WEEKLY_PLAN = [
     (1,  "Jun 8",  30, 14, "Mon: Rest or swim · Tue: 6×400m (3 steady ~4:50/km + 3 progressive↗, 2min rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 7k @6:10–6:30/km · Fri: Rest · Sat: 9k steady @5:50–6:10/km · Sun: Long 14k @6:10–6:30/km",   "Base"),
     (2,  "Jun 15", 33, 16, "Mon: Rest or swim · Tue: 6×400m (3 steady ~4:45/km + 3 progressive↗, 2min rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 8k @6:10–6:30/km · Fri: Rest · Sat: 10k steady @5:50–6:10/km · Sun: Long 16k @6:10–6:30/km",  "Base"),
     (3,  "Jun 22", 28, 12, "Mon: Rest or swim · Tue: 4×400m easy strides — light recovery · Wed: Easy 5k @6:20–6:40/km · Thu: Easy 6k @6:20–6:40/km · Fri: Rest · Sat: 8k easy @6:10–6:30/km · Sun: Long 12k @6:20–6:40/km",                       "Base ↩ Recovery"),
-    (4,  "Jun 29", 26, 14, "Mon: Rest or swim · Tue: 4×400m very easy strides @5:00–5:10/km — gentle return, no pressure · Wed: Easy 5k @6:20–6:40/km · Thu: Easy 6k @6:20–6:40/km · Fri: Rest · Sat: Easy 6k @6:20–6:40/km · Sun: Long 14k @6:10–6:30/km",  "Base"),
+    (4,  "Jun 29", 26,  0, "Mon: Rest or swim · Tue: Easy 6k @6:20–6:40/km — no strides, save legs · Wed: Easy 8k @6:10–6:30/km (moderate, get it done early) · Thu: Easy 4k @6:20–6:40/km · Fri: Rest · Sat: Easy 3k shakeout + 4×100m light strides · Sun: 🏁 10k RACE @~4:25/km — go get it!",  "Base"),
     (5,  "Jul 6",  30, 16, "Mon: Rest or swim · Tue: 6×400m (3 steady ~4:50/km + 3 progressive↗, 2min rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 7k @6:10–6:30/km · Fri: Rest · Sat: 8k steady @5:50–6:10/km · Sun: Long 16k @6:10–6:30/km",          "Base"),
     (6,  "Jul 13", 33, 18, "Mon: Rest or swim · Tue: 6×400m (3 steady ~4:45/km + 3 progressive↗, 2min rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 8k @6:10–6:30/km · Fri: Rest · Sat: 10k steady @5:50–6:10/km · Sun: Long 18k @6:10–6:30/km",         "Base"),
     (7,  "Jul 20", 28, 12, "Mon: Rest or swim · Tue: 4×400m easy strides — light recovery · Wed: Easy 5k @6:20–6:40/km · Thu: Easy 6k @6:20–6:40/km · Fri: Rest · Sat: 8k easy @6:10–6:30/km · Sun: Long 12k @6:20–6:40/km",                              "Base ↩ Recovery"),
@@ -76,7 +76,7 @@ def load_and_clean(path):
     runs['pace'] = runs['moving_time_min'] / runs['distance_km']
     runs = runs[runs['pace'].apply(lambda p: pd.notna(p) and p != float('inf'))].copy()
     runs['pace_str'] = runs['pace'].apply(lambda p: f"{int(p)}:{int((p % 1)*60):02d}")
-    runs['week_start'] = runs['Date'].dt.to_period('W-MON').apply(lambda r: r.start_time)
+    runs['week_start'] = runs['Date'].dt.normalize() - pd.to_timedelta(runs['Date'].dt.weekday, unit='D')
     runs['avg_hr'] = pd.to_numeric(runs.get('Avg HR', float('nan')), errors='coerce')
     return runs.sort_values('Date').reset_index(drop=True)
 
@@ -304,14 +304,12 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
 
         # Override with live plan.json data when available
         actual_km = None
-        was_adjusted = False
         session_type_str = None
         if short in plan_day_map:
             day_entry = plan_day_map[short]
-            session = day_entry['adjusted_plan']
+            session = day_entry.get('planned', session)
             icon = _icon_map.get(day_entry.get('session_type', 'easy'), icon)
             actual_km = day_entry.get('actual_km')
-            was_adjusted = day_entry.get('was_adjusted', False)
             session_type_str = day_entry.get('session_type')
 
         is_today = (day_date == today)
@@ -371,10 +369,6 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
                 '</div>'
             )
 
-        adjusted_html = (
-            '<div style="font-size:.6rem;color:#f97316;margin-top:.15rem">✱ plan adjusted</div>'
-        ) if was_adjusted else ''
-
         cards += (
             f'<div style="flex:1;min-width:110px;border-radius:10px;padding:.75rem .65rem;'
             f'background:{card_bg};border:{card_border};opacity:{opacity}">'
@@ -384,7 +378,6 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
             f'<div style="font-size:1rem;margin-bottom:.3rem">{icon}</div>'
             f'<div style="font-size:.75rem;color:{text_color};line-height:1.4">{session}</div>'
             f'{actual_html}'
-            f'{adjusted_html}'
             f'</div>'
         )
 
@@ -469,14 +462,21 @@ def build_dashboard(runs, weekly, targets):
     current_week_num = max(1, min(current_week_num, 18))
 
     four_week_avg = float(weekly['total_km'].tail(4).mean()) if not weekly.empty else 0.0
-    # Current week = last row; previous completed week = second-to-last (if it exists)
-    this_week_km = float(weekly['total_km'].iloc[-1]) if not weekly.empty else 0.0
-    last_week_km = float(weekly['total_km'].iloc[-2]) if len(weekly) >= 2 else 0.0
-    last_week_pace_str = weekly['avg_pace_str'].iloc[-2] if len(weekly) >= 2 else '—'
+    # Look up weeks by their Monday date (robust to an empty current week)
+    this_week_monday = pd.Timestamp(today - timedelta(days=today.weekday()))
+    last_week_monday = this_week_monday - pd.Timedelta(weeks=1)
+    weekly_by_monday = weekly.set_index('week_start')
+
+    def _week_metric(monday, col, default):
+        return weekly_by_monday.loc[monday, col] if monday in weekly_by_monday.index else default
+
+    this_week_km = float(_week_metric(this_week_monday, 'total_km', 0.0))
+    last_week_km = float(_week_metric(last_week_monday, 'total_km', 0.0))
+    last_week_pace_str = _week_metric(last_week_monday, 'avg_pace_str', '—') or '—'
     longest_run = float(runs['distance_km'].max()) if not runs.empty else 0.0
     last_date = runs['Date'].max().strftime('%b %d, %Y') if not runs.empty else 'N/A'
     total_runs = len(runs)
-    current_pace_str = weekly['avg_pace_str'].iloc[-1] if not weekly.empty else '—'
+    current_pace_str = last_week_pace_str
     current_phase = WEEKLY_PLAN[current_week_num - 1][5] if current_week_num <= 18 else '—'
     current_week_entry = WEEKLY_PLAN[current_week_num - 1]
     _plan_data = _load_plan()
@@ -488,14 +488,16 @@ def build_dashboard(runs, weekly, targets):
                 break
     calendar_html = _week_calendar_html(current_week_entry, targets, today, plan_days=_plan_days)
 
-    # Determine load status for current week
-    current_target = targets[current_week_num - 1] if current_week_num - 1 < len(targets) else 0
+    # Load status reflects the last COMPLETED week vs its plan target
+    # (an in-progress current week would always read "underloaded" early on)
+    last_week_num = ((last_week_monday.date() - PLAN_START).days // 7) + 1
+    last_week_target = targets[last_week_num - 1] if 0 <= last_week_num - 1 < len(targets) else 0
     load_status = ''
     load_badge = ''
-    if this_week_km < current_target * 0.80:
+    if last_week_target and last_week_km < last_week_target * 0.80:
         load_status = 'Underloaded'
         load_badge = 'bg-warning text-dark'
-    elif this_week_km > current_target * 1.10:
+    elif last_week_target and last_week_km > last_week_target * 1.10:
         load_status = 'Overloaded ⚠️'
         load_badge = 'bg-danger'
     else:

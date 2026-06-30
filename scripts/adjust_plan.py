@@ -81,13 +81,10 @@ def generate_plan_json() -> dict:
                 "day": day_name,
                 "session_type": classify_session(desc),
                 "planned": desc,
-                "adjusted_plan": desc,
                 "actual_km": None,
                 "actual_pace_min_km": None,
                 "actual_hr": None,
                 "actual_name": None,
-                "was_adjusted": False,
-                "adjustment_note": None,
             })
         weeks.append({
             "week": wnum,
@@ -195,7 +192,7 @@ def detect_mismatches(week: dict, today: date) -> list:
                 "date": day["date"],
                 "day": day["day"],
                 "issue": "missed",
-                "planned": day["adjusted_plan"],
+                "planned": day["planned"],
                 "actual_km": actual_km,
             })
         elif stype == "quality" and actual_km and actual_km > 1.0:
@@ -205,7 +202,7 @@ def detect_mismatches(week: dict, today: date) -> list:
                     "date": day["date"],
                     "day": day["day"],
                     "issue": "quality_missed",
-                    "planned": day["adjusted_plan"],
+                    "planned": day["planned"],
                     "actual_km": actual_km,
                     "actual_pace": day.get("actual_pace_min_km"),
                     "actual_name": day.get("actual_name"),
@@ -245,12 +242,12 @@ def adjust_with_llm(week: dict, mismatches: list, github_token: str):
         if km is not None and km > 0:
             pace = _fmt_pace(d["actual_pace_min_km"]) if d.get("actual_pace_min_km") else "?"
             past_lines.append(
-                f'- {d["day"]} {d["date"]}: Planned "{d["adjusted_plan"]}". '
+                f'- {d["day"]} {d["date"]}: Planned "{d["planned"]}". '
                 f"Actual: {km:.1f} km @ {pace}/km."
             )
         else:
             past_lines.append(
-                f'- {d["day"]} {d["date"]}: Planned "{d["adjusted_plan"]}". Actual: no activity.'
+                f'- {d["day"]} {d["date"]}: Planned "{d["planned"]}". Actual: no activity.'
             )
 
     # Summarise mismatches
@@ -266,7 +263,7 @@ def adjust_with_llm(week: dict, mismatches: list, github_token: str):
 
     # Summarise remaining days
     future_lines = [
-        f'- {d["day"]} {d["date"]}: Planned "{d["adjusted_plan"]}"'
+        f'- {d["day"]} {d["date"]}: Planned "{d["planned"]}"'
         for d in future_days
     ]
 
@@ -294,9 +291,9 @@ def adjust_with_llm(week: dict, mismatches: list, github_token: str):
         f"5. Preserve the long run on Sunday ({week['long_km']} km @ 6:00–6:20/km) exactly as planned. Never put the quality session on Sunday.\n"
         f"6. Do NOT add warm-up/cool-down blocks. Do NOT change distances or descriptions of unchanged days.\n"
         f"7. session_type must be one of: rest, easy, quality, long, race.\n\n"
-        f"Return a JSON array for ALL remaining days (include unchanged ones with was_adjusted=false):\n"
-        f'[{{"date":"YYYY-MM-DD","day":"DDD","session_type":"TYPE",'
-        f'"adjusted_plan":"description","was_adjusted":true/false,"adjustment_note":"reason or null"}}]'
+        f"Return a JSON array for ALL remaining days. For unchanged days, return the planned text as-is. "
+        f"When you adjust a day, overwrite its plan text directly:\n"
+        f'[{{"date":"YYYY-MM-DD","day":"DDD","session_type":"TYPE","planned":"description"}}]'
     )
 
     client = OpenAI(
@@ -371,10 +368,8 @@ def main():
                 for adj in adjusted:
                     if adj["date"] in day_map:
                         target = day_map[adj["date"]]
-                        target["adjusted_plan"] = adj.get("adjusted_plan", target["adjusted_plan"])
+                        target["planned"] = adj.get("planned", target["planned"])
                         target["session_type"] = adj.get("session_type", target["session_type"])
-                        target["was_adjusted"] = adj.get("was_adjusted", False)
-                        target["adjustment_note"] = adj.get("adjustment_note")
                 print(f"Adjusted {len(adjusted)} remaining day(s).")
             else:
                 print("LLM returned no adjustments.")
