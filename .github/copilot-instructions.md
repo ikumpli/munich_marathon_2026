@@ -43,9 +43,9 @@ You are a **Senior Data Scientist** and an **Expert Marathon Coach** assisting I
    def fmt_pace(p):
        return f"{int(p)}:{int((p % 1) * 60):02d}"
    ```
-3. **Weekly aggregation** — group by `Monday` as week start:
+3. **Weekly aggregation** — group by `Monday` as week start. Do **not** use `to_period('W-MON')` — it anchors weeks ending on Monday and silently misclassifies Monday runs. Use:
    ```python
-   df['week_start'] = df['Date'].dt.to_period('W-MON').apply(lambda r: r.start_time)
+   df['week_start'] = df['Date'].dt.normalize() - pd.to_timedelta(df['Date'].dt.weekday, unit='D')
    ```
 4. **Code structure** — always separate concerns into distinct functions:
    - `load_and_clean(path)` — read CSV, parse types, derive columns.
