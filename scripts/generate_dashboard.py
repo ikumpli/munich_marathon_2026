@@ -1177,7 +1177,7 @@ def build_ics():
                 summary = f'🏁 RACE — Munich Marathon'
             elif 'long' in dl:
                 summary = f'📏 Long run — W{wnum} {phase}'
-            elif '×' in desc or 'interval' in dl or 'strides' in dl:
+            elif '×' in desc or 'interval' in dl:
                 summary = f'⚡ Intervals — W{wnum} {phase}'
             elif 'tempo' in dl:
                 summary = f'🔥 Tempo — W{wnum} {phase}'

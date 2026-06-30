@@ -189,7 +189,7 @@ BEGIN:VEVENT
 UID:20260630-w4-tue@munich-marathon-2026
 DTSTART;VALUE=DATE:20260630
 DTEND;VALUE=DATE:20260701
-SUMMARY:⚡ Intervals — W4 Base
+SUMMARY:🏃 Easy run — W4 Base
 DESCRIPTION:W4 · Jun 29 · Base | Easy 6k @6:20–6:40/km — no strides\,
   save legs
 CATEGORIES:Base
@@ -993,7 +993,7 @@ BEGIN:VEVENT
 UID:20261007-w18-wed@munich-marathon-2026
 DTSTART;VALUE=DATE:20261007
 DTEND;VALUE=DATE:20261008
-SUMMARY:⚡ Intervals — W18 Race week
+SUMMARY:🏃 Easy run — W18 Race week
 DESCRIPTION:W18 · Oct 5 · Race week | 3k easy strides
 CATEGORIES:Race week
 END:VEVENT
