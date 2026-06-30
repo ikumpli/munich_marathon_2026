@@ -6,6 +6,7 @@ CSV columns (Intervals.icu export):
   Intensity, Load, FTP, Weight, W'
 """
 import json
+import re
 import pandas as pd
 from pathlib import Path
 from datetime import date, timedelta
@@ -163,6 +164,7 @@ def build_volume_chart(weekly, targets, plan_start):
         h = (pad_t + plot_h) - y
         tip = _esc(f"Week {i + 1} ({WEEKLY_PLAN[i][1]}) — {v:.1f} km run")
         p.append(f'<rect class="vbar" data-tip="{tip}" x="{x:.1f}" y="{y:.1f}" width="{bar_w:.1f}" height="{h:.1f}" rx="2" fill="#3b82f6"></rect>')
+        p.append(f'<text x="{xc(i):.1f}" y="{y - 3:.1f}" fill="#93c5fd" font-size="8.5" text-anchor="middle" pointer-events="none">{v:.1f}</text>')
 
     tpts = " ".join(f"{xc(i):.1f},{yv(targets[i]):.1f}" for i in range(n))
     p.append(f'<polyline points="{tpts}" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="5 4"/>')
@@ -170,6 +172,7 @@ def build_volume_chart(weekly, targets, plan_start):
         cx, cy = xc(i), yv(targets[i])
         tip = _esc(f"Week {i + 1} ({WEEKLY_PLAN[i][1]}) — target {targets[i]:.0f} km")
         p.append(f'<rect class="vbar" data-tip="{tip}" x="{cx - 3:.1f}" y="{cy - 3:.1f}" width="6" height="6" transform="rotate(45 {cx:.1f} {cy:.1f})" fill="#22c55e"></rect>')
+        p.append(f'<text x="{cx:.1f}" y="{cy - 9:.1f}" fill="#86efac" font-size="8" text-anchor="middle" pointer-events="none">{targets[i]:.0f}</text>')
 
     rpts = [(xc(i), yv(rolling[i]), i, rolling[i]) for i in range(n) if rolling[i]]
     if len(rpts) >= 2:
@@ -497,7 +500,114 @@ def _weekly_plan_table(targets):
     )
 
 
-# ── Dashboard assembly ────────────────────────────────────────────────────────
+def build_weekly_accumulation_chart(runs, current_week_entry, targets):
+    """SVG: cumulative planned vs actual km for the current week, day by day."""
+    wnum, wdate_str, total_km, long_km, quality, phase = current_week_entry
+    today_d = date.today()
+    week_monday = today_d - timedelta(days=today_d.weekday())
+    DAY_KEYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+    parsed = {}
+    for part in quality.split(' · '):
+        if ': ' in part:
+            dk, desc = part.split(': ', 1)
+            parsed[dk.strip()] = desc.strip()
+
+    planned_daily = []
+    for dk in DAY_KEYS:
+        desc = parsed.get(dk, 'Rest')
+        if 'rest' in desc.lower() and '×' not in desc:
+            planned_daily.append(0.0)
+        else:
+            m = re.search(r'(\d+)k', desc, re.IGNORECASE)
+            planned_daily.append(float(m.group(1)) if m else 0.0)
+
+    actual_daily = [0.0] * 7
+    for _, row in runs.iterrows():
+        rd = row['Date'].date()
+        wd = (rd - week_monday).days
+        if 0 <= wd <= 6:
+            actual_daily[wd] += float(row['distance_km'])
+
+    planned_cum, actual_cum = [], []
+    ps = as_ = 0.0
+    for i in range(7):
+        ps += planned_daily[i]
+        as_ += actual_daily[i]
+        planned_cum.append(ps)
+        actual_cum.append(as_)
+
+    target_total = targets[wnum - 1] if wnum - 1 < len(targets) else total_km
+    today_idx = min((today_d - week_monday).days, 6)
+
+    W, H = 920, 290
+    pad_l, pad_r, pad_t, pad_b = 46, 14, 28, 48
+    plot_w, plot_h = W - pad_l - pad_r, H - pad_t - pad_b
+
+    vmax = max(max(planned_cum), max(actual_cum), target_total) * 1.18
+    tick_step = 10 if vmax > 20 else 5
+    y_top = max((int(vmax // tick_step) + 1) * tick_step, tick_step)
+
+    def yv(v): return pad_t + plot_h * (1 - v / y_top)
+    def xd(i): return pad_l + plot_w * i / 6
+
+    p = [f'<svg viewBox="0 0 {W} {H}" class="chart-svg" preserveAspectRatio="xMidYMid meet" role="img">']
+
+    t = 0
+    while t <= y_top + 0.1:
+        yg = yv(t)
+        p.append(f'<line x1="{pad_l}" y1="{yg:.1f}" x2="{W - pad_r}" y2="{yg:.1f}" stroke="#1e293b"/>')
+        p.append(f'<text x="{pad_l - 6}" y="{yg + 3:.1f}" fill="#64748b" font-size="10" text-anchor="end">{int(t)}</text>')
+        t += tick_step
+
+    if 0 <= today_idx <= 6:
+        tx = xd(today_idx)
+        p.append(f'<line x1="{tx:.1f}" y1="{pad_t}" x2="{tx:.1f}" y2="{pad_t + plot_h}" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>')
+
+    ty = yv(target_total)
+    p.append(f'<line x1="{pad_l}" y1="{ty:.1f}" x2="{W - pad_r}" y2="{ty:.1f}" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="5 4"/>')
+    p.append(f'<text x="{W - pad_r}" y="{ty - 5:.1f}" fill="#22c55e" font-size="10" text-anchor="end">Target {target_total:.0f} km</text>')
+
+    plan_pts = " ".join(f"{xd(i):.1f},{yv(planned_cum[i]):.1f}" for i in range(7))
+    p.append(f'<polyline points="{plan_pts}" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6 3"/>')
+
+    act_end = min(today_idx + 1, 7)
+    if act_end >= 2:
+        ap = " ".join(f"{xd(i):.1f},{yv(actual_cum[i]):.1f}" for i in range(act_end))
+        p.append(f'<polyline points="{ap}" fill="none" stroke="#22c55e" stroke-width="2.5"/>')
+
+    for i in range(7):
+        x, y = xd(i), yv(planned_cum[i])
+        tip_txt = _esc(f"{DAY_KEYS[i]} — planned cumulative: {planned_cum[i]:.1f} km")
+        p.append(f'<circle class="pdot" data-tip="{tip_txt}" cx="{x:.1f}" cy="{y:.1f}" r="3.5" fill="#3b82f6" stroke="#0f172a" stroke-width="1.2"></circle>')
+        p.append(f'<text x="{x:.1f}" y="{y - 7:.1f}" fill="#93c5fd" font-size="9" text-anchor="middle" pointer-events="none">{planned_cum[i]:.1f}</text>')
+
+    for i in range(act_end):
+        x, y = xd(i), yv(actual_cum[i])
+        tip_txt = _esc(f"{DAY_KEYS[i]} — actual cumulative: {actual_cum[i]:.1f} km")
+        p.append(f'<circle class="pdot" data-tip="{tip_txt}" cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#22c55e" stroke="#0f172a" stroke-width="1.5"></circle>')
+        p.append(f'<text x="{x:.1f}" y="{y + 16:.1f}" fill="#86efac" font-size="9" text-anchor="middle" pointer-events="none">{actual_cum[i]:.1f}</text>')
+
+    for i, dk in enumerate(DAY_KEYS):
+        day_d = week_monday + timedelta(days=i)
+        is_tod = (i == today_idx)
+        col = '#60a5fa' if is_tod else '#64748b'
+        fw = 'bold' if is_tod else 'normal'
+        p.append(f'<text x="{xd(i):.1f}" y="{H - pad_b + 16}" fill="{col}" font-size="10" font-weight="{fw}" text-anchor="middle">{dk}</text>')
+        p.append(f'<text x="{xd(i):.1f}" y="{H - pad_b + 30}" fill="#475569" font-size="9" text-anchor="middle">{day_d.strftime("%b %d")}</text>')
+
+    p.append('</svg>')
+    legend = (
+        '<div class="chart-legend">'
+        '<span class="ci"><span style="display:inline-block;width:22px;height:0;border-top:2px dashed #3b82f6;vertical-align:middle;margin-right:.3rem"></span>Planned cumulative</span>'
+        '<span class="ci"><span class="sw" style="background:#22c55e"></span>Actual cumulative</span>'
+        '<span class="ci"><span style="display:inline-block;width:22px;height:0;border-top:2px dashed #22c55e;vertical-align:middle;margin-right:.3rem"></span>Week target</span>'
+        '</div>'
+    )
+    return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
+
+
+# ── Dashboard assembly ────────────────────────────────────────────
 
 def build_dashboard(runs, weekly, targets):
     today = date.today()
@@ -557,6 +667,7 @@ def build_dashboard(runs, weekly, targets):
     gantt_html = build_plan_gantt(targets)
     recent_table = _recent_runs_table(runs)
     plan_table = _weekly_plan_table(targets)
+    week_accum_html = build_weekly_accumulation_chart(runs, current_week_entry, targets)
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -641,6 +752,13 @@ def build_dashboard(runs, weekly, targets):
       color: #60a5fa; background: #1e293b;
       border-bottom: 2px solid #3b82f6;
     }}
+    /* ── Pills (overview sub-tabs) ── */
+    .nav-pills .nav-link {{
+      color: #94a3b8; font-size: .82rem; font-weight: 600;
+      padding: .4rem .9rem; border-radius: 8px; transition: all .15s;
+    }}
+    .nav-pills .nav-link:hover {{ color: #e2e8f0; background: rgba(255,255,255,.07); }}
+    .nav-pills .nav-link.active {{ background: #334155; color: #60a5fa; }}
     /* ── Content cards ── */
     .content-card {{
       background: #1e293b; border: 1px solid #334155; border-radius: 0 14px 14px 14px;
@@ -799,14 +917,32 @@ def build_dashboard(runs, weekly, targets):
   <div class="tab-content">
   <div class="tab-pane fade show active content-card" id="tab-overview">
 
-    <p class="section-heading">Weekly Volume — Observed vs Planned</p>
-    {vol_html}
+    <ul class="nav nav-pills mb-3" id="overviewPills" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#ov-global" type="button">📈 Global Training</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#ov-week" type="button">📅 This Week</button>
+      </li>
+    </ul>
 
-    <p class="section-heading mt-4">Session Pace History</p>
-    {pace_html}
+    <div class="tab-content">
 
-    <p class="section-heading mt-4">Recent Sessions</p>
-    {recent_table}
+      <div class="tab-pane fade show active" id="ov-global" role="tabpanel">
+        <p class="section-heading">Weekly Volume — Observed vs Planned</p>
+        {vol_html}
+        <p class="section-heading mt-4">Session Pace History</p>
+        {pace_html}
+        <p class="section-heading mt-4">Recent Sessions</p>
+        {recent_table}
+      </div>
+
+      <div class="tab-pane fade" id="ov-week" role="tabpanel">
+        <p class="section-heading">Week {current_week_num} &mdash; Daily km Accumulation (Planned vs Actual)</p>
+        {week_accum_html}
+      </div>
+
+    </div>
 
   </div>
 
