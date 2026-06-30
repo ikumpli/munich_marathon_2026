@@ -269,8 +269,8 @@
         {
           "date": "2026-07-01",
           "day": "Wed",
-          "session_type": "easy",
-          "planned": "Easy 8k @6:10–6:30/km (moderate, get it done early)",
+          "session_type": "quality",
+          "planned": "Easy 6k @6:20–6:40/km — no strides, save legs",
           "actual_km": null,
           "actual_pace_min_km": null,
           "actual_hr": null,
@@ -299,7 +299,7 @@
         {
           "date": "2026-07-04",
           "day": "Sat",
-          "session_type": "quality",
+          "session_type": "easy",
           "planned": "Easy 3k shakeout + 4×100m light strides",
           "actual_km": null,
           "actual_pace_min_km": null,
@@ -309,7 +309,7 @@
         {
           "date": "2026-07-05",
           "day": "Sun",
-          "session_type": "easy",
+          "session_type": "race",
           "planned": "🏁 10k RACE @~4:25/km — go get it!",
           "actual_km": null,
           "actual_pace_min_km": null,
