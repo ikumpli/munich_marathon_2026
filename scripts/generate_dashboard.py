@@ -537,7 +537,10 @@ def build_weekly_accumulation_chart(runs, current_week_entry, targets):
         planned_cum.append(ps)
         actual_cum.append(as_)
 
-    target_total = targets[wnum - 1] if wnum - 1 < len(targets) else total_km
+    # Use the plan-derived total (sum of day descriptions) as the week target.
+    # The targets[] field is a rough weekly km figure; the day descriptions are more precise.
+    plan_derived_total = planned_cum[-1]
+    target_total = max(plan_derived_total, targets[wnum - 1] if wnum - 1 < len(targets) else total_km)
     today_idx = min((today_d - week_monday).days, 6)
 
     W, H = 920, 290
