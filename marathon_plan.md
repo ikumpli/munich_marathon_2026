@@ -32,26 +32,28 @@ Adjust these conservatively; your heart rate zones and perceived effort matter m
 
 Weekly plan (Week = Monday start)
 
-**Phase A — Base**
-- Week 1 (Jun 8): ~30 km — Long 14k easy — Quality: **6×400m** (3 reps steady ~4:50/km + 3 reps progressive↗, 2 min rest)
-- Week 2 (Jun 15): ~33 km — Long 16k easy — Quality: **6×400m** (3 steady ~4:45/km + 3 progressive↗, 2 min rest)
-- Week 3 (Jun 22) ↩ Recovery: ~28 km — Long 12k easy — Quality: 4×400m easy strides, keep it light
+**Phase A — Base (revised after injury, weeks 1–3 largely missed)**
+- Week 1 (Jun 8): ~30 km — Long 14k easy — Quality: **6×400m** (3 reps steady ~4:50/km + 3 reps progressive↗, 2 min rest) *(mostly missed — injury)*
+- Week 2 (Jun 15): ~33 km — Long 16k easy — Quality: **6×400m** (3 steady ~4:45/km + 3 progressive↗, 2 min rest) *(missed — injury)*
+- Week 3 (Jun 22) ↩ Recovery: ~28 km — Long 12k easy — Quality: 4×400m easy strides *(comeback week — 16k Sunday, no pain)*
 
-**Phase B — Build**
-- Week 4 (Jun 29): ~36 km — Long 18k — Quality: **8×400m** (4 steady ~4:45/km + 4 progressive↗, 90s rest)
-- Week 5 (Jul 6): ~40 km — Long 20k — Quality: 8k tempo (4:50–5:20/km)
-- Week 6 (Jul 13): ~44 km — Long 22k — Quality: 6×1k @VO2 (4:10–4:20/km, 90s rest)
-- Week 7 (Jul 20) ↩ Recovery: ~37 km — Long 16k — Quality: 5×1k @VO2 easy
-- Week 8 (Jul 27): ~48 km — Long 24k — Quality: 10k tempo (4:50–5:20/km)
-- Week 9 (Aug 3): ~52 km — Long 26k — Quality: 8×1k @VO2 (4:10–4:20/km, 90s rest)
-- Week 10 (Aug 10): ~56 km — Long 28k — Quality: 12k tempo
-- Week 11 (Aug 17) ↩ Recovery: ~46 km — Long 20k — Quality: 6×1k @VO2 easy
+**Phase A — Base (compressed re-entry, weeks 4–7)**
+- Week 4 (Jun 29) ↩ Return: ~26 km — Long 14k easy — Quality: **4×400m very easy strides** — gentle return, no pressure
+- Week 5 (Jul 6): ~30 km — Long 16k easy — Quality: **6×400m** (3 steady ~4:50/km + 3 progressive↗, 2 min rest)
+- Week 6 (Jul 13): ~33 km — Long 18k easy — Quality: **6×400m** (3 steady ~4:45/km + 3 progressive↗, 2 min rest)
+- Week 7 (Jul 20) ↩ Recovery: ~28 km — Long 12k easy — Quality: 4×400m easy strides
 
-**Phase C — Specific**
-- Week 12 (Aug 24): ~58 km — Long 30k (incl 8k @MP) — Quality: 6×2k @MP (5:40/km)
-- Week 13 (Aug 31): ~62 km — Long 32k (final 10k @MP) — Quality: 8×1k @MP strides
-- Week 14 (Sep 7): ~64 km — Long 32k (16–20k @MP blocks) — Quality: 4×2k @MP intervals
-- Week 15 (Sep 14) ↩ Recovery: ~52 km — Long 24k (short MP effort) — Quality: 6×1k @MP
+**Phase B — Build (weeks 8–11, peak volume reduced ~10% from original)**
+- Week 8 (Jul 27): ~42 km — Long 20k — Quality: 8k tempo (4:50–5:20/km)
+- Week 9 (Aug 3): ~46 km — Long 22k — Quality: 6×1k @VO2 (4:10–4:20/km, 90s rest)
+- Week 10 (Aug 10): ~50 km — Long 24k — Quality: 10k tempo
+- Week 11 (Aug 17) ↩ Recovery: ~40 km — Long 18k — Quality: 5×1k @VO2 easy
+
+**Phase C — Specific (weeks 12–15, long run peak 30k instead of 32k)**
+- Week 12 (Aug 24): ~54 km — Long 28k (incl 6k @MP) — Quality: 6×2k @MP (5:40/km)
+- Week 13 (Aug 31): ~56 km — Long 30k (final 8k @MP) — Quality: 8×1k @MP strides
+- Week 14 (Sep 7): ~56 km — Long 30k (14–16k @MP blocks) — Quality: 4×2k @MP intervals
+- Week 15 (Sep 14) ↩ Recovery: ~46 km — Long 22k (short MP effort) — Quality: 6×1k @MP
 
 **Phase D — Taper**
 - Week 16 (Sep 21): ~40 km — Long 16k — Quality: short sharp intervals, stride-outs
