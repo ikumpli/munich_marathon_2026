@@ -337,7 +337,7 @@
         {
           "date": "2026-07-04",
           "day": "Sat",
-          "session_type": "easy",
+          "session_type": "long",
           "planned": "10k steady @5:50–6:10/km",
           "adjusted_plan": "10k steady @5:50–6:10/km",
           "actual_km": null,
