@@ -986,8 +986,99 @@ def build_dashboard(runs, weekly, targets):
     print(f'Dashboard written to {out_path}')
 
 
+def build_ics():
+    """Generate docs/training.ics — one all-day event per training day.
+    Subscribe to the published URL in Google Calendar → Other calendars → From URL.
+    """
+    DAY_KEYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+    def _ics_esc(s):
+        return (str(s).replace('\\', '\\\\')
+                .replace(';', '\\;').replace(',', '\\,').replace('\n', '\\n'))
+
+    def _fold(line):
+        """Fold long ICS lines at 75 octets (RFC 5545 §3.1)."""
+        encoded = line.encode('utf-8')
+        if len(encoded) <= 75:
+            return line + '\r\n'
+        out = ''
+        while len(line.encode('utf-8')) > 75:
+            chunk = line[:75]
+            while len(chunk.encode('utf-8')) > 75:
+                chunk = chunk[:-1]
+            out += chunk + '\r\n '
+            line = line[len(chunk):]
+        return out + line + '\r\n'
+
+    lines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Munich Marathon 2026//Training Calendar//EN',
+        'X-WR-CALNAME:Munich Marathon 2026 — Training',
+        'X-WR-CALDESC:19-week marathon training plan for Iker. Goal: Sub 4:00 on Oct 11 2026.',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+    ]
+
+    for wnum, wdate_str, total_km, long_km, quality, phase in WEEKLY_PLAN:
+        week_monday = PLAN_START + timedelta(weeks=wnum - 1)
+
+        parsed = {}
+        for part in quality.split(' · '):
+            if ': ' in part:
+                dk, desc = part.split(': ', 1)
+                parsed[dk.strip()] = desc.strip()
+
+        for i, day_key in enumerate(DAY_KEYS):
+            day_date = week_monday + timedelta(days=i)
+            desc = parsed.get(day_key, 'Rest')
+            dl = desc.lower()
+
+            if 'race' in dl or '🏁' in desc:
+                summary = f'🏁 RACE — Munich Marathon'
+            elif 'long' in dl:
+                summary = f'📏 Long run — W{wnum} {phase}'
+            elif '×' in desc or 'interval' in dl or 'strides' in dl:
+                summary = f'⚡ Intervals — W{wnum} {phase}'
+            elif 'tempo' in dl:
+                summary = f'🔥 Tempo — W{wnum} {phase}'
+            elif 'mp' in dl and ('pace' in dl or 'run' in dl):
+                summary = f'🎯 MP run — W{wnum} {phase}'
+            elif 'swim' in dl:
+                summary = '🏊 Rest / Swim'
+            elif 'rest' in dl:
+                summary = '💤 Rest'
+            else:
+                summary = f'🏃 Easy run — W{wnum} {phase}'
+
+            uid = (f"{day_date.strftime('%Y%m%d')}-w{wnum}-{day_key.lower()}"
+                   f"@munich-marathon-2026")
+            dtstart = day_date.strftime('%Y%m%d')
+            dtend = (day_date + timedelta(days=1)).strftime('%Y%m%d')
+            full_desc = f"W{wnum} · {wdate_str} · {phase} | {desc}"
+
+            lines += [
+                'BEGIN:VEVENT',
+                f'UID:{uid}',
+                f'DTSTART;VALUE=DATE:{dtstart}',
+                f'DTEND;VALUE=DATE:{dtend}',
+                f'SUMMARY:{_ics_esc(summary)}',
+                f'DESCRIPTION:{_ics_esc(full_desc)}',
+                f'CATEGORIES:{_ics_esc(phase)}',
+                'END:VEVENT',
+            ]
+
+    lines.append('END:VCALENDAR')
+
+    ics_content = ''.join(_fold(l) for l in lines)
+    ics_path = OUT / 'training.ics'
+    ics_path.write_text(ics_content, encoding='utf-8')
+    print(f'Calendar written to {ics_path}')
+
+
 if __name__ == '__main__':
     runs = load_and_clean(DATA)
     weekly = weekly_aggregates(runs)
     targets = make_targets()
     build_dashboard(runs, weekly, targets)
+    build_ics()
