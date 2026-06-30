@@ -7,9 +7,6 @@ CSV columns (Intervals.icu export):
 """
 import json
 import pandas as pd
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import plotly.io as pio
 from pathlib import Path
 from datetime import date, timedelta
 
@@ -101,171 +98,221 @@ def make_targets():
     return [row[2] for row in WEEKLY_PLAN]
 
 
-# Shared dark layout defaults applied to every chart
-_DARK_LAYOUT = dict(
-    paper_bgcolor='#1e293b',
-    plot_bgcolor='#0f172a',
-    font=dict(family='Inter, system-ui, sans-serif', color='#94a3b8', size=12),
-    xaxis=dict(
-        gridcolor='#1e293b', zerolinecolor='#334155',
-        tickfont=dict(color='#64748b'), title_font=dict(color='#64748b'),
-    ),
-    yaxis=dict(
-        gridcolor='#1e293b', zerolinecolor='#334155',
-        tickfont=dict(color='#64748b'), title_font=dict(color='#64748b'),
-    ),
-    legend=dict(
-        bgcolor='rgba(0,0,0,0)', bordercolor='#334155', borderwidth=1,
-        font=dict(color='#94a3b8'),
-    ),
-    hoverlabel=dict(
-        bgcolor='#0f172a', bordercolor='#334155',
-        font=dict(color='#e2e8f0', family='Inter, system-ui, sans-serif'),
-    ),
-    margin=dict(t=20, b=40),
-)
+def _esc(s):
+    """Minimal HTML-attribute escaping for tooltip text."""
+    return (str(s).replace('&', '&amp;').replace('<', '&lt;')
+            .replace('>', '&gt;').replace('"', '&quot;'))
+
+
+def _fmt_pace_clock(p):
+    return f"{int(p)}:{int((p % 1) * 60):02d}"
 
 # ── Charts ──────────────────────────────────────────────────────────────────
 
 def build_volume_chart(weekly, targets, plan_start):
-    target_dates = pd.date_range(start=plan_start, periods=len(targets), freq='W-MON')
-    obs_index = pd.to_datetime(weekly['week_start'])
-    fig = go.Figure()
-    fig.add_trace(go.Bar(
-        x=obs_index, y=weekly['total_km'], name='Observed km',
-        marker_color='#3b82f6', marker_line_color='#1e40af', marker_line_width=1,
-        hovertemplate='<b>%{x|%b %d}</b><br>%{y:.1f} km<extra>Observed</extra>',
-    ))
-    fig.add_trace(go.Scatter(
-        x=obs_index, y=weekly['rolling_km_4w'], mode='lines+markers',
-        name='4-week rolling avg',
-        line=dict(color='#f97316', width=2.5),
-        marker=dict(size=6, color='#f97316', line=dict(color='#0f172a', width=1.5)),
-        hovertemplate='<b>%{x|%b %d}</b><br>%{y:.1f} km<extra>4w avg</extra>',
-    ))
-    fig.add_trace(go.Scatter(
-        x=target_dates, y=targets, mode='lines+markers',
-        name='Plan target',
-        line=dict(color='#22c55e', dash='dash', width=2),
-        marker=dict(size=5, color='#22c55e', symbol='diamond'),
-        hovertemplate='<b>%{x|%b %d}</b><br>%{y:.1f} km<extra>Target</extra>',
-    ))
-    fig.add_vline(x=str(MARATHON_DATE), line_dash='dot', line_color='#ef4444', line_width=1.5,
-                  annotation_text='Race day 🏁',
-                  annotation_font=dict(color='#ef4444', size=11),
-                  annotation_position='top right')
-    layout = {**_DARK_LAYOUT}
-    layout['xaxis'] = {**_DARK_LAYOUT['xaxis'], 'title': 'Week (Monday)'}
-    layout['yaxis'] = {**_DARK_LAYOUT['yaxis'], 'title': 'Kilometers'}
-    layout['legend'] = {**_DARK_LAYOUT['legend'], 'orientation': 'h', 'y': 1.08}
-    fig.update_layout(
-        **layout,
-        hovermode='x unified',
-        height=400,
+    """Native SVG: observed weekly km bars + plan-target line + 4-week rolling avg."""
+    n = len(targets)
+    plan_mondays = [pd.Timestamp(plan_start).normalize() + pd.Timedelta(weeks=i) for i in range(n)]
+    obs_map, roll_map = {}, {}
+    for m, k, r in zip(pd.to_datetime(weekly['week_start']), weekly['total_km'], weekly['rolling_km_4w']):
+        key = pd.Timestamp(m).normalize()
+        obs_map[key] = float(k)
+        roll_map[key] = float(r) if pd.notna(r) else None
+    observed = [obs_map.get(m) for m in plan_mondays]
+    rolling = [roll_map.get(m) for m in plan_mondays]
+    today = pd.Timestamp(date.today())
+
+    W, H = 920, 360
+    pad_l, pad_r, pad_t, pad_b = 38, 14, 18, 48
+    plot_w, plot_h = W - pad_l - pad_r, H - pad_t - pad_b
+    band = plot_w / n
+    bar_w = band * 0.5
+
+    vmax = max(list(targets) + [v for v in observed if v]) * 1.12
+    tick_step = 20 if vmax > 40 else 10
+    y_top = (int(vmax // tick_step) + 1) * tick_step
+
+    def yv(v):
+        return pad_t + plot_h * (1 - v / y_top)
+
+    def xc(i):
+        return pad_l + band * i + band / 2
+
+    def is_cur(m):
+        return m <= today <= (m + pd.Timedelta(days=6))
+
+    p = [f'<svg viewBox="0 0 {W} {H}" class="chart-svg" preserveAspectRatio="xMidYMid meet" role="img">']
+
+    t = 0
+    while t <= y_top + 0.1:
+        y = yv(t)
+        p.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{W - pad_r}" y2="{y:.1f}" stroke="#1e293b"/>')
+        p.append(f'<text x="{pad_l - 6}" y="{y + 3:.1f}" fill="#64748b" font-size="10" text-anchor="end">{int(t)}</text>')
+        t += tick_step
+
+    for i, m in enumerate(plan_mondays):
+        if is_cur(m):
+            x0 = pad_l + band * i
+            p.append(f'<rect x="{x0:.1f}" y="{pad_t}" width="{band:.1f}" height="{plot_h}" fill="#3b82f6" opacity="0.08"/>')
+
+    for i, v in enumerate(observed):
+        if not v:
+            continue
+        x = xc(i) - bar_w / 2
+        y = yv(v)
+        h = (pad_t + plot_h) - y
+        tip = _esc(f"Week {i + 1} ({WEEKLY_PLAN[i][1]}) — {v:.1f} km run")
+        p.append(f'<rect class="vbar" x="{x:.1f}" y="{y:.1f}" width="{bar_w:.1f}" height="{h:.1f}" rx="2" fill="#3b82f6"><title>{tip}</title></rect>')
+
+    tpts = " ".join(f"{xc(i):.1f},{yv(targets[i]):.1f}" for i in range(n))
+    p.append(f'<polyline points="{tpts}" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="5 4"/>')
+    for i in range(n):
+        cx, cy = xc(i), yv(targets[i])
+        tip = _esc(f"Week {i + 1} ({WEEKLY_PLAN[i][1]}) — target {targets[i]:.0f} km")
+        p.append(f'<rect class="vbar" x="{cx - 3:.1f}" y="{cy - 3:.1f}" width="6" height="6" transform="rotate(45 {cx:.1f} {cy:.1f})" fill="#22c55e"><title>{tip}</title></rect>')
+
+    rpts = [(xc(i), yv(rolling[i])) for i in range(n) if rolling[i]]
+    if len(rpts) >= 2:
+        rp = " ".join(f"{x:.1f},{y:.1f}" for x, y in rpts)
+        p.append(f'<polyline points="{rp}" fill="none" stroke="#f97316" stroke-width="2"/>')
+    for x, y in rpts:
+        p.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3" fill="#f97316"/>')
+
+    rx = xc(n - 1)
+    p.append(f'<line x1="{rx:.1f}" y1="{pad_t}" x2="{rx:.1f}" y2="{pad_t + plot_h}" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2 3"/>')
+    p.append(f'<text x="{rx:.1f}" y="{pad_t - 5}" fill="#ef4444" font-size="11" text-anchor="end">\U0001F3C1</text>')
+
+    for i, m in enumerate(plan_mondays):
+        col = "#94a3b8" if is_cur(m) else "#475569"
+        p.append(f'<text x="{xc(i):.1f}" y="{H - pad_b + 16}" fill="{col}" font-size="9" text-anchor="middle">W{i + 1}</text>')
+    for i in range(0, n, 3):
+        p.append(f'<text x="{xc(i):.1f}" y="{H - pad_b + 30}" fill="#64748b" font-size="9" text-anchor="middle">{WEEKLY_PLAN[i][1]}</text>')
+
+    p.append('</svg>')
+    legend = (
+        '<div class="chart-legend">'
+        '<span class="ci"><span class="sw" style="background:#3b82f6"></span>Observed km</span>'
+        '<span class="ci"><span class="sw" style="background:#f97316"></span>4-week avg</span>'
+        '<span class="ci"><span class="sw" style="background:#22c55e"></span>Plan target</span>'
+        '</div>'
     )
-    return fig
+    return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
 
 
 def build_pace_chart(weekly, runs):
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=runs['Date'], y=runs['pace'], mode='markers', name='Session pace',
-        marker=dict(color='#818cf8', size=8, opacity=0.8,
-                    line=dict(color='#0f172a', width=1.5)),
-        hovertemplate='<b>%{x|%b %d}</b><br>%{customdata}<extra>Session</extra>',
-        customdata=runs['pace_str'],
-    ))
-    fig.add_trace(go.Scatter(
-        x=pd.to_datetime(weekly['week_start']), y=weekly['rolling_pace_4w'],
-        mode='lines+markers', name='4-week rolling avg',
-        line=dict(color='#ec4899', width=2.5),
-        marker=dict(size=6, color='#ec4899', line=dict(color='#0f172a', width=1.5)),
-        hovertemplate='<b>%{x|%b %d}</b><br>%{customdata}<extra>4w avg</extra>',
-        customdata=weekly['avg_pace_str'],
-    ))
-    fig.add_hline(y=TARGET_PACE_MIN_KM, line_dash='dot', line_color='#22c55e', line_width=1.5,
-                  annotation_text='Target MP 5:40',
-                  annotation_font=dict(color='#22c55e', size=11),
-                  annotation_position='bottom right')
-    layout = {**_DARK_LAYOUT}
-    layout['xaxis'] = {**_DARK_LAYOUT['xaxis'], 'title': 'Date'}
-    layout['yaxis'] = {
-        **_DARK_LAYOUT['yaxis'],
-        'autorange': 'reversed',
-        'title': 'Pace (min/km)',
-        'tickformat': '.2f',
-    }
-    layout['legend'] = {**_DARK_LAYOUT['legend'], 'orientation': 'h', 'y': 1.08}
-    fig.update_layout(
-        **layout,
-        hovermode='x unified',
-        height=400,
+    """Native SVG: per-session pace scatter + 4-week rolling avg + target MP line."""
+    runs_sorted = runs.sort_values('Date')
+    dates = list(pd.to_datetime(runs_sorted['Date']))
+    paces = [float(p) for p in runs_sorted['pace']]
+    pstrs = list(runs_sorted['pace_str'])
+    names = list(runs_sorted['Name']) if 'Name' in runs_sorted else [''] * len(dates)
+    if not dates:
+        return '<div class="text-muted small">No sessions yet.</div>'
+
+    dmin, dmax = min(dates), max(dates)
+    span_days = max((dmax - dmin).days, 1)
+    target = TARGET_PACE_MIN_KM
+    pall = paces + [target]
+    pmin, pmax = min(pall), max(pall)
+    pspan = max(pmax - pmin, 0.2)
+    pmin_d = pmin - pspan * 0.12
+    pmax_d = pmax + pspan * 0.12
+
+    W, H = 920, 340
+    pad_l, pad_r, pad_t, pad_b = 46, 14, 18, 40
+    plot_w, plot_h = W - pad_l - pad_r, H - pad_t - pad_b
+
+    def xd(d):
+        return pad_l + plot_w * ((pd.Timestamp(d) - dmin).days / span_days)
+
+    def yp(v):
+        return pad_t + plot_h * ((v - pmin_d) / (pmax_d - pmin_d))
+
+    p = [f'<svg viewBox="0 0 {W} {H}" class="chart-svg" preserveAspectRatio="xMidYMid meet" role="img">']
+
+    nticks = 4
+    for k in range(nticks + 1):
+        v = pmin_d + (pmax_d - pmin_d) * k / nticks
+        y = yp(v)
+        p.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{W - pad_r}" y2="{y:.1f}" stroke="#1e293b"/>')
+        p.append(f'<text x="{pad_l - 6}" y="{y + 3:.1f}" fill="#64748b" font-size="10" text-anchor="end">{_fmt_pace_clock(v)}</text>')
+
+    for mdt in pd.date_range(dmin.normalize(), dmax.normalize(), freq='MS'):
+        if mdt < dmin:
+            continue
+        x = xd(mdt)
+        p.append(f'<line x1="{x:.1f}" y1="{pad_t}" x2="{x:.1f}" y2="{pad_t + plot_h}" stroke="#1e293b"/>')
+        p.append(f'<text x="{x:.1f}" y="{H - pad_b + 16}" fill="#64748b" font-size="10" text-anchor="middle">{mdt.strftime("%b")}</text>')
+
+    ty = yp(target)
+    p.append(f'<line x1="{pad_l}" y1="{ty:.1f}" x2="{W - pad_r}" y2="{ty:.1f}" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="5 4"/>')
+    p.append(f'<text x="{W - pad_r}" y="{ty - 5:.1f}" fill="#22c55e" font-size="10" text-anchor="end">Target MP 5:40</text>')
+
+    wk_dates = list(pd.to_datetime(weekly['week_start']))
+    wk_pace = [float(v) if pd.notna(v) else None for v in weekly['rolling_pace_4w']]
+    rpts = [(xd(d), yp(v)) for d, v in zip(wk_dates, wk_pace) if v and dmin <= d <= dmax]
+    if len(rpts) >= 2:
+        rp = " ".join(f"{x:.1f},{y:.1f}" for x, y in rpts)
+        p.append(f'<polyline points="{rp}" fill="none" stroke="#ec4899" stroke-width="2"/>')
+
+    for d, pc, ps, nm in zip(dates, paces, pstrs, names):
+        x, y = xd(d), yp(pc)
+        tip = _esc(f"{pd.Timestamp(d).strftime('%a %b %d')} \u00b7 {ps}/km \u2014 {nm}")
+        p.append(f'<circle class="pdot" cx="{x:.1f}" cy="{y:.1f}" r="4.5" fill="#818cf8" stroke="#0f172a" stroke-width="1.2"><title>{tip}</title></circle>')
+
+    p.append('</svg>')
+    legend = (
+        '<div class="chart-legend">'
+        '<span class="ci"><span class="sw" style="background:#818cf8;width:10px;height:10px;border-radius:50%"></span>Session pace</span>'
+        '<span class="ci"><span class="sw" style="background:#ec4899"></span>4-week avg</span>'
+        '<span class="ci"><span class="sw" style="background:#22c55e"></span>Target MP</span>'
+        '</div>'
     )
-    return fig
+    return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
 
 
 def build_plan_gantt(targets):
-    """Gantt-style bar chart: one bar per week coloured by phase."""
-    fig = go.Figure()
-    today = pd.Timestamp.today().normalize()
-    plan_start_ts = pd.Timestamp(PLAN_START)
+    """Native HTML/CSS: one horizontal bar per week, coloured by phase."""
+    today = date.today()
+    max_t = max(targets) if targets else 1
 
+    seen = []
     for row in WEEKLY_PLAN:
-        wnum, wdate_str, total_km, long_km, quality, phase = row
-        w_start = plan_start_ts + pd.Timedelta(weeks=wnum - 1)
-        w_end = w_start + pd.Timedelta(days=6)
-        color = PHASE_COLORS.get(phase, '#94a3b8')
-        is_current = w_start <= today <= w_end
-        target_km = targets[wnum - 1] if wnum - 1 < len(targets) else total_km
-        fig.add_trace(go.Bar(
-            x=[target_km],
-            y=[f"W{wnum} · {wdate_str}"],
-            orientation='h',
-            marker_color=color,
-            marker_line_color='white' if not is_current else '#1e3a5f',
-            marker_line_width=2 if is_current else 0.5,
-            opacity=1.0 if is_current else 0.75,
-            name=phase,
-            showlegend=False,
-            hovertemplate=(
-                f"<b>Week {wnum} ({wdate_str})</b><br>"
-                f"Phase: {phase}<br>"
-                f"Target: {target_km:.0f} km<br>"
-                f"Long run: {long_km} km<br>"
-                f"Sessions: {quality}"
-                "<extra></extra>"
-            ),
-        ))
-
-    # Add legend manually
-    seen = set()
-    for _, _, _, _, _, phase in WEEKLY_PLAN:
-        if phase not in seen:
-            seen.add(phase)
-            fig.add_trace(go.Bar(
-                x=[None], y=[None], orientation='h',
-                marker_color=PHASE_COLORS.get(phase, '#94a3b8'),
-                name=phase, showlegend=True,
-            ))
-
-        fig.update_layout(
-        barmode='stack', title=None,
-        xaxis_title='Target km / week',
-        paper_bgcolor='#1e293b',
-        plot_bgcolor='#0f172a',
-        font=dict(family='Inter, system-ui, sans-serif', color='#94a3b8', size=11),
-        xaxis=dict(gridcolor='#1e293b', zerolinecolor='#334155',
-                   tickfont=dict(color='#64748b'), title_font=dict(color='#64748b')),
-        yaxis=dict(autorange='reversed', tickfont=dict(size=11, color='#94a3b8'),
-                   gridcolor='#1e293b'),
-        legend=dict(orientation='h', y=1.05,
-                    bgcolor='rgba(0,0,0,0)', font=dict(color='#94a3b8')),
-        hoverlabel=dict(bgcolor='#0f172a', bordercolor='#334155',
-                        font=dict(color='#e2e8f0', family='Inter, system-ui, sans-serif')),
-        height=580,
-        margin=dict(t=10, b=40),
+        if row[5] not in seen:
+            seen.append(row[5])
+    legend_chips = "".join(
+        f'<span class="ci"><span class="sw" style="background:{PHASE_COLORS.get(ph, "#94a3b8")};width:12px;height:12px;border-radius:3px"></span>{_esc(ph)}</span>'
+        for ph in seen
     )
-    return fig
+
+    rows = []
+    for wnum, wdate_str, total_km, long_km, quality, phase in WEEKLY_PLAN:
+        w_start = PLAN_START + timedelta(weeks=wnum - 1)
+        w_end = w_start + timedelta(days=6)
+        is_current = w_start <= today <= w_end
+        is_past = w_end < today
+        tk = targets[wnum - 1] if wnum - 1 < len(targets) else total_km
+        color = PHASE_COLORS.get(phase, '#94a3b8')
+        pct = max(tk / max_t * 100, 2)
+        opacity = '1' if is_current else ('0.5' if is_past else '0.92')
+        ring = 'box-shadow:0 0 0 2px #3b82f6;' if is_current else ''
+        tip = _esc(f"Week {wnum} ({wdate_str}) \u00b7 {phase} \u00b7 target {tk:.0f} km \u00b7 long {long_km} km \u2014 {quality}")
+        rows.append(
+            f'<div class="gbar" title="{tip}" style="display:flex;align-items:center;gap:.6rem;margin-bottom:.34rem;opacity:{opacity}">'
+            f'<div style="flex:0 0 86px;font-size:.7rem;color:#94a3b8">W{wnum}<span style="color:#475569"> \u00b7 {wdate_str}</span></div>'
+            f'<div style="flex:1;background:#0f172a;border-radius:6px;height:22px;position:relative;{ring}">'
+            f'<div class="gbar-fill" style="width:{pct:.1f}%;height:100%;background:{color};border-radius:6px"></div>'
+            f'<span style="position:absolute;right:8px;top:0;line-height:22px;font-size:.68rem;color:#e2e8f0">{tk:.0f} km</span>'
+            f'</div>'
+            f'</div>'
+        )
+
+    return (
+        '<div class="chart-wrap">'
+        f'<div class="chart-legend" style="margin:0 0 .8rem">{legend_chips}</div>'
+        + "".join(rows) +
+        '</div>'
+    )
 
 
 # ── HTML helpers ─────────────────────────────────────────────────────────────
@@ -504,12 +551,9 @@ def build_dashboard(runs, weekly, targets):
         load_status = 'On track ✓'
         load_badge = 'bg-success'
 
-    vol_html = pio.to_html(build_volume_chart(weekly, targets, plan_start_ts),
-                           full_html=False, include_plotlyjs='cdn')
-    pace_html = pio.to_html(build_pace_chart(weekly, runs),
-                            full_html=False, include_plotlyjs=False)
-    gantt_html = pio.to_html(build_plan_gantt(targets),
-                             full_html=False, include_plotlyjs=False)
+    vol_html = build_volume_chart(weekly, targets, plan_start_ts)
+    pace_html = build_pace_chart(weekly, runs)
+    gantt_html = build_plan_gantt(targets)
     recent_table = _recent_runs_table(runs)
     plan_table = _weekly_plan_table(targets)
 
@@ -621,8 +665,21 @@ def build_dashboard(runs, weekly, targets):
     .pace-dot {{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }}
     /* ── Footer ── */
     footer {{ color: #334155; font-size: .78rem; padding: 1.5rem 0; text-align: center; }}
-    /* ── Plotly charts dark override ── */
-    .js-plotly-plot .plotly .bg {{ fill: transparent !important; }}
+    /* ── Charts (native SVG / HTML) ── */
+    .chart-wrap {{ width: 100%; }}
+    .chart-svg {{ width: 100%; height: auto; display: block; }}
+    .vbar {{ transition: opacity .12s; cursor: default; }}
+    .vbar:hover {{ opacity: .8; }}
+    .pdot {{ transition: r .1s; cursor: default; }}
+    .pdot:hover {{ stroke: #fff; }}
+    .gbar {{ cursor: default; transition: opacity .12s; }}
+    .gbar:hover {{ opacity: 1 !important; }}
+    .gbar-fill {{ transition: filter .12s; }}
+    .gbar:hover .gbar-fill {{ filter: brightness(1.18); }}
+    .chart-legend {{ display: flex; gap: 1.1rem; flex-wrap: wrap; margin-top: .6rem;
+                     font-size: .76rem; color: #94a3b8; align-items: center; }}
+    .chart-legend .ci {{ display: flex; align-items: center; gap: .4rem; }}
+    .chart-legend .sw {{ width: 16px; height: 4px; border-radius: 2px; display: inline-block; }}
   </style>
 </head>
 <body>
