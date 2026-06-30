@@ -162,21 +162,22 @@ def build_volume_chart(weekly, targets, plan_start):
         y = yv(v)
         h = (pad_t + plot_h) - y
         tip = _esc(f"Week {i + 1} ({WEEKLY_PLAN[i][1]}) — {v:.1f} km run")
-        p.append(f'<rect class="vbar" x="{x:.1f}" y="{y:.1f}" width="{bar_w:.1f}" height="{h:.1f}" rx="2" fill="#3b82f6"><title>{tip}</title></rect>')
+        p.append(f'<rect class="vbar" data-tip="{tip}" x="{x:.1f}" y="{y:.1f}" width="{bar_w:.1f}" height="{h:.1f}" rx="2" fill="#3b82f6"></rect>')
 
     tpts = " ".join(f"{xc(i):.1f},{yv(targets[i]):.1f}" for i in range(n))
     p.append(f'<polyline points="{tpts}" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="5 4"/>')
     for i in range(n):
         cx, cy = xc(i), yv(targets[i])
         tip = _esc(f"Week {i + 1} ({WEEKLY_PLAN[i][1]}) — target {targets[i]:.0f} km")
-        p.append(f'<rect class="vbar" x="{cx - 3:.1f}" y="{cy - 3:.1f}" width="6" height="6" transform="rotate(45 {cx:.1f} {cy:.1f})" fill="#22c55e"><title>{tip}</title></rect>')
+        p.append(f'<rect class="vbar" data-tip="{tip}" x="{cx - 3:.1f}" y="{cy - 3:.1f}" width="6" height="6" transform="rotate(45 {cx:.1f} {cy:.1f})" fill="#22c55e"></rect>')
 
-    rpts = [(xc(i), yv(rolling[i])) for i in range(n) if rolling[i]]
+    rpts = [(xc(i), yv(rolling[i]), i, rolling[i]) for i in range(n) if rolling[i]]
     if len(rpts) >= 2:
-        rp = " ".join(f"{x:.1f},{y:.1f}" for x, y in rpts)
+        rp = " ".join(f"{x:.1f},{y:.1f}" for x, y, _, __ in rpts)
         p.append(f'<polyline points="{rp}" fill="none" stroke="#f97316" stroke-width="2"/>')
-    for x, y in rpts:
-        p.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3" fill="#f97316"/>')
+    for x, y, ri, rv in rpts:
+        rtip = _esc(f"Week {ri + 1} ({WEEKLY_PLAN[ri][1]}) — 4w avg {rv:.1f} km")
+        p.append(f'<circle class="vbar" data-tip="{rtip}" cx="{x:.1f}" cy="{y:.1f}" r="4" fill="#f97316" stroke="#0f172a" stroke-width="1.2"></circle>')
 
     rx = xc(n - 1)
     p.append(f'<line x1="{rx:.1f}" y1="{pad_t}" x2="{rx:.1f}" y2="{pad_t + plot_h}" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2 3"/>')
@@ -258,7 +259,7 @@ def build_pace_chart(weekly, runs):
     for d, pc, ps, nm in zip(dates, paces, pstrs, names):
         x, y = xd(d), yp(pc)
         tip = _esc(f"{pd.Timestamp(d).strftime('%a %b %d')} \u00b7 {ps}/km \u2014 {nm}")
-        p.append(f'<circle class="pdot" cx="{x:.1f}" cy="{y:.1f}" r="4.5" fill="#818cf8" stroke="#0f172a" stroke-width="1.2"><title>{tip}</title></circle>')
+        p.append(f'<circle class="pdot" data-tip="{tip}" cx="{x:.1f}" cy="{y:.1f}" r="4.5" fill="#818cf8" stroke="#0f172a" stroke-width="1.2"></circle>')
 
     p.append('</svg>')
     legend = (
@@ -298,7 +299,7 @@ def build_plan_gantt(targets):
         ring = 'box-shadow:0 0 0 2px #3b82f6;' if is_current else ''
         tip = _esc(f"Week {wnum} ({wdate_str}) \u00b7 {phase} \u00b7 target {tk:.0f} km \u00b7 long {long_km} km \u2014 {quality}")
         rows.append(
-            f'<div class="gbar" title="{tip}" style="display:flex;align-items:center;gap:.6rem;margin-bottom:.34rem;opacity:{opacity}">'
+            f'<div class="gbar" data-tip="{tip}" style="display:flex;align-items:center;gap:.6rem;margin-bottom:.34rem;opacity:{opacity}">'
             f'<div style="flex:0 0 86px;font-size:.7rem;color:#94a3b8">W{wnum}<span style="color:#475569"> \u00b7 {wdate_str}</span></div>'
             f'<div style="flex:1;background:#0f172a;border-radius:6px;height:22px;position:relative;{ring}">'
             f'<div class="gbar-fill" style="width:{pct:.1f}%;height:100%;background:{color};border-radius:6px"></div>'
@@ -668,10 +669,10 @@ def build_dashboard(runs, weekly, targets):
     /* ── Charts (native SVG / HTML) ── */
     .chart-wrap {{ width: 100%; }}
     .chart-svg {{ width: 100%; height: auto; display: block; }}
-    .vbar {{ transition: opacity .12s; cursor: default; }}
-    .vbar:hover {{ opacity: .8; }}
-    .pdot {{ transition: r .1s; cursor: default; }}
-    .pdot:hover {{ stroke: #fff; }}
+    .vbar {{ transition: filter .12s; cursor: crosshair; }}
+    .vbar:hover {{ filter: brightness(1.3) drop-shadow(0 0 3px rgba(255,255,255,.2)); }}
+    .pdot {{ transition: filter .12s; cursor: crosshair; }}
+    .pdot:hover {{ filter: brightness(1.4) drop-shadow(0 0 5px #818cf8); }}
     .gbar {{ cursor: default; transition: opacity .12s; }}
     .gbar:hover {{ opacity: 1 !important; }}
     .gbar-fill {{ transition: filter .12s; }}
@@ -680,6 +681,15 @@ def build_dashboard(runs, weekly, targets):
                      font-size: .76rem; color: #94a3b8; align-items: center; }}
     .chart-legend .ci {{ display: flex; align-items: center; gap: .4rem; }}
     .chart-legend .sw {{ width: 16px; height: 4px; border-radius: 2px; display: inline-block; }}
+    /* ── Custom tooltip ── */
+    #cht {{
+      position: fixed; z-index: 9999; display: none; pointer-events: none;
+      background: #0f172a; color: #e2e8f0; border: 1px solid #334155;
+      border-radius: 9px; padding: .45rem .75rem; font-size: .78rem;
+      font-family: 'Inter', system-ui, sans-serif;
+      box-shadow: 0 6px 24px rgba(0,0,0,.55); max-width: 360px; line-height: 1.55;
+      white-space: pre-wrap;
+    }}
   </style>
 </head>
 <body>
@@ -941,6 +951,33 @@ def build_dashboard(runs, weekly, targets):
 <footer>Munich Marathon 2026 · Iker · Auto-generated from Intervals.icu export · {today.strftime('%b %d, %Y')}</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<div id="cht"></div>
+<script>
+(function(){{
+  var tip = document.getElementById('cht');
+  document.addEventListener('mousemove', function(e){{
+    if(tip.style.display !== 'none'){{
+      var x = e.clientX + 16, y = e.clientY - 10;
+      if(x + tip.offsetWidth > window.innerWidth - 8) x = e.clientX - tip.offsetWidth - 12;
+      if(y + tip.offsetHeight > window.innerHeight - 8) y = e.clientY - tip.offsetHeight - 10;
+      tip.style.left = x + 'px';
+      tip.style.top  = y + 'px';
+    }}
+  }});
+  function attach(el){{
+    el.addEventListener('mouseenter', function(){{
+      tip.textContent = el.getAttribute('data-tip');
+      tip.style.display = 'block';
+    }});
+    el.addEventListener('mouseleave', function(){{ tip.style.display = 'none'; }});
+  }}
+  document.querySelectorAll('[data-tip]').forEach(attach);
+  // Re-attach after any dynamic content (Bootstrap tab show)
+  document.addEventListener('shown.bs.tab', function(){{
+    document.querySelectorAll('[data-tip]').forEach(attach);
+  }});
+}})();
+</script>
 </body>
 </html>
 """
