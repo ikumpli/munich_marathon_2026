@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-30",
-  "last_adjusted": "2026-06-30",
+  "last_adjusted": "2026-07-01",
   "weeks": [
     {
       "week": 1,
@@ -261,17 +261,17 @@
           "day": "Tue",
           "session_type": "quality",
           "planned": "Easy 6k @6:20–6:40/km — no strides, save legs",
-          "actual_km": 0.0,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 6.04,
+          "actual_pace_min_km": 6.0106,
+          "actual_hr": 146.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-07-01",
           "day": "Wed",
           "session_type": "quality",
           "planned": "Easy 6k @6:20–6:40/km — no strides, save legs",
-          "actual_km": null,
+          "actual_km": 0.0,
           "actual_pace_min_km": null,
           "actual_hr": null,
           "actual_name": null
@@ -279,8 +279,8 @@
         {
           "date": "2026-07-02",
           "day": "Thu",
-          "session_type": "easy",
-          "planned": "Easy 4k @6:20–6:40/km",
+          "session_type": "quality",
+          "planned": "Easy 6k @6:20–6:40/km — no strides, save legs",
           "actual_km": null,
           "actual_pace_min_km": null,
           "actual_hr": null,
