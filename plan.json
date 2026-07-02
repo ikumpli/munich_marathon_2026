@@ -309,7 +309,7 @@
         {
           "date": "2026-07-05",
           "day": "Sun",
-          "session_type": "long",
+          "session_type": "race",
           "planned": "🏁 10k RACE @~4:25/km — go get it!",
           "actual_km": null,
           "actual_pace_min_km": null,
