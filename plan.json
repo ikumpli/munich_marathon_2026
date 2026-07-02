@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-30",
-  "last_adjusted": "2026-06-30",
+  "last_adjusted": "2026-07-02",
   "weeks": [
     {
       "week": 1,
@@ -261,27 +261,27 @@
           "day": "Tue",
           "session_type": "quality",
           "planned": "Easy 6k @6:20–6:40/km — no strides, save legs",
-          "actual_km": 0.0,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 6.04,
+          "actual_pace_min_km": 6.0106,
+          "actual_hr": 146.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-07-01",
           "day": "Wed",
           "session_type": "quality",
           "planned": "Easy 6k @6:20–6:40/km — no strides, save legs",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 6.52,
+          "actual_pace_min_km": 5.663,
+          "actual_hr": 148.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-07-02",
           "day": "Thu",
-          "session_type": "easy",
-          "planned": "Easy 4k @6:20–6:40/km",
-          "actual_km": null,
+          "session_type": "quality",
+          "planned": "Easy 6k @6:20–6:40/km — no strides, save legs",
+          "actual_km": 0.0,
           "actual_pace_min_km": null,
           "actual_hr": null,
           "actual_name": null
@@ -299,8 +299,8 @@
         {
           "date": "2026-07-04",
           "day": "Sat",
-          "session_type": "easy",
-          "planned": "Easy 3k shakeout + 4×100m light strides",
+          "session_type": "quality",
+          "planned": "Easy 6k @6:20–6:40/km — no strides, save legs",
           "actual_km": null,
           "actual_pace_min_km": null,
           "actual_hr": null,
@@ -309,7 +309,7 @@
         {
           "date": "2026-07-05",
           "day": "Sun",
-          "session_type": "race",
+          "session_type": "long",
           "planned": "🏁 10k RACE @~4:25/km — go get it!",
           "actual_km": null,
           "actual_pace_min_km": null,
