@@ -44,11 +44,14 @@ DAYS_DEFAULTS = {
 
 def classify_session(desc: str) -> str:
     d = desc.lower()
-    if any(x in d for x in ["race day", "race 🏁"]):
+    if "race" in d:
         return "race"
     if "long" in d:
         return "long"
-    if any(x in d for x in ["interval", "tempo", "vo2", "strides", "progressive↗", "quality"]):
+    # Guard against negated phrases like "no strides, save legs" (an easy day
+    # that explicitly avoids strides) being misread as a quality keyword match.
+    d_check = d.replace("no strides", "").replace("without strides", "")
+    if any(x in d_check for x in ["interval", "tempo", "vo2", "strides", "progressive↗", "quality"]):
         return "quality"
     if any(x in d for x in ["rest", "swim"]):
         return "rest"
