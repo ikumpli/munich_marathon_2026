@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
 """
-Adaptive plan agent — runs daily in GitHub Actions.
+Plan-tracking agent — runs daily in GitHub Actions.
 
 1. Loads the latest activity CSV.
 2. Fills in actuals for every past day in plan.json.
 3. Detects mismatches in the current training week
-   (missed quality sessions, missed runs, etc.).
-4. If mismatches exist, calls GitHub Models (free with GITHUB_TOKEN)
-   to adjust the remaining days of the week.
-5. Writes the updated plan.json back to the repo root.
+   (missed quality sessions, missed runs, etc.) for informational logging only.
 
-The deploy workflow commits plan.json so adjustments persist across runs.
+No automatic rewriting of the plan happens — the static WEEKLY_PLAN in
+generate_dashboard.py is always the source of truth for `planned`/`session_type`.
+The deploy workflow commits plan.json so actuals persist across runs.
 """
 
 import json
-import os
 import sys
 from datetime import date, timedelta
 from pathlib import Path
@@ -215,125 +213,9 @@ def detect_mismatches(week: dict, today: date) -> list:
     return mismatches
 
 
-# ── LLM adjustment via GitHub Models (free) ──────────────────────────────────
-
-def _fmt_pace(p: float) -> str:
-    return f"{int(p)}:{int((p % 1) * 60):02d}"
-
-
-def adjust_with_llm(week: dict, mismatches: list, github_token: str):
-    """
-    Calls GitHub Models (gpt-4o-mini, free with GITHUB_TOKEN) to adjust
-    the remaining days of the week. Returns a list of updated day dicts,
-    or None if the call fails.
-    """
-    try:
-        from openai import OpenAI
-    except ImportError:
-        print("openai package not installed — skipping LLM adjustment.")
-        return None
-
-    today = date.today()
-    past_days = [d for d in week["days"] if d["date"] <= today.isoformat()]
-    future_days = [d for d in week["days"] if d["date"] > today.isoformat()]
-
-    if not future_days:
-        return None  # nothing left to adjust
-
-    # Summarise what already happened
-    past_lines = []
-    for d in past_days:
-        km = d.get("actual_km")
-        if km is not None and km > 0:
-            pace = _fmt_pace(d["actual_pace_min_km"]) if d.get("actual_pace_min_km") else "?"
-            past_lines.append(
-                f'- {d["day"]} {d["date"]}: Planned "{d["planned"]}". '
-                f"Actual: {km:.1f} km @ {pace}/km."
-            )
-        else:
-            past_lines.append(
-                f'- {d["day"]} {d["date"]}: Planned "{d["planned"]}". Actual: no activity.'
-            )
-
-    # Summarise mismatches
-    mismatch_lines = []
-    for m in mismatches:
-        if m["issue"] == "missed":
-            mismatch_lines.append(f'- {m["day"]}: Missed planned run "{m["planned"]}".')
-        elif m["issue"] == "quality_missed":
-            mismatch_lines.append(
-                f'- {m["day"]}: Planned quality session but ran {m["actual_km"]:.1f} km '
-                f'easy @ {_fmt_pace(m["actual_pace"])}/km instead of "{m["planned"]}".'
-            )
-
-    # Summarise remaining days
-    future_lines = [
-        f'- {d["day"]} {d["date"]}: Planned "{d["planned"]}"'
-        for d in future_days
-    ]
-
-    covered_km = sum((d.get("actual_km") or 0) for d in past_days)
-    remaining_budget = week["target_km"] - covered_km
-
-    system_prompt = (
-        "You are an expert marathon coach assistant for Iker (25 y/o, marathon debut, goal: sub 4:00). "
-        "Your job is MINIMAL adjustments only — change as little as possible. "
-        "Return ONLY a valid JSON array — no prose, no markdown fences."
-    )
-
-    user_prompt = (
-        f"Week {week['week']} — Phase: {week['phase']} — Target: {week['target_km']} km.\n\n"
-        f"PAST DAYS:\n" + "\n".join(past_lines) + "\n\n"
-        f"MISMATCHES:\n" + ("\n".join(mismatch_lines) if mismatch_lines else "- None") + "\n\n"
-        f"REMAINING DAYS (return ALL of these, unchanged unless you must modify):\n" + "\n".join(future_lines) + "\n\n"
-        f"RULES — follow strictly:\n"
-        f"1. Change ONLY the minimum necessary. If a day does not need to change, return it exactly as planned.\n"
-        f"2. If a quality session was missed, reschedule it to the NEXT DAY (tomorrow) if that day is not a rest day. "
-        f"Replace whatever was planned there with the quality session. The displaced session is simply dropped.\n"
-        f"3. If tomorrow is a rest day, try the day after. Priority order: Wed → Thu → Sat. Never skip to a later day "
-        f"when an earlier non-rest day is available.\n"
-        f"4. Mon and Fri are rest/swim days — never add runs there.\n"
-        f"5. Preserve the long run on Sunday ({week['long_km']} km @ 6:00–6:20/km) exactly as planned. Never put the quality session on Sunday.\n"
-        f"6. Do NOT add warm-up/cool-down blocks. Do NOT change distances or descriptions of unchanged days.\n"
-        f"7. session_type must be one of: rest, easy, quality, long, race.\n\n"
-        f"Return a JSON array for ALL remaining days. For unchanged days, return the planned text as-is. "
-        f"When you adjust a day, overwrite its plan text directly:\n"
-        f'[{{"date":"YYYY-MM-DD","day":"DDD","session_type":"TYPE","planned":"description"}}]'
-    )
-
-    client = OpenAI(
-        base_url="https://models.inference.ai.azure.com",
-        api_key=github_token,
-    )
-
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            temperature=0.3,
-            max_tokens=900,
-        )
-        raw = response.choices[0].message.content.strip()
-        # Strip markdown code blocks if the model wraps the JSON
-        if raw.startswith("```"):
-            raw = raw.split("\n", 1)[1]
-            raw = raw.rsplit("```", 1)[0]
-        return json.loads(raw)
-    except Exception as exc:
-        print(f"LLM adjustment failed: {exc}")
-        return None
-
-
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    github_token = os.environ.get("GITHUB_TOKEN")
-    if not github_token:
-        print("GITHUB_TOKEN not set — actuals will be filled but LLM adjustment is skipped.")
-
     if not DATA.exists():
         print(f"Data file not found: {DATA}. Skipping.")
         return
@@ -361,27 +243,13 @@ def main():
     current_week_num = max(1, min(current_week_num, len(plan_data["weeks"])))
     current_week = plan_data["weeks"][current_week_num - 1]
 
-    # Detect mismatches and (optionally) call the LLM
+    # Detect mismatches — informational only, the plan is never auto-rewritten.
     mismatches = detect_mismatches(current_week, today)
     if mismatches:
         issues = [m["issue"] for m in mismatches]
-        print(f"Week {current_week_num}: mismatches detected — {issues}")
-        if github_token:
-            adjusted = adjust_with_llm(current_week, mismatches, github_token)
-            if adjusted:
-                day_map = {d["date"]: d for d in current_week["days"]}
-                for adj in adjusted:
-                    if adj["date"] in day_map:
-                        target = day_map[adj["date"]]
-                        target["planned"] = adj.get("planned", target["planned"])
-                        target["session_type"] = adj.get("session_type", target["session_type"])
-                print(f"Adjusted {len(adjusted)} remaining day(s).")
-            else:
-                print("LLM returned no adjustments.")
-        else:
-            print("No GITHUB_TOKEN — LLM step skipped.")
+        print(f"Week {current_week_num}: mismatches detected (no auto-adjustment) — {issues}")
     else:
-        print(f"Week {current_week_num}: plan is on track, no adjustments needed.")
+        print(f"Week {current_week_num}: plan is on track.")
 
     plan_data["last_adjusted"] = today.isoformat()
     PLAN_JSON.write_text(json.dumps(plan_data, indent=2, ensure_ascii=False))
