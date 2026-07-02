@@ -64,6 +64,37 @@ def _load_plan():
     return None
 
 
+def _parse_day_sessions(quality):
+    """Parse a WEEKLY_PLAN quality string ('Mon: ... · Tue: ...') into a dict
+    mapping day key -> session description."""
+    parsed = {}
+    for part in quality.split(' · '):
+        if ': ' in part:
+            day_key, desc = part.split(': ', 1)
+            parsed[day_key.strip()] = desc.strip()
+    return parsed
+
+
+def _day_planned_km(desc):
+    """Extract the planned distance (km) from a single day's session description."""
+    m = re.search(r'(\d+(?:\.\d+)?)k', desc, re.IGNORECASE)
+    if m:
+        return float(m.group(1))
+    if 'race' in desc.lower():
+        return 42.2  # marathon race day — no explicit distance in the description
+    return 0.0
+
+
+def _week_planned_km(quality):
+    """Total planned weekly km, summed from that week's per-day session
+    descriptions. This is the single source of truth for weekly targets, used
+    consistently by the plan table, charts and the .ics calendar so they never
+    disagree with each other."""
+    parsed = _parse_day_sessions(quality)
+    return sum(_day_planned_km(parsed.get(dk, 'Rest'))
+               for dk in ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'))
+
+
 def load_and_clean(path):
     df = pd.read_csv(path)
     df['Date'] = pd.to_datetime(df['Date'])
@@ -95,8 +126,10 @@ def weekly_aggregates(runs):
 
 
 def make_targets():
-    """Extract planned weekly km directly from WEEKLY_PLAN — no computed projection."""
-    return [row[2] for row in WEEKLY_PLAN]
+    """Weekly target km, summed from each week's per-day planned distances
+    (see `_week_planned_km`) rather than the hand-entered totals in WEEKLY_PLAN,
+    which had drifted out of sync with the day-by-day session descriptions."""
+    return [_week_planned_km(row[4]) for row in WEEKLY_PLAN]
 
 
 def _esc(s):
@@ -326,11 +359,7 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
     wnum, wdate_str, orig_km, long_km, quality, phase = week_entry
 
     # Parse explicit day sessions from quality string: "Tue: ... · Thu: ... · Sat: ..."
-    parsed = {}
-    for part in quality.split(' · '):
-        if ': ' in part:
-            day_key, desc = part.split(': ', 1)
-            parsed[day_key.strip()] = desc.strip()
+    parsed = _parse_day_sessions(quality)
 
     target_km_val = targets[wnum - 1] if wnum - 1 < len(targets) else orig_km
 
@@ -402,16 +431,6 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
                 f'{name_html}'
                 f'</div>'
             )
-            # If a quality session was planned but activity name has no quality keywords, warn
-            planned_orig = plan_day_map[short].get('planned', '') if short in plan_day_map else ''
-            if planned_orig and session_type_str == 'quality':
-                _quality_kws = ('interval', 'intervals', 'tempo', 'mp run', 'mp pace')
-                name_lower = (act_name or '').lower()
-                if not any(kw in name_lower for kw in _quality_kws):
-                    actual_html += (
-                        f'<div style="font-size:.6rem;color:#f97316;margin-top:.2rem">'
-                        f'⚠ Planned: {planned_orig[:45]}{"…" if len(planned_orig)>45 else ""}</div>'
-                    )
         elif is_past and session_type_str not in ('rest', None):
             actual_html = (
                 '<div style="margin-top:.45rem;padding:.3rem .4rem;border-radius:6px;'
@@ -507,20 +526,8 @@ def build_weekly_accumulation_chart(runs, current_week_entry, targets):
     week_monday = today_d - timedelta(days=today_d.weekday())
     DAY_KEYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-    parsed = {}
-    for part in quality.split(' · '):
-        if ': ' in part:
-            dk, desc = part.split(': ', 1)
-            parsed[dk.strip()] = desc.strip()
-
-    planned_daily = []
-    for dk in DAY_KEYS:
-        desc = parsed.get(dk, 'Rest')
-        if 'rest' in desc.lower() and '×' not in desc:
-            planned_daily.append(0.0)
-        else:
-            m = re.search(r'(\d+)k', desc, re.IGNORECASE)
-            planned_daily.append(float(m.group(1)) if m else 0.0)
+    parsed = _parse_day_sessions(quality)
+    planned_daily = [_day_planned_km(parsed.get(dk, 'Rest')) for dk in DAY_KEYS]
 
     actual_daily = [0.0] * 7
     for _, row in runs.iterrows():
@@ -537,10 +544,9 @@ def build_weekly_accumulation_chart(runs, current_week_entry, targets):
         planned_cum.append(ps)
         actual_cum.append(as_)
 
-    # Use the plan-derived total (sum of day descriptions) as the week target.
-    # The targets[] field is a rough weekly km figure; the day descriptions are more precise.
-    plan_derived_total = planned_cum[-1]
-    target_total = max(plan_derived_total, targets[wnum - 1] if wnum - 1 < len(targets) else total_km)
+    # targets[] is derived from the same per-day sums as planned_cum, so this
+    # always matches the plan table / volume chart / calendar for this week.
+    target_total = targets[wnum - 1] if wnum - 1 < len(targets) else planned_cum[-1]
     today_idx = min((today_d - week_monday).days, 6)
 
     W, H = 920, 290

@@ -23,7 +23,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).parent))
-from generate_dashboard import WEEKLY_PLAN, PLAN_START  # type: ignore
+from generate_dashboard import WEEKLY_PLAN, PLAN_START, _week_planned_km  # type: ignore
 
 DATA = ROOT / "i600311_activities.csv"
 PLAN_JSON = ROOT / "plan.json"
@@ -90,7 +90,9 @@ def generate_plan_json() -> dict:
             "week": wnum,
             "date": week_start.isoformat(),
             "phase": phase,
-            "target_km": total_km,
+            # Same per-day-sum computation generate_dashboard.py uses for the plan
+            # table/charts/calendar, so this never drifts from what's displayed.
+            "target_km": _week_planned_km(quality),
             "long_km": long_km,
             "days": days,
         })
