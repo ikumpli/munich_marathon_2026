@@ -301,10 +301,10 @@
           "day": "Sat",
           "session_type": "quality",
           "planned": "Easy 3k shakeout + 4×100m light strides",
-          "actual_km": 0.0,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 4.07,
+          "actual_pace_min_km": 5.6472,
+          "actual_hr": 159.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-07-05",
