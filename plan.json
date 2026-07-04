@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-30",
-  "last_adjusted": "2026-07-03",
+  "last_adjusted": "2026-07-04",
   "weeks": [
     {
       "week": 1,
@@ -301,7 +301,7 @@
           "day": "Sat",
           "session_type": "quality",
           "planned": "Easy 3k shakeout + 4×100m light strides",
-          "actual_km": null,
+          "actual_km": 0.0,
           "actual_pace_min_km": null,
           "actual_hr": null,
           "actual_name": null
