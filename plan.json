@@ -311,10 +311,10 @@
           "day": "Sun",
           "session_type": "race",
           "planned": "🏁 10k RACE @~4:25/km — go get it!",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 10.0,
+          "actual_pace_min_km": 4.2866,
+          "actual_hr": 180.0,
+          "actual_name": "Munich Running"
         }
       ]
     },
