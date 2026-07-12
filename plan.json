@@ -390,10 +390,10 @@
           "day": "Sun",
           "session_type": "long",
           "planned": "Long 16k @6:10–6:30/km",
-          "actual_km": 0.0,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 16.01,
+          "actual_pace_min_km": 5.328,
+          "actual_hr": 163.0,
+          "actual_name": "Munich Running"
         }
       ]
     },
