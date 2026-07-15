@@ -369,8 +369,27 @@ def build_pace_chart(weekly, runs):
     return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
 
 
+# Standard TrainingPeaks/Joe Friel Form (TSB = CTL − ATL) banding — a widely used
+# heuristic, not a personalized medical read. (lo, hi, label, color)
+FORM_BANDS = [
+    (25, float('inf'), 'Very Fresh (detraining risk)', '#38bdf8'),
+    (5, 25, 'Fresh / Race Ready', '#22c55e'),
+    (-10, 5, 'Neutral', '#94a3b8'),
+    (-30, -10, 'Optimal Training', '#f59e0b'),
+    (float('-inf'), -30, 'High Risk — overreaching', '#ef4444'),
+]
+
+
+def _form_status(value):
+    for lo, hi, label, color in FORM_BANDS:
+        if lo <= value < hi:
+            return label, color
+    return 'Neutral', '#94a3b8'
+
+
 def build_load_chart(wellness, plan_start):
-    """Native SVG: CTL (Fitness), ATL (Fatigue) and Form, from the plan start date on."""
+    """Native SVG: CTL (Fitness) + ATL (Fatigue) line chart, plus a separate
+    banded Form (freshness) chart with the standard guideline zones."""
     df = wellness[wellness['date'] >= pd.Timestamp(plan_start)]
     if df.empty:
         return '<div class="text-muted small">No wellness data synced yet.</div>'
@@ -384,7 +403,7 @@ def build_load_chart(wellness, plan_start):
     tick_step = 20 if vmax > 60 else (10 if vmax > 25 else 5)
     y_top = max((int(vmax // tick_step) + 1) * tick_step, tick_step)
 
-    W, H = 920, 320
+    W, H = 920, 280
     pad_l, pad_r, pad_t, pad_b = 38, 14, 18, 40
     plot_w, plot_h = W - pad_l - pad_r, H - pad_t - pad_b
 
@@ -410,14 +429,6 @@ def build_load_chart(wellness, plan_start):
         p.append(f'<line x1="{x:.1f}" y1="{pad_t}" x2="{x:.1f}" y2="{pad_t + plot_h}" stroke="#1e293b"/>')
         p.append(f'<text x="{x:.1f}" y="{H - pad_b + 16}" fill="#64748b" font-size="10" text-anchor="middle">{mdt.strftime("%b")}</text>')
 
-    # Form (CTL - ATL) as a zero-referenced fill band — green when fresh, red when digging in
-    zero_y = yv(0) if 0 <= y_top else pad_t + plot_h
-    fpts = [(xd(d), yv(v)) for d, v in zip(dates, form)]
-    if len(fpts) >= 2:
-        band = " ".join(f"{x:.1f},{y:.1f}" for x, y in fpts)
-        band += f" {fpts[-1][0]:.1f},{zero_y:.1f} {fpts[0][0]:.1f},{zero_y:.1f}"
-        p.append(f'<polygon points="{band}" fill="#94a3b8" opacity="0.15"/>')
-
     def line(vals, color, width=2):
         pts = " ".join(f"{xd(d):.1f},{yv(v):.1f}" for d, v in zip(dates, vals))
         p.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="{width}"/>')
@@ -425,11 +436,11 @@ def build_load_chart(wellness, plan_start):
     line(atl, '#f97316')
     line(ctl, '#3b82f6', 2.5)
 
-    # Weekly (Monday) markers with tooltips — keeps the chart readable at daily resolution
     for d, c, a, f in zip(dates, ctl, atl, form):
         if pd.Timestamp(d).weekday() != 0:
             continue
-        tip = _esc(f"{pd.Timestamp(d).strftime('%a %b %d')} — Fitness {c:.0f} · Fatigue {a:.0f} · Form {f:+.0f}")
+        label, _ = _form_status(f)
+        tip = _esc(f"{pd.Timestamp(d).strftime('%a %b %d')} — Fitness {c:.0f} · Fatigue {a:.0f} · Form {f:+.0f} ({label})")
         p.append(f'<circle class="pdot" data-tip="{tip}" cx="{xd(d):.1f}" cy="{yv(c):.1f}" r="3.5" fill="#3b82f6" stroke="#0f172a" stroke-width="1"></circle>')
 
     p.append('</svg>')
@@ -437,10 +448,56 @@ def build_load_chart(wellness, plan_start):
         '<div class="chart-legend">'
         '<span class="ci"><span class="sw" style="background:#3b82f6"></span>CTL (Fitness)</span>'
         '<span class="ci"><span class="sw" style="background:#f97316"></span>ATL (Fatigue)</span>'
-        '<span class="ci"><span class="sw" style="background:#94a3b8"></span>Form (CTL − ATL)</span>'
         '</div>'
     )
-    return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
+    ctl_atl_html = '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
+
+    # ── Form (freshness) sub-chart with guideline bands ──
+    ymin_d = min(-40, min(form) - 5)
+    ymax_d = max(30, max(form) + 5)
+
+    H2 = 220
+    plot_h2 = H2 - pad_t - pad_b
+
+    def yv2(v):
+        v = max(min(v, ymax_d), ymin_d)
+        return pad_t + plot_h2 * (1 - (v - ymin_d) / (ymax_d - ymin_d))
+
+    p2 = [f'<svg viewBox="0 0 {W} {H2}" class="chart-svg" preserveAspectRatio="xMidYMid meet" role="img">']
+    for lo, hi, label, color in FORM_BANDS:
+        y_top_b = yv2(min(hi, ymax_d))
+        y_bot_b = yv2(max(lo, ymin_d))
+        p2.append(f'<rect x="{pad_l}" y="{y_top_b:.1f}" width="{plot_w}" height="{(y_bot_b - y_top_b):.1f}" fill="{color}" opacity="0.13"/>')
+        p2.append(f'<text x="{W - pad_r - 4}" y="{y_top_b + 11:.1f}" fill="{color}" font-size="9" text-anchor="end" opacity="0.9">{_esc(label)}</text>')
+
+    zero_y = yv2(0)
+    p2.append(f'<line x1="{pad_l}" y1="{zero_y:.1f}" x2="{W - pad_r}" y2="{zero_y:.1f}" stroke="#475569" stroke-width="1" stroke-dasharray="3 3"/>')
+
+    for mdt in pd.date_range(dmin.normalize(), dmax.normalize(), freq='MS'):
+        if mdt < dmin:
+            continue
+        x = xd(mdt)
+        p2.append(f'<line x1="{x:.1f}" y1="{pad_t}" x2="{x:.1f}" y2="{pad_t + plot_h2}" stroke="#1e293b"/>')
+        p2.append(f'<text x="{x:.1f}" y="{H2 - pad_b + 16}" fill="#64748b" font-size="10" text-anchor="middle">{mdt.strftime("%b")}</text>')
+
+    fpts = " ".join(f"{xd(d):.1f},{yv2(v):.1f}" for d, v in zip(dates, form))
+    p2.append(f'<polyline points="{fpts}" fill="none" stroke="#e2e8f0" stroke-width="2"/>')
+
+    for d, f in zip(dates, form):
+        if pd.Timestamp(d).weekday() != 0:
+            continue
+        label, color = _form_status(f)
+        tip = _esc(f"{pd.Timestamp(d).strftime('%a %b %d')} — Form {f:+.0f} ({label})")
+        p2.append(f'<circle class="pdot" data-tip="{tip}" cx="{xd(d):.1f}" cy="{yv2(f):.1f}" r="4" fill="{color}" stroke="#0f172a" stroke-width="1"></circle>')
+
+    p2.append('</svg>')
+    form_html = '<div class="chart-wrap">' + "".join(p2) + '</div>'
+
+    return (
+        ctl_atl_html
+        + '<div class="text-muted small mt-3 mb-1">Form (freshness) — banded by the standard TrainingPeaks/Joe Friel TSB guideline (a heuristic, not personalized medical advice):</div>'
+        + form_html
+    )
 
 
 def _mini_line_chart(dist_km, ys, color, fmt, invert=False, W=880, H=120):
@@ -883,7 +940,17 @@ def build_dashboard(runs, weekly, targets):
 
     vol_html = build_volume_chart(weekly, targets, plan_start_ts)
     pace_html = build_pace_chart(weekly, runs)
-    load_html = build_load_chart(load_wellness(WELLNESS_CSV), PLAN_START)
+    wellness_df = load_wellness(WELLNESS_CSV)
+    load_html = build_load_chart(wellness_df, PLAN_START)
+    if not wellness_df.empty:
+        latest_form = float(wellness_df['form'].iloc[-1])
+        form_label, form_color = _form_status(latest_form)
+        form_badge_html = (
+            f'<span class="badge fs-6 px-3 py-2 ms-2" style="background:{form_color};color:#0f172a">'
+            f'Fatigue: {latest_form:+.0f} · {form_label}</span>'
+        )
+    else:
+        form_badge_html = ''
     gantt_html = build_plan_gantt(targets)
     recent_table = _recent_runs_table(runs)
     plan_table = _weekly_plan_table(targets)
@@ -1056,7 +1123,7 @@ def build_dashboard(runs, weekly, targets):
       </div>
       <div class="col-md-4 mt-3 mt-md-0 text-md-end">
         <div class="phase-pill mb-2">Week {current_week_num} / 18 — {current_phase}</div><br>
-        <span class="badge {load_badge} fs-6 px-3 py-2">{load_status}</span>
+        <span class="badge {load_badge} fs-6 px-3 py-2">{load_status}</span>{form_badge_html}
         <div class="text-muted small mt-2">{total_runs} runs logged</div>
       </div>
     </div>
@@ -1129,6 +1196,11 @@ def build_dashboard(runs, weekly, targets):
     <li class="nav-item">
       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-strategy">
         🧠 Race Strategy
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-nutrition">
+        🍎 Nutrition
       </button>
     </li>
   </ul>
@@ -1296,6 +1368,116 @@ def build_dashboard(runs, weekly, targets):
                 <li>Click the activity → edit the title</li>
                 <li>Push the updated CSV or wait for the daily auto-sync</li>
               </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: NUTRITION -->
+  <div class="tab-pane fade content-card" id="tab-nutrition">
+
+    <div class="text-muted small mb-3">
+      General sports-nutrition guidelines scaled to your profile (74 kg, marathon debutant, sub-4:00 goal) —
+      not personalized medical or dietitian advice. Adjust to what actually sits well with your stomach in training.
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="strategy-card">
+          <h6>🍚 Daily Fueling Targets (~74 kg)</h6>
+          <ul>
+            <li><strong>Rest / easy days:</strong> ~3–5 g/kg carbs (220–370 g) · 1.6–2.0 g/kg protein (120–150 g).</li>
+            <li><strong>Quality or long-run days:</strong> ~6–8 g/kg carbs (440–590 g) — same protein target.</li>
+            <li><strong>Peak Build/Specific weeks (20k+ long runs):</strong> up to 8–10 g/kg carbs (590–740 g).</li>
+            <li>Fat fills the rest of your calorie needs — favor olive oil, nuts, avocado, oily fish.</li>
+            <li>Spread protein across meals (~25–35 g each) rather than one big serving.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="strategy-card">
+          <h6>💧 Hydration &amp; Electrolytes</h6>
+          <ul>
+            <li>Baseline: ~35–45 ml/kg/day (~2.6–3.3 L), more on hot training days.</li>
+            <li>During runs &gt;60–75 min: 400–800 ml/hour depending on heat and sweat rate.</li>
+            <li>Add electrolytes (sodium ~300–700 mg/hour) on hot, sweaty sessions — Jul/Aug heat matters more than October race day.</li>
+            <li>After a hard or hot session, rehydrate with ~125–150% of the fluid you lost.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="strategy-card">
+          <h6>🌅 Before a Morning Run</h6>
+          <ul>
+            <li><strong>Easy runs &lt; 60 min:</strong> fine fasted, or just water/coffee — no need to eat.</li>
+            <li><strong>Quality sessions or long runs:</strong> eat 60–90 min before, ~0.5–1.5 g/kg carbs (40–110 g), low fat/fiber/protein to avoid GI trouble.</li>
+            <li>Good options: oatmeal + banana + honey, toast + jam, rice cakes, a ripe banana.</li>
+            <li>Sip 300–500 ml water in the hour before departure.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="strategy-card">
+          <h6>🔁 After a Run — Recovery Window</h6>
+          <ul>
+            <li>Within 30–60 min: carbs + protein at roughly a 3:1–4:1 ratio — ~1.0–1.2 g/kg carbs (75–90 g) + ~0.3 g/kg protein (~20–25 g).</li>
+            <li>Easy options: chocolate milk + banana, yogurt + granola + fruit, rice + eggs or chicken.</li>
+            <li>Rehydrate steadily rather than chugging all at once.</li>
+            <li>The harder or longer the session, the more this window matters — don't skip it after long runs or quality days.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="strategy-card">
+          <h6>🌙 Evening / Dinner, Day-to-Day</h6>
+          <ul>
+            <li>Balanced plate: palm of protein, fist of complex carbs (rice, potatoes, pasta, quinoa), plenty of veg, a thumb of healthy fat.</li>
+            <li>Night before a quality session or long run: lean slightly higher-carb, keep it familiar and easy to digest — not the night to try something new or very spicy/fatty.</li>
+            <li>Avoid heavy, fatty meals within 2–3 h of bedtime for sleep quality; keep hydrating through the evening rather than a big volume right before bed.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="strategy-card">
+          <h6>🏃‍♂️ Long-Run &amp; In-Run Fueling</h6>
+          <ul>
+            <li>Runs &gt; 75–90 min: fuel <em>during</em> — start ~30–45 min in, then small doses every 15–20 min.</li>
+            <li>Target ~30–60 g carbs/hour (gels, chews, sports drink), scaling toward 60–90 g/hour for your longest runs (24–30k) if your gut tolerates it.</li>
+            <li><strong>Rule of thumb: nothing new on race day</strong> — test every gel/drink/timing in training first, especially on the Sunday long runs.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-12">
+        <div class="strategy-card" style="border-color:#22c55e">
+          <h6 style="color:#22c55e">🏁 Race Day Nutrition — Munich Marathon, Oct 11</h6>
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem">
+            <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
+              <div style="font-size:.7rem;font-weight:700;color:#22c55e;text-transform:uppercase;margin-bottom:.5rem">3 Days Before</div>
+              <div style="font-size:.82rem;color:#94a3b8">Carb-load to ~8–10 g/kg/day (590–740 g). Keep fat/fiber moderate to avoid GI issues — this is about topping up glycogen, not stuffing yourself.</div>
+            </div>
+            <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
+              <div style="font-size:.7rem;font-weight:700;color:#fbbf24;text-transform:uppercase;margin-bottom:.5rem">Race Morning</div>
+              <div style="font-size:.82rem;color:#94a3b8">2–3 h before the gun: familiar, carb-rich, low-fat/fiber meal, ~1–3 g/kg carbs (75–220 g) — e.g. white bread/bagel + honey, oatmeal + banana. Optional small gel/banana 15–30 min before start.</div>
+            </div>
+            <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
+              <div style="font-size:.7rem;font-weight:700;color:#60a5fa;text-transform:uppercase;margin-bottom:.5rem">During the Race</div>
+              <div style="font-size:.82rem;color:#94a3b8">30–60 g carbs/hour from gels/drink, starting ~30–45 min in — don't wait until you feel low. Sip water/electrolytes at stations per your practiced plan.</div>
+            </div>
+            <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
+              <div style="font-size:.7rem;font-weight:700;color:#a78bfa;text-transform:uppercase;margin-bottom:.5rem">After Finishing</div>
+              <div style="font-size:.82rem;color:#94a3b8">Recovery meal (carbs + protein) within an hour, rehydrate steadily, then celebrate — you earned it. 🎉</div>
             </div>
           </div>
         </div>
