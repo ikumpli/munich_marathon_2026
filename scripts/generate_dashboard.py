@@ -16,6 +16,8 @@ DATA = ROOT.joinpath('..').joinpath('i600311_activities.csv').resolve()
 OUT = ROOT.joinpath('..').joinpath('docs')
 OUT.mkdir(parents=True, exist_ok=True)
 PLAN_JSON = ROOT.joinpath('..').joinpath('plan.json').resolve()
+WELLNESS_CSV = ROOT.joinpath('..').joinpath('i600311_wellness.csv').resolve()
+RUN_CURVES_JSON = ROOT.joinpath('..').joinpath('run_curves.json').resolve()
 
 MARATHON_DATE = date(2026, 10, 11)
 PLAN_START = date(2026, 6, 8)
@@ -163,6 +165,25 @@ def weekly_aggregates(runs):
     weekly['avg_pace_str'] = weekly['avg_pace'].apply(
         lambda p: f"{int(p)}:{int((p % 1)*60):02d}" if pd.notna(p) else '')
     return weekly
+
+
+def load_wellness(path):
+    """Load daily CTL/ATL/Form history. Returns an empty frame if not synced yet."""
+    cols = ['date', 'ctl', 'atl', 'form']
+    if not Path(path).exists():
+        return pd.DataFrame(columns=cols)
+    df = pd.read_csv(path)
+    if df.empty:
+        return pd.DataFrame(columns=cols)
+    df['date'] = pd.to_datetime(df['date'])
+    return df.sort_values('date')
+
+
+def _load_run_curves():
+    if not RUN_CURVES_JSON.exists():
+        return {}
+    with open(RUN_CURVES_JSON) as f:
+        return json.load(f).get('runs', {})
 
 
 def make_targets():
@@ -348,6 +369,137 @@ def build_pace_chart(weekly, runs):
     return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
 
 
+def build_load_chart(wellness, plan_start):
+    """Native SVG: CTL (Fitness), ATL (Fatigue) and Form, from the plan start date on."""
+    df = wellness[wellness['date'] >= pd.Timestamp(plan_start)]
+    if df.empty:
+        return '<div class="text-muted small">No wellness data synced yet.</div>'
+
+    dates = list(df['date'])
+    ctl, atl, form = list(df['ctl']), list(df['atl']), list(df['form'])
+    dmin, dmax = min(dates), max(dates)
+    span_days = max((dmax - dmin).days, 1)
+
+    vmax = max(max(ctl), max(atl)) * 1.15
+    tick_step = 20 if vmax > 60 else (10 if vmax > 25 else 5)
+    y_top = max((int(vmax // tick_step) + 1) * tick_step, tick_step)
+
+    W, H = 920, 320
+    pad_l, pad_r, pad_t, pad_b = 38, 14, 18, 40
+    plot_w, plot_h = W - pad_l - pad_r, H - pad_t - pad_b
+
+    def xd(d):
+        return pad_l + plot_w * ((pd.Timestamp(d) - dmin).days / span_days)
+
+    def yv(v):
+        return pad_t + plot_h * (1 - v / y_top)
+
+    p = [f'<svg viewBox="0 0 {W} {H}" class="chart-svg" preserveAspectRatio="xMidYMid meet" role="img">']
+
+    t = 0
+    while t <= y_top + 0.1:
+        y = yv(t)
+        p.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{W - pad_r}" y2="{y:.1f}" stroke="#1e293b"/>')
+        p.append(f'<text x="{pad_l - 6}" y="{y + 3:.1f}" fill="#64748b" font-size="10" text-anchor="end">{int(t)}</text>')
+        t += tick_step
+
+    for mdt in pd.date_range(dmin.normalize(), dmax.normalize(), freq='MS'):
+        if mdt < dmin:
+            continue
+        x = xd(mdt)
+        p.append(f'<line x1="{x:.1f}" y1="{pad_t}" x2="{x:.1f}" y2="{pad_t + plot_h}" stroke="#1e293b"/>')
+        p.append(f'<text x="{x:.1f}" y="{H - pad_b + 16}" fill="#64748b" font-size="10" text-anchor="middle">{mdt.strftime("%b")}</text>')
+
+    # Form (CTL - ATL) as a zero-referenced fill band — green when fresh, red when digging in
+    zero_y = yv(0) if 0 <= y_top else pad_t + plot_h
+    fpts = [(xd(d), yv(v)) for d, v in zip(dates, form)]
+    if len(fpts) >= 2:
+        band = " ".join(f"{x:.1f},{y:.1f}" for x, y in fpts)
+        band += f" {fpts[-1][0]:.1f},{zero_y:.1f} {fpts[0][0]:.1f},{zero_y:.1f}"
+        p.append(f'<polygon points="{band}" fill="#94a3b8" opacity="0.15"/>')
+
+    def line(vals, color, width=2):
+        pts = " ".join(f"{xd(d):.1f},{yv(v):.1f}" for d, v in zip(dates, vals))
+        p.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="{width}"/>')
+
+    line(atl, '#f97316')
+    line(ctl, '#3b82f6', 2.5)
+
+    # Weekly (Monday) markers with tooltips — keeps the chart readable at daily resolution
+    for d, c, a, f in zip(dates, ctl, atl, form):
+        if pd.Timestamp(d).weekday() != 0:
+            continue
+        tip = _esc(f"{pd.Timestamp(d).strftime('%a %b %d')} — Fitness {c:.0f} · Fatigue {a:.0f} · Form {f:+.0f}")
+        p.append(f'<circle class="pdot" data-tip="{tip}" cx="{xd(d):.1f}" cy="{yv(c):.1f}" r="3.5" fill="#3b82f6" stroke="#0f172a" stroke-width="1"></circle>')
+
+    p.append('</svg>')
+    legend = (
+        '<div class="chart-legend">'
+        '<span class="ci"><span class="sw" style="background:#3b82f6"></span>CTL (Fitness)</span>'
+        '<span class="ci"><span class="sw" style="background:#f97316"></span>ATL (Fatigue)</span>'
+        '<span class="ci"><span class="sw" style="background:#94a3b8"></span>Form (CTL − ATL)</span>'
+        '</div>'
+    )
+    return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
+
+
+def _mini_line_chart(dist_km, ys, color, fmt, invert=False, W=880, H=120):
+    """Compact SVG line chart used for per-run HR/pace curves (x = distance)."""
+    pairs = [(d, y) for d, y in zip(dist_km, ys) if y is not None]
+    if len(pairs) < 2:
+        return '<div class="text-muted small">Not enough data.</div>'
+    xs, ys = zip(*pairs)
+    xmin, xmax = min(xs), max(xs)
+    xspan = max(xmax - xmin, 0.01)
+    ymin, ymax = min(ys), max(ys)
+    yspan = max(ymax - ymin, 0.01) * 1.2
+    ymid = (ymax + ymin) / 2
+    ymin_d, ymax_d = ymid - yspan / 2, ymid + yspan / 2
+
+    pad_l, pad_r, pad_t, pad_b = 40, 10, 10, 20
+    plot_w, plot_h = W - pad_l - pad_r, H - pad_t - pad_b
+
+    def xd(x):
+        return pad_l + plot_w * (x - xmin) / xspan
+
+    def yv(y):
+        frac = (y - ymin_d) / (ymax_d - ymin_d)
+        # Normally larger values plot higher (frac→1 near top). Pace is inverted
+        # so faster (smaller) paces plot higher, matching the main pace chart.
+        return pad_t + plot_h * (frac if invert else (1 - frac))
+
+    p = [f'<svg viewBox="0 0 {W} {H}" class="chart-svg" preserveAspectRatio="xMidYMid meet" role="img">']
+    for frac in (0, 0.5, 1):
+        v = ymin + (ymax - ymin) * frac
+        y = yv(v)
+        p.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{W - pad_r}" y2="{y:.1f}" stroke="#1e293b"/>')
+        p.append(f'<text x="{pad_l - 6}" y="{y + 3:.1f}" fill="#64748b" font-size="9" text-anchor="end">{fmt(v)}</text>')
+    pts = " ".join(f"{xd(x):.1f},{yv(y):.1f}" for x, y in zip(xs, ys))
+    p.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="2"/>')
+    for km in range(0, int(xmax) + 1, max(1, int(xmax) // 6 or 1)):
+        x = xd(km)
+        p.append(f'<text x="{x:.1f}" y="{H - pad_b + 14}" fill="#64748b" font-size="9" text-anchor="middle">{km}k</text>')
+    p.append('</svg>')
+    return '<div class="chart-wrap" style="margin-bottom:.4rem">' + "".join(p) + '</div>'
+
+
+def build_run_curve_html(curve):
+    """HR + pace mini-charts for one run's stream data (see run_curves.json)."""
+    dist_km = curve.get('distance_km') or []
+    hr = curve.get('hr') or []
+    pace = curve.get('pace') or []
+    hr_html = _mini_line_chart(dist_km, hr, '#ef4444', lambda v: f'{int(v)}')
+    pace_html = _mini_line_chart(dist_km, pace, '#60a5fa', _fmt_pace_clock, invert=True)
+    return (
+        '<div style="padding:.6rem .2rem">'
+        '<div style="font-size:.68rem;color:#ef4444;font-weight:700;margin-bottom:.2rem">HEART RATE (bpm)</div>'
+        f'{hr_html}'
+        '<div style="font-size:.68rem;color:#60a5fa;font-weight:700;margin:.5rem 0 .2rem">PACE (min/km)</div>'
+        f'{pace_html}'
+        '</div>'
+    )
+
+
 def build_plan_gantt(targets):
     """Native HTML/CSS: one horizontal bar per week, coloured by phase."""
     today = date.today()
@@ -507,16 +659,33 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
 
 
 def _recent_runs_table(runs, n=10):
-    recent = runs.tail(n)[['Date', 'Name', 'distance_km', 'pace_str', 'avg_hr']].copy()
+    run_curves = _load_run_curves()
+    recent = runs.tail(n)[['id', 'Date', 'Name', 'distance_km', 'pace_str', 'avg_hr']].copy()
     recent['Date'] = recent['Date'].dt.strftime('%a %b %d')
     recent['distance_km'] = recent['distance_km'].apply(lambda x: f'{x:.2f} km')
     recent['avg_hr'] = recent['avg_hr'].apply(lambda x: f'{x:.0f} bpm' if pd.notna(x) else '—')
-    recent.columns = ['Date', 'Name', 'Distance', 'Pace', 'Avg HR']
-    rows = ''.join(
-        f'<tr>{"".join(f"<td>{v}</td>" for v in row)}</tr>'
-        for row in recent.iloc[::-1].itertuples(index=False)
-    )
-    headers = ''.join(f'<th>{c}</th>' for c in recent.columns)
+
+    rows = ''
+    for row in recent.iloc[::-1].itertuples(index=False):
+        activity_id, r_date, r_name, r_dist, r_pace, r_hr = row
+        curve = run_curves.get(str(activity_id))
+        name_cell = r_name
+        extra_row = ''
+        if curve:
+            name_cell += (
+                f' <button type="button" class="btn btn-sm btn-outline-info py-0 px-1" '
+                f'style="font-size:.65rem;line-height:1.4" onclick="toggleCurve(\'{activity_id}\')">📈</button>'
+            )
+            extra_row = (
+                f'<tr id="curve-{activity_id}" style="display:none">'
+                f'<td colspan="5">{build_run_curve_html(curve)}</td></tr>'
+            )
+        rows += (
+            f'<tr><td>{r_date}</td><td>{name_cell}</td><td>{r_dist}</td>'
+            f'<td>{r_pace}</td><td>{r_hr}</td></tr>{extra_row}'
+        )
+
+    headers = ''.join(f'<th>{c}</th>' for c in ['Date', 'Name', 'Distance', 'Pace', 'Avg HR'])
     return (
         '<div class="table-responsive">'
         f'<table class="table table-sm table-striped table-hover align-middle mb-0">'
@@ -714,6 +883,7 @@ def build_dashboard(runs, weekly, targets):
 
     vol_html = build_volume_chart(weekly, targets, plan_start_ts)
     pace_html = build_pace_chart(weekly, runs)
+    load_html = build_load_chart(load_wellness(WELLNESS_CSV), PLAN_START)
     gantt_html = build_plan_gantt(targets)
     recent_table = _recent_runs_table(runs)
     plan_table = _weekly_plan_table(targets)
@@ -983,7 +1153,10 @@ def build_dashboard(runs, weekly, targets):
         {vol_html}
         <p class="section-heading mt-4">Session Pace History</p>
         {pace_html}
-        <p class="section-heading mt-4">Recent Sessions</p>
+        <p class="section-heading mt-4">Fitness &amp; Fatigue (Training Load)</p>
+        <div class="text-muted small mb-2">CTL = Fitness (long-term load average) &middot; ATL = Fatigue (short-term load average) &middot; Form = CTL &minus; ATL (positive = fresh, negative = digging into fatigue)</div>
+        {load_html}
+        <p class="section-heading mt-4">Recent Sessions <span class="text-muted small fw-normal">(📈 = click for HR/pace curves)</span></p>
         {recent_table}
       </div>
 
@@ -1137,6 +1310,12 @@ def build_dashboard(runs, weekly, targets):
 <footer>Munich Marathon 2026 · Iker · Auto-generated from Intervals.icu export · {today.strftime('%b %d, %Y')}</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleCurve(id){{
+  var d = document.getElementById('curve-' + id);
+  if(d) d.style.display = (d.style.display === 'none' ? 'table-row' : 'none');
+}}
+</script>
 <div id="cht"></div>
 <script>
 (function(){{
