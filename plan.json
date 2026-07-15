@@ -6,7 +6,7 @@
       "week": 1,
       "date": "2026-06-08",
       "phase": "Base",
-      "target_km": 36.0,
+      "target_km": 42.4,
       "long_km": 14,
       "days": [
         {
@@ -85,7 +85,7 @@
       "week": 2,
       "date": "2026-06-15",
       "phase": "Base",
-      "target_km": 40.0,
+      "target_km": 46.4,
       "long_km": 16,
       "days": [
         {
@@ -164,7 +164,7 @@
       "week": 3,
       "date": "2026-06-22",
       "phase": "Base ↩ Recovery",
-      "target_km": 31.0,
+      "target_km": 36.6,
       "long_km": 12,
       "days": [
         {
@@ -322,7 +322,7 @@
       "week": 5,
       "date": "2026-07-06",
       "phase": "Base",
-      "target_km": 37.0,
+      "target_km": 43.4,
       "long_km": 16,
       "days": [
         {
@@ -401,7 +401,7 @@
       "week": 6,
       "date": "2026-07-13",
       "phase": "Base",
-      "target_km": 42.0,
+      "target_km": 48.4,
       "long_km": 18,
       "days": [
         {
@@ -480,7 +480,7 @@
       "week": 7,
       "date": "2026-07-20",
       "phase": "Base ↩ Recovery",
-      "target_km": 31.0,
+      "target_km": 36.6,
       "long_km": 12,
       "days": [
         {
@@ -638,7 +638,7 @@
       "week": 9,
       "date": "2026-08-03",
       "phase": "Build",
-      "target_km": 52.0,
+      "target_km": 61.0,
       "long_km": 22,
       "days": [
         {
@@ -796,7 +796,7 @@
       "week": 11,
       "date": "2026-08-17",
       "phase": "Build ↩ Recovery",
-      "target_km": 45.0,
+      "target_km": 53.0,
       "long_km": 18,
       "days": [
         {
@@ -875,7 +875,7 @@
       "week": 12,
       "date": "2026-08-24",
       "phase": "Specific",
-      "target_km": 62.0,
+      "target_km": 76.0,
       "long_km": 28,
       "days": [
         {
@@ -954,7 +954,7 @@
       "week": 13,
       "date": "2026-08-31",
       "phase": "Specific",
-      "target_km": 64.0,
+      "target_km": 75.0,
       "long_km": 30,
       "days": [
         {
@@ -1033,7 +1033,7 @@
       "week": 14,
       "date": "2026-09-07",
       "phase": "Specific",
-      "target_km": 64.0,
+      "target_km": 74.0,
       "long_km": 30,
       "days": [
         {
@@ -1112,7 +1112,7 @@
       "week": 15,
       "date": "2026-09-14",
       "phase": "Specific ↩ Recovery",
-      "target_km": 52.0,
+      "target_km": 61.0,
       "long_km": 22,
       "days": [
         {
@@ -1191,7 +1191,7 @@
       "week": 16,
       "date": "2026-09-21",
       "phase": "Taper start",
-      "target_km": 42.0,
+      "target_km": 47.6,
       "long_km": 16,
       "days": [
         {
@@ -1270,7 +1270,7 @@
       "week": 17,
       "date": "2026-09-28",
       "phase": "Taper",
-      "target_km": 31.0,
+      "target_km": 35.6,
       "long_km": 12,
       "days": [
         {

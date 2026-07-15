@@ -234,6 +234,13 @@ def main():
     # Load or create plan.json
     plan_data = load_or_init_plan()
 
+    # Refresh weekly targets from WEEKLY_PLAN so an existing plan.json follows
+    # any change to the planned-km parsing (e.g. interval-session estimates)
+    quality_by_week = {row[0]: row[4] for row in WEEKLY_PLAN}
+    for week in plan_data["weeks"]:
+        if week["week"] in quality_by_week:
+            week["target_km"] = _week_planned_km(quality_by_week[week["week"]])
+
     # Fill actuals for all past days
     plan_data = fill_actuals(plan_data, runs)
 

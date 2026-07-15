@@ -75,14 +75,54 @@ def _parse_day_sessions(quality):
     return parsed
 
 
+# Rep-structure pattern in session descriptions, e.g. "6×400m", "5×1200m", "8×1k"
+_REP_RE = re.compile(r'(\d+)\s*[×x]\s*(\d+(?:\.\d+)?)\s*(m|k)\b', re.IGNORECASE)
+
+# Warm-up + cool-down + recovery jogs around the reps of an interval session.
+# Calibrated against actual sessions (e.g. 6×400m logged ≈7.3 km total).
+INTERVAL_WUCD_KM = 4.0
+
+
 def _day_planned_km(desc):
-    """Extract the planned distance (km) from a single day's session description."""
-    m = re.search(r'(\d+(?:\.\d+)?)k', desc, re.IGNORECASE)
+    """Extract the planned distance (km) from a single day's session description.
+
+    An explicit total like "10k incl 3×2k" wins. Rep-only sessions ("6×400m")
+    are estimated as reps + warm-up/cool-down so interval days no longer count
+    as 0 planned km (which skewed weekly targets low vs actual volume).
+    """
+    rep = _REP_RE.search(desc)
+    # Strip rep patterns first so "6×1k" isn't misread as an explicit 1k total
+    m = re.search(r'(\d+(?:\.\d+)?)k', _REP_RE.sub('', desc), re.IGNORECASE)
     if m:
         return float(m.group(1))
+    if rep:
+        n, dist, unit = int(rep.group(1)), float(rep.group(2)), rep.group(3).lower()
+        reps_km = n * (dist / 1000.0 if unit == 'm' else dist)
+        return reps_km + INTERVAL_WUCD_KM
     if 'race' in desc.lower():
         return 42.2  # marathon race day — no explicit distance in the description
     return 0.0
+
+
+def _annotate_day_desc(desc):
+    """Append the estimated distance to rep-only session labels ("6×400m ...")
+    so the plan surfaces show the km those sessions now contribute."""
+    if _REP_RE.search(desc) and not re.search(r'(\d+(?:\.\d+)?)k',
+                                              _REP_RE.sub('', desc), re.IGNORECASE):
+        return f'{desc} — ~{_day_planned_km(desc):g}k est'
+    return desc
+
+
+def _annotate_quality(quality):
+    """Annotate every day description in a WEEKLY_PLAN quality string."""
+    parts = []
+    for part in quality.split(' · '):
+        if ': ' in part:
+            day_key, desc = part.split(': ', 1)
+            parts.append(f'{day_key}: {_annotate_day_desc(desc)}')
+        else:
+            parts.append(part)
+    return ' · '.join(parts)
 
 
 def _week_planned_km(quality):
@@ -391,6 +431,7 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
             icon = _icon_map.get(day_entry.get('session_type', 'easy'), icon)
             actual_km = day_entry.get('actual_km')
             session_type_str = day_entry.get('session_type')
+        session = _annotate_day_desc(session)
 
         is_today = (day_date == today)
         is_past = day_date < today
@@ -506,7 +547,7 @@ def _weekly_plan_table(targets):
             f'<td>W{wnum} · {wdate_str}{badge}</td>'
             f'<td>{target_km:.0f} km</td>'
             f'<td>{long_km} km</td>'
-            f'<td class="text-muted small">{quality}</td>'
+            f'<td class="text-muted small">{_annotate_quality(quality)}</td>'
             f'</tr>'
         )
     return (
