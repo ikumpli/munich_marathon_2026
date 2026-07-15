@@ -1380,20 +1380,21 @@ def build_dashboard(runs, weekly, targets):
   <div class="tab-pane fade content-card" id="tab-nutrition">
 
     <div class="text-muted small mb-3">
-      General sports-nutrition guidelines scaled to your profile (74 kg, marathon debutant, sub-4:00 goal) —
-      not personalized medical or dietitian advice. Adjust to what actually sits well with your stomach in training.
+      General sports-nutrition hints, kept casual and eyeballed — not personalized medical or dietitian advice.
+      Adjust to what actually sits well with your stomach in training. The Long-Run Fueling and Race Day cards
+      use real numbers since those two are worth getting closer to right.
     </div>
 
     <div class="row g-3 mb-3">
       <div class="col-md-6">
         <div class="strategy-card">
-          <h6>🍚 Daily Fueling Targets (~74 kg)</h6>
+          <h6>🍚 Daily Fueling — the Everyday Version</h6>
           <ul>
-            <li><strong>Rest / easy days:</strong> ~3–5 g/kg carbs (220–370 g) · 1.6–2.0 g/kg protein (120–150 g).</li>
-            <li><strong>Quality or long-run days:</strong> ~6–8 g/kg carbs (440–590 g) — same protein target.</li>
-            <li><strong>Peak Build/Specific weeks (20k+ long runs):</strong> up to 8–10 g/kg carbs (590–740 g).</li>
-            <li>Fat fills the rest of your calorie needs — favor olive oil, nuts, avocado, oily fish.</li>
-            <li>Spread protein across meals (~25–35 g each) rather than one big serving.</li>
+            <li><strong>Rest / easy days:</strong> normal portions — a fist-ish of rice, pasta or potato with your meal, nothing special needed.</li>
+            <li><strong>Quality or long-run days:</strong> bump it up a notch — an extra slice of bread, a bigger scoop of rice/pasta, or an extra piece of fruit through the day.</li>
+            <li><strong>Big long-run weeks (20k+):</strong> lean noticeably more carb-heavy — think an extra potato, more fruit, maybe a carb snack mid-afternoon.</li>
+            <li>Protein: aim for a palm-sized portion (meat, fish, eggs, tofu, legumes) at each main meal.</li>
+            <li>Fat: normal amounts of olive oil, nuts, avocado, oily fish — don't overthink it.</li>
           </ul>
         </div>
       </div>
@@ -1401,10 +1402,10 @@ def build_dashboard(runs, weekly, targets):
         <div class="strategy-card">
           <h6>💧 Hydration &amp; Electrolytes</h6>
           <ul>
-            <li>Baseline: ~35–45 ml/kg/day (~2.6–3.3 L), more on hot training days.</li>
-            <li>During runs &gt;60–75 min: 400–800 ml/hour depending on heat and sweat rate.</li>
-            <li>Add electrolytes (sodium ~300–700 mg/hour) on hot, sweaty sessions — Jul/Aug heat matters more than October race day.</li>
-            <li>After a hard or hot session, rehydrate with ~125–150% of the fluid you lost.</li>
+            <li>Baseline: drink through the day so your pee stays pale — roughly 8–10 glasses, more on hot days.</li>
+            <li>On longer or hotter runs: sip regularly rather than chugging once — a mouthful every 15–20 min.</li>
+            <li>Hot, sweaty sessions: toss in an electrolyte tab or sports drink, especially through summer heat — matters more in Jul/Aug training than on the cooler October race day.</li>
+            <li>After a hard or hot session, drink more than feels like "enough" — until you're properly not thirsty anymore.</li>
           </ul>
         </div>
       </div>
@@ -1416,9 +1417,8 @@ def build_dashboard(runs, weekly, targets):
           <h6>🌅 Before a Morning Run</h6>
           <ul>
             <li><strong>Easy runs &lt; 60 min:</strong> fine fasted, or just water/coffee — no need to eat.</li>
-            <li><strong>Quality sessions or long runs:</strong> eat 60–90 min before, ~0.5–1.5 g/kg carbs (40–110 g), low fat/fiber/protein to avoid GI trouble.</li>
-            <li>Good options: oatmeal + banana + honey, toast + jam, rice cakes, a ripe banana.</li>
-            <li>Sip 300–500 ml water in the hour before departure.</li>
+            <li><strong>Quality sessions or long runs:</strong> eat something small 60–90 min before — a banana, 1–2 slices of toast with honey or jam, a small bowl of oats, or a few rice cakes. Keep it light and low-fat so your stomach isn't working hard.</li>
+            <li>Have a glass of water beforehand, no need to chug.</li>
           </ul>
         </div>
       </div>
@@ -1426,10 +1426,10 @@ def build_dashboard(runs, weekly, targets):
         <div class="strategy-card">
           <h6>🔁 After a Run — Recovery Window</h6>
           <ul>
-            <li>Within 30–60 min: carbs + protein at roughly a 3:1–4:1 ratio — ~1.0–1.2 g/kg carbs (75–90 g) + ~0.3 g/kg protein (~20–25 g).</li>
-            <li>Easy options: chocolate milk + banana, yogurt + granola + fruit, rice + eggs or chicken.</li>
-            <li>Rehydrate steadily rather than chugging all at once.</li>
-            <li>The harder or longer the session, the more this window matters — don't skip it after long runs or quality days.</li>
+            <li>Within the hour: something with carbs + a bit of protein — chocolate milk, a yogurt with fruit and granola, or rice with eggs or chicken.</li>
+            <li>Don't overthink the exact mix, just cover "some carbs + some protein" and you're set.</li>
+            <li>Rehydrate steadily rather than all at once.</li>
+            <li>Matters most after long runs or hard quality sessions — much less important after a short easy jog.</li>
           </ul>
         </div>
       </div>
@@ -1465,11 +1465,11 @@ def build_dashboard(runs, weekly, targets):
           <div style="display:flex;flex-wrap:wrap;gap:.75rem">
             <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
               <div style="font-size:.7rem;font-weight:700;color:#22c55e;text-transform:uppercase;margin-bottom:.5rem">3 Days Before</div>
-              <div style="font-size:.82rem;color:#94a3b8">Carb-load to ~8–10 g/kg/day (590–740 g). Keep fat/fiber moderate to avoid GI issues — this is about topping up glycogen, not stuffing yourself.</div>
+              <div style="font-size:.82rem;color:#94a3b8">Carb-load to roughly 600–750 g of carbs a day — extra pasta, rice, bread, potatoes, fruit, juice. Keep fat/fiber moderate to avoid GI issues; this is about topping up glycogen, not stuffing yourself.</div>
             </div>
             <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
               <div style="font-size:.7rem;font-weight:700;color:#fbbf24;text-transform:uppercase;margin-bottom:.5rem">Race Morning</div>
-              <div style="font-size:.82rem;color:#94a3b8">2–3 h before the gun: familiar, carb-rich, low-fat/fiber meal, ~1–3 g/kg carbs (75–220 g) — e.g. white bread/bagel + honey, oatmeal + banana. Optional small gel/banana 15–30 min before start.</div>
+              <div style="font-size:.82rem;color:#94a3b8">2–3 h before the gun: familiar, carb-rich, low-fat/fiber meal, around 75–200 g of easy carbs — e.g. white bread/bagel + honey, oatmeal + banana. Optional small gel/banana 15–30 min before start.</div>
             </div>
             <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
               <div style="font-size:.7rem;font-weight:700;color:#60a5fa;text-transform:uppercase;margin-bottom:.5rem">During the Race</div>
