@@ -439,10 +439,10 @@
           "day": "Thu",
           "session_type": "easy",
           "planned": "Easy 8k @6:10–6:30/km",
-          "actual_km": 0.0,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 8.02,
+          "actual_pace_min_km": 5.8206,
+          "actual_hr": 140.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-07-17",
