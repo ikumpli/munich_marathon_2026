@@ -676,10 +676,10 @@
           "day": "Thu",
           "session_type": "easy",
           "planned": "Easy 11k @6:10–6:30/km",
-          "actual_km": 0.0,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 10.02,
+          "actual_pace_min_km": 6.0152,
+          "actual_hr": 137.0,
+          "actual_name": "Vilalba Running"
         },
         {
           "date": "2026-08-07",
