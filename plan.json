@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-30",
-  "last_adjusted": "2026-08-08",
+  "last_adjusted": "2026-08-09",
   "weeks": [
     {
       "week": 1,
@@ -696,17 +696,17 @@
           "day": "Sat",
           "session_type": "easy",
           "planned": "11k steady @5:50–6:10/km",
-          "actual_km": 0.0,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 12.2,
+          "actual_pace_min_km": 5.6452,
+          "actual_hr": 147.0,
+          "actual_name": "Vilalba Running"
         },
         {
           "date": "2026-08-09",
           "day": "Sun",
           "session_type": "long",
           "planned": "Long 22k @6:00–6:20/km",
-          "actual_km": null,
+          "actual_km": 0.0,
           "actual_pace_min_km": null,
           "actual_hr": null,
           "actual_name": null
