@@ -23,6 +23,17 @@ MARATHON_DATE = date(2026, 10, 11)
 PLAN_START = date(2026, 6, 8)
 TARGET_PACE_MIN_KM = 5.0 + 40.0 / 60.0  # 5:40/km
 
+RETURN_PLAN_START = date(2026, 9, 7)
+RETURN_PLAN_NOTE = (
+    'Accelerated draft requested on 7 September. Distances are conditional ceilings, '
+    'not a medically cleared prescription. Review the exact progression and each longer '
+    'run with your physio first. Progress only when preceding runs and next-morning '
+    'walking, stiffness and swelling remain settled; otherwise repeat the last tolerated '
+    'dose or rest. Stop for increasing inner-ankle pain, swelling or a changed stride. '
+    'All runs easy and conversational; no catch-up miles or speedwork. '
+    'Completing a long run does not establish marathon readiness. Sub-4 is on hold.'
+)
+
 # Weekly plan: (week_num, date_label, orig_km, long_km, quality_description, phase)
 # quality string encodes all 7 days: "Mon: ... · Tue: ... · Wed: ... · Thu: ... · Fri: ... · Sat: ... · Sun: ..."
 WEEKLY_PLAN = [
@@ -39,14 +50,19 @@ WEEKLY_PLAN = [
     (11, "Aug 17", 40, 18, "Mon: Rest or swim · Tue: 5×1k @VO2 easy (4:15–4:25/km) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 10k @6:10–6:30/km · Fri: Rest · Sat: 10k steady @5:50–6:10/km · Sun: Long 18k @6:10–6:20/km",                                "Build ↩ Recovery"),
     (12, "Aug 24", 54, 28, "Mon: Rest or swim · Tue: 6×2k @MP (5:40/km, 2min rest) · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 12k @6:10–6:30/km · Fri: Rest · Sat: 13k incl 6k @5:40/km · Sun: Long 28k (final 6k @5:40/km)",                              "Specific"),
     (13, "Aug 31", 56, 30, "Mon: Rest or swim · Tue: 8×1k @MP (5:40/km, 90s rest) · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 13k @6:10–6:30/km · Fri: Rest · Sat: 13k incl 8k @5:40/km · Sun: Long 30k (final 8k @5:40/km)",                               "Specific"),
-    (14, "Sep 7",  56, 30, "Mon: Rest or swim · Tue: 4×2k @MP (5:40/km, 2min rest) · Wed: Easy 7k @6:10–6:30/km · Thu: Easy 12k @6:10–6:30/km · Fri: Rest · Sat: 13k incl 10k @5:40/km · Sun: Long 30k (14–16k @5:40/km)",                               "Specific"),
-    (15, "Sep 14", 46, 22, "Mon: Rest or swim · Tue: 6×1k @MP easy (5:40/km, 90s rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 11k @6:10–6:30/km · Fri: Rest · Sat: 12k incl short MP effort · Sun: Long 22k (6k @5:40/km)",                            "Specific ↩ Recovery"),
-    (16, "Sep 21", 40, 16, "Mon: Rest or swim · Tue: 8×200m fast strides (3:50–4:00/km, 60s rest) · Wed: Easy 6k @6:10–6:30/km · Thu: Easy 10k @6:10–6:30/km · Fri: Rest · Sat: 10k incl 3×2k @5:40/km · Sun: Long 16k @6:00–6:20/km",            "Taper start"),
-    (17, "Sep 28", 28, 12, "Mon: Rest or swim · Tue: 6×100m easy strides · Wed: Easy 5k @6:20–6:40/km · Thu: Easy 7k @6:20–6:40/km · Fri: Rest · Sat: Easy 7k @6:20–6:40/km · Sun: Long 12k @6:10–6:30/km",                                       "Taper"),
-    (18, "Oct 5",  20,  0, "Mon: Easy 4k @6:20–6:40/km · Tue: Rest · Wed: 3k easy strides · Thu: Rest · Fri: Rest · Sat: Rest · Sun: RACE DAY 🏁 — 5:40/km avg, negative split",                                                                    "Race week"),
+    (14, "Sep 7", 23, 10, "Mon: Easy 3k ceiling or 20 min, whichever first · Tue: Rest · Wed: Easy 5k ceiling if settled · Thu: Rest · Fri: Easy 5k ceiling if settled · Sat: Rest; physio review before longer run · Sun: PROPOSED long 10k ceiling — exact distance needs physio review; otherwise repeat tolerated dose", "Return draft"),
+    (15, "Sep 14", 30, 14, "Mon: Rest · Tue: Easy 4k ceiling · Wed: Recovery 4k ceiling — omit if consecutive days not tolerated · Thu: Easy 5k ceiling · Fri: Rest · Sat: Recovery 3k ceiling · Sun: PROPOSED long 14k ceiling — only after settled prior week and physio review; otherwise repeat tolerated dose", "Build draft"),
+    (16, "Sep 21", 36, 20, "Mon: Rest; participation review before entry-change deadline · Tue: Easy 4k ceiling · Wed: Recovery 5k ceiling · Thu: Easy 5k ceiling · Fri: Rest · Sat: Recovery 2k ceiling or rest · Sun: PROPOSED long 20k ceiling — physio review of prior long-run recovery required; otherwise repeat tolerated dose; no finish-time test", "Long-run draft"),
+    (17, "Sep 28", 24, 10, "Mon: Rest; review response to longer run · Tue: Easy 4k ceiling · Wed: Recovery 4k ceiling · Thu: Easy 4k ceiling · Fri: Rest · Sat: Recovery 2k ceiling · Sun: Easy long 10k ceiling if settled — no late catch-up", "Taper draft"),
+    (18, "Oct 5", 48.2, 0, "Mon: Rest · Tue: Easy 3k ceiling · Wed: Rest · Thu: Easy 3k ceiling · Fri: Rest · Sat: Rest · Sun: CONDITIONAL RACE 42.2k — participation requires separate reassessment; no sub-4 target; otherwise rest", "Race decision"),
 ]
 
 PHASE_COLORS = {
+    "Return draft": "#f59e0b",
+    "Build draft": "#f59e0b",
+    "Long-run draft": "#f59e0b",
+    "Taper draft": "#22c55e",
+    "Race decision": "#f59e0b",
     "Base": "#3b82f6",
     "Base ↩ Recovery": "#93c5fd",
     "Build": "#f97316",
@@ -344,7 +360,7 @@ def build_pace_chart(weekly, runs):
 
     ty = yp(target)
     p.append(f'<line x1="{pad_l}" y1="{ty:.1f}" x2="{W - pad_r}" y2="{ty:.1f}" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="5 4"/>')
-    p.append(f'<text x="{W - pad_r}" y="{ty - 5:.1f}" fill="#22c55e" font-size="10" text-anchor="end">Target MP 5:40</text>')
+    p.append(f'<text x="{W - pad_r}" y="{ty - 5:.1f}" fill="#22c55e" font-size="10" text-anchor="end">Original MP 5:40 (on hold)</text>')
 
     wk_dates = list(pd.to_datetime(weekly['week_start']))
     wk_pace = [float(v) if pd.notna(v) else None for v in weekly['rolling_pace_4w']]
@@ -363,7 +379,7 @@ def build_pace_chart(weekly, runs):
         '<div class="chart-legend">'
         '<span class="ci"><span class="sw" style="background:#818cf8;width:10px;height:10px;border-radius:50%"></span>Session pace</span>'
         '<span class="ci"><span class="sw" style="background:#ec4899"></span>4-week avg</span>'
-        '<span class="ci"><span class="sw" style="background:#22c55e"></span>Target MP</span>'
+        '<span class="ci"><span class="sw" style="background:#22c55e"></span>Original MP (on hold)</span>'
         '</div>'
     )
     return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
@@ -708,7 +724,7 @@ def _week_calendar_html(week_entry, targets, today, plan_days=None):
         f'color:#475569;margin-bottom:.85rem">'
         f'Week {wnum} &nbsp;·&nbsp; {wdate_str} &nbsp;·&nbsp; '
         f'<span style="color:{phase_color}">{phase}</span> &nbsp;·&nbsp; '
-        f'Target: <span style="color:#f1f5f9">{target_km_val:.0f} km</span>'
+        f'Target: <span style="color:#f1f5f9">{target_km_val:g} km</span>'
         f'</div>'
         f'<div style="display:flex;gap:.5rem;flex-wrap:wrap">{cards}</div>'
         f'</div>'
@@ -765,13 +781,13 @@ def _weekly_plan_table(targets):
         row_class = 'table-primary fw-bold' if is_current else ('text-muted' if is_past else '')
         badge = (
             '<span class="badge bg-primary ms-1">Current</span>' if is_current
-            else ('<span class="badge bg-secondary ms-1">Done</span>' if is_past else '')
+            else ('<span class="badge bg-secondary ms-1">Past</span>' if is_past else '')
         )
         rows += (
             f'<tr class="{row_class}">'
             f'<td><span class="badge" style="background:{color}">{phase}</span></td>'
             f'<td>W{wnum} · {wdate_str}{badge}</td>'
-            f'<td>{target_km:.0f} km</td>'
+            f'<td>{target_km:g} km</td>'
             f'<td>{long_km} km</td>'
             f'<td class="text-muted small">{_annotate_quality(quality)}</td>'
             f'</tr>'
@@ -895,11 +911,13 @@ def build_dashboard(runs, weekly, targets):
     current_week_num = ((today - PLAN_START).days // 7) + 1
     current_week_num = max(1, min(current_week_num, 18))
 
-    four_week_avg = float(weekly['total_km'].tail(4).mean()) if not weekly.empty else 0.0
+    four_week_avg = 0.0  # computed from completed calendar weeks below
     # Look up weeks by their Monday date (robust to an empty current week)
     this_week_monday = pd.Timestamp(today - timedelta(days=today.weekday()))
     last_week_monday = this_week_monday - pd.Timedelta(weeks=1)
     weekly_by_monday = weekly.set_index('week_start')
+    completed_weeks = pd.date_range(end=last_week_monday, periods=4, freq='7D')
+    four_week_avg = float(weekly_by_monday['total_km'].reindex(completed_weeks, fill_value=0).mean())
 
     def _week_metric(monday, col, default):
         return weekly_by_monday.loc[monday, col] if monday in weekly_by_monday.index else default
@@ -929,13 +947,13 @@ def build_dashboard(runs, weekly, targets):
     load_status = ''
     load_badge = ''
     if last_week_target and last_week_km < last_week_target * 0.80:
-        load_status = 'Underloaded'
+        load_status = 'Below historical plan — no catch-up'
         load_badge = 'bg-warning text-dark'
     elif last_week_target and last_week_km > last_week_target * 1.10:
         load_status = 'Overloaded ⚠️'
         load_badge = 'bg-danger'
     else:
-        load_status = 'On track ✓'
+        load_status = 'Volume matches plan (not medical clearance)'
         load_badge = 'bg-success'
 
     vol_html = build_volume_chart(weekly, targets, plan_start_ts)
@@ -947,7 +965,7 @@ def build_dashboard(runs, weekly, targets):
         form_label, form_color = _form_status(latest_form)
         form_badge_html = (
             f'<span class="badge fs-6 px-3 py-2 ms-2" style="background:{form_color};color:#0f172a">'
-            f'Fatigue: {latest_form:+.0f} · {form_label}</span>'
+            f'Load model: {latest_form:+.0f} (not readiness)</span>'
         )
     else:
         form_badge_html = ''
@@ -1108,7 +1126,7 @@ def build_dashboard(runs, weekly, targets):
           <span style="font-size:1.8rem">🏃</span>
           <h1 class="hero-title mb-0">Munich Marathon 2026</h1>
         </div>
-        <p class="hero-sub">Training Dashboard · Iker · Goal: Sub 4:00 &nbsp;·&nbsp; <span style="color:#93c5fd;font-weight:600">{today.strftime('%A, %B %d, %Y')}</span> &nbsp;·&nbsp; Last sync: {last_date}</p>
+        <p class="hero-sub">Training Dashboard · Iker · Return draft; original sub-4 goal on hold &nbsp;·&nbsp; <span style="color:#93c5fd;font-weight:600">{today.strftime('%A, %B %d, %Y')}</span> &nbsp;·&nbsp; Last recorded run: {last_date}</p>
         <div class="countdown-block">
           <div class="cdown-item">
             <div class="cdown-num">{days_to_race}</div>
@@ -1138,7 +1156,7 @@ def build_dashboard(runs, weekly, targets):
       <div class="kpi-card">
         <div class="kpi-icon">📅</div>
         <div class="kpi-value">{four_week_avg:.1f}</div>
-        <div class="kpi-label">km/week (4w avg)</div>
+        <div class="kpi-label">km/week (last 4 complete weeks)</div>
       </div>
     </div>
     <div class="col-6 col-md-2">
@@ -1166,7 +1184,7 @@ def build_dashboard(runs, weekly, targets):
       <div class="kpi-card">
         <div class="kpi-icon">🎯</div>
         <div class="kpi-value">5:40</div>
-        <div class="kpi-label">target MP</div>
+        <div class="kpi-label">original MP — on hold</div>
       </div>
     </div>
     <div class="col-6 col-md-2">
@@ -1179,6 +1197,13 @@ def build_dashboard(runs, weekly, targets):
   </div>
 
   <!-- CURRENT WEEK CALENDAR -->
+  <div class="strategy-card mb-4" style="border-color:#f59e0b" role="note">
+    <h6 style="color:#fbbf24">Accelerated return draft · effective 7 September</h6>
+    <p style="color:#e2e8f0">{RETURN_PLAN_NOTE}</p>
+    <p class="mb-0" style="color:#cbd5e1">Proposed Sundays: 13 Sep — 10 km; 20 Sep — 14 km; 27 Sep — 20 km; 4 Oct — 10 km.
+    These are review options, not instructions to force the distance. Weekly totals include every proposed run;
+    race week is 6 km training + 42.2 km only if participation is agreed separately. No 25–30 km run is prescribed.</p>
+  </div>
   {calendar_html}
 
   <!-- TABS -->
@@ -1244,7 +1269,7 @@ def build_dashboard(runs, weekly, targets):
   <!-- TAB: TRAINING PLAN -->
   <div class="tab-pane fade content-card" id="tab-plan">
 
-    <p class="section-heading">19-Week Plan Overview — Weekly targets by phase</p>
+    <p class="section-heading">18-Week Overview — history and revised draft ceilings</p>
     {gantt_html}
 
     <p class="section-heading mt-4">Full Week-by-Week Schedule</p>
@@ -1260,24 +1285,22 @@ def build_dashboard(runs, weekly, targets):
         <div class="strategy-card">
           <h6>📅 Training Phases</h6>
           <ul>
-            <li><strong>Weeks 1–4 · Base:</strong> Build consistency, easy mileage, 1 long run/week.</li>
-            <li><strong>Weeks 5–12 · Build:</strong> Introduce tempo, threshold &amp; VO2 intervals. Long run grows.</li>
-            <li><strong>Weeks 13–17 · Specific:</strong> Marathon-pace long runs, MP interval blocks.</li>
-            <li><strong>Weeks 18–19 · Taper:</strong> Drop volume, keep sharpness, arrive fresh.</li>
+            <li><strong>Weeks 1–13:</strong> Historical prescriptions, including the injury break.</li>
+            <li><strong>Week 14:</strong> Four-run return draft; review before the proposed longer run.</li>
+            <li><strong>Weeks 15–16:</strong> Five-run draft only if recovery supports it; all easy.</li>
+            <li><strong>Weeks 17–18:</strong> Reduce load; marathon participation remains conditional.</li>
           </ul>
         </div>
       </div>
       <div class="col-md-6">
         <div class="strategy-card">
-          <h6>📆 Weekly Template (5 runs)</h6>
+          <h6>📆 Return schedule</h6>
           <ul>
-            <li><strong>Mon:</strong> Rest or easy swim (optional).</li>
-            <li><strong>Tue:</strong> Quality session — 400m intervals (Base) or VO2/tempo (Build+).</li>
-            <li><strong>Wed:</strong> Easy recovery run (+ strength 30 min).</li>
-            <li><strong>Thu:</strong> Tempo or marathon-pace run.</li>
-            <li><strong>Fri:</strong> Easy run or rest.</li>
-            <li><strong>Sat:</strong> Medium-long steady run.</li>
-            <li><strong>Sun:</strong> Long run (progressive; MP segments from W13).</li>
+            <li><strong>7–13 Sep:</strong> Four proposed runs: Monday, Wednesday, Friday and Sunday.</li>
+            <li><strong>Following three weeks:</strong> Up to five easy runs: Tuesday, Wednesday, Thursday, Saturday and Sunday.</li>
+            <li><strong>Recovery days:</strong> Monday and Friday. Keep the Saturday run short.</li>
+            <li><strong>Consecutive days:</strong> Omit a recovery run if not tolerated; do not move its distance elsewhere.</li>
+            <li><strong>Race week:</strong> Two short easy runs; participation decision remains separate.</li>
           </ul>
         </div>
       </div>
@@ -1286,26 +1309,18 @@ def build_dashboard(runs, weekly, targets):
     <div class="row g-3 mb-4">
       <div class="col-md-6">
         <div class="strategy-card">
-          <h6>⏱️ Training Pace Zones</h6>
-          <div class="pace-zone"><span class="pace-dot" style="background:#22c55e"></span><span><strong>Easy / Recovery</strong> — 6:00–6:40 min/km</span></div>
-          <div class="pace-zone"><span class="pace-dot" style="background:#3b82f6"></span><span><strong>Long run</strong> — 5:50–6:20 min/km</span></div>
-          <div class="pace-zone"><span class="pace-dot" style="background:#f97316"></span><span><strong>Marathon Pace (MP)</strong> — ~5:40 min/km</span></div>
-          <div class="pace-zone"><span class="pace-dot" style="background:#f43f5e"></span><span><strong>Tempo / Threshold</strong> — 4:50–5:20 min/km</span></div>
-          <div class="pace-zone"><span class="pace-dot" style="background:#8b5cf6"></span><span><strong>VO2max intervals</strong> — 4:00–4:20 min/km</span></div>
-          <p class="small text-muted mt-2">Keep ≥ 80 % of weekly km at easy effort.</p>
+          <h6>⏱️ Effort during the return</h6>
+          <p>Every run easy and conversational, around 2–3/10 effort. Slow down or walk when needed.</p>
+          <p>Ignore the old pace zones. No tempo, intervals, hills or marathon-pace blocks in this draft.</p>
+          <p class="mb-0">Warm up and cool down with five minutes of walking. Tonight: 3 km or 20 minutes, whichever comes first.</p>
         </div>
       </div>
       <div class="col-md-6">
         <div class="strategy-card">
-          <h6>🏁 Race Day Strategy</h6>
-          <ul>
-            <li><strong>Target:</strong> Sub 4:00 (avg 5:40 min/km).</li>
-            <li><strong>Split strategy:</strong> Negative split — first half slightly conservative (~2:02), second half push (~1:58).</li>
-            <li><strong>First 5k:</strong> Resist the crowd, run by feel not GPS.</li>
-            <li><strong>Fuel:</strong> Gel every 30–40 min from km 10 onward.</li>
-            <li><strong>Carb load:</strong> 48 h pre-race. Sleep well 2 nights before.</li>
-            <li><strong>Warm-up:</strong> 10 min easy jog + drills, 30 min before gun.</li>
-          </ul>
+          <h6>🏁 Participation review</h6>
+          <p>Review the full-marathon decision with your physio by 21 September, before the 27 September entry-change deadline.</p>
+          <p>A settled long run does not prove tolerance of a marathon. No sub-4 pacing prescription is active.</p>
+          <p class="mb-0">If participation is not supported, omit the race and continue an individually adjusted return. A slower pace or walk breaks do not remove the prolonged load.</p>
         </div>
       </div>
     </div>
@@ -1313,25 +1328,21 @@ def build_dashboard(runs, weekly, targets):
     <div class="row g-3">
       <div class="col-md-6">
         <div class="strategy-card">
-          <h6>⚡ Key Session Types</h6>
-          <ul>
-            <li><strong>400m intervals (Base, W1–3):</strong> 6×400m with 2 min rest — first 3 reps at constant rhythm (~4:45–4:50/km), last 3 progressive getting faster each rep. Add 2 more reps in W3 when ready.</li>
-            <li><strong>VO2 intervals (Build+):</strong> 6×1k or 5×1200m at 3–5k effort with 90 s–2 min recovery.</li>
-            <li><strong>Tempo / Threshold:</strong> 20–40 min continuous at comfortably hard pace (4:50–5:20/km).</li>
-            <li><strong>MP runs:</strong> 8–16k blocks at target 5:40 pace.</li>
-            <li><strong>Long run:</strong> From W13 include MP segments (final 8–16k at MP).</li>
-          </ul>
+          <h6>📏 Before increasing the long run</h6>
+          <p>Review the proposed distance with your physio using the preceding week and the response to the previous longer run.</p>
+          <p>Only proceed when walking, stairs, morning stiffness, tenderness and swelling remain at baseline.</p>
+          <p class="mb-0">If the increase is not supported, repeat the last tolerated dose or rest. No extra long run later to make up a missed one.</p>
         </div>
       </div>
       <div class="col-md-6">
         <div class="strategy-card">
-          <h6>🛡️ Injury Prevention</h6>
+          <h6>🛡️ Rehabilitation and recovery</h6>
           <ul>
-            <li>Never increase weekly km &gt; 10 % in one step.</li>
-            <li>Step-back week every 4th week (−15 % volume).</li>
-            <li>2×/week strength: glutes, core, single-leg stability.</li>
-            <li>If resting HR is elevated or legs feel heavy → swap quality for easy miles.</li>
-            <li>Swim as low-impact cross-training when legs need a break.</li>
+            <li>This accelerated draft exceeds a conservative return; no percentage rule guarantees safety.</li>
+            <li>Stop for increasing inner-ankle pain, swelling or an altered stride. Recheck the following morning.</li>
+            <li>Twice weekly: familiar, tolerated physio exercises for calf, posterior tibial tendon, hips and core.</li>
+            <li>Keep at least one genuine rest day; optional easy swimming only if comfortable.</li>
+            <li>Do not introduce heavy new strength work or jumping sports while adding running load.</li>
           </ul>
         </div>
       </div>
@@ -1342,9 +1353,9 @@ def build_dashboard(runs, weekly, targets):
         <div class="strategy-card" style="border-color:#f97316">
           <h6 style="color:#f97316">🏷️ Activity Naming Guide — How the plan agent detects your sessions</h6>
           <p style="font-size:.85rem;color:#94a3b8;margin-bottom:.75rem">
-            The adaptive plan agent reads your <strong>Garmin / Intervals.icu activity name</strong> to
+            The tracking script reads your <strong>Garmin / Intervals.icu activity name</strong> to
             decide whether you completed a quality session or just ran easy.
-            Name your sessions accordingly so the agent adjusts your week correctly.
+            It logs completion only; it does not adapt the plan or assess injury recovery.
           </p>
           <div style="display:flex;flex-wrap:wrap;gap:.75rem">
             <div style="flex:1;min-width:200px;background:#0f172a;border-radius:8px;padding:.75rem">
@@ -1562,7 +1573,7 @@ def build_ics():
         'VERSION:2.0',
         'PRODID:-//Munich Marathon 2026//Training Calendar//EN',
         'X-WR-CALNAME:Munich Marathon 2026 — Training',
-        'X-WR-CALDESC:19-week marathon training plan for Iker. Goal: Sub 4:00 on Oct 11 2026.',
+        'X-WR-CALDESC:18-week training history; accelerated return draft from Sep 7. Sub-4 on hold. Future sessions conditional on review.',
         'CALSCALE:GREGORIAN',
         'METHOD:PUBLISH',
     ]
@@ -1581,7 +1592,9 @@ def build_ics():
             desc = parsed.get(day_key, 'Rest')
             dl = desc.lower()
 
-            if 'race' in dl or '🏁' in desc:
+            if dl.startswith('rest'):
+                summary = '🏊 Rest / Swim' if 'swim' in dl else '💤 Rest'
+            elif 'race' in dl or '🏁' in desc:
                 summary = f'🏁 RACE — Munich Marathon'
             elif 'long' in dl:
                 summary = f'📏 Long run — W{wnum} {phase}'
@@ -1593,7 +1606,7 @@ def build_ics():
                 summary = f'🎯 MP run — W{wnum} {phase}'
             elif 'swim' in dl:
                 summary = '🏊 Rest / Swim'
-            elif 'rest' in dl:
+            elif dl.startswith('rest'):
                 summary = '💤 Rest'
             else:
                 summary = f'🏃 Easy run — W{wnum} {phase}'
@@ -1603,6 +1616,10 @@ def build_ics():
             dtstart = day_date.strftime('%Y%m%d')
             dtend = (day_date + timedelta(days=1)).strftime('%Y%m%d')
             full_desc = f"W{wnum} · {wdate_str} · {phase} | {desc}"
+            revised = day_date >= RETURN_PLAN_START
+            if revised:
+                summary = f'DRAFT — {summary}'
+                full_desc += '\n' + RETURN_PLAN_NOTE
 
             lines += [
                 'BEGIN:VEVENT',
@@ -1612,6 +1629,7 @@ def build_ics():
                 f'SUMMARY:{_ics_esc(summary)}',
                 f'DESCRIPTION:{_ics_esc(full_desc)}',
                 f'CATEGORIES:{_ics_esc(phase)}',
+                *(['STATUS:TENTATIVE', 'SEQUENCE:20260907', 'DTSTAMP:20260907T000000Z'] if revised else []),
                 'END:VEVENT',
             ]
 

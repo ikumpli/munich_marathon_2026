@@ -21,7 +21,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).parent))
-from generate_dashboard import WEEKLY_PLAN, PLAN_START, _week_planned_km  # type: ignore
+from generate_dashboard import WEEKLY_PLAN, PLAN_START, RETURN_PLAN_START, RETURN_PLAN_NOTE, _week_planned_km  # type: ignore
 
 DATA = ROOT / "i600311_activities.csv"
 PLAN_JSON = ROOT / "plan.json"
@@ -42,6 +42,8 @@ DAYS_DEFAULTS = {
 
 def classify_session(desc: str) -> str:
     d = desc.lower()
+    if d.startswith("rest"):
+        return "rest"
     if "race" in d:
         return "race"
     if "long" in d:
@@ -51,7 +53,7 @@ def classify_session(desc: str) -> str:
     d_check = d.replace("no strides", "").replace("without strides", "")
     if any(x in d_check for x in ["interval", "tempo", "vo2", "strides", "progressive↗", "quality"]):
         return "quality"
-    if any(x in d for x in ["rest", "swim"]):
+    if d.startswith(("rest", "swim")):
         return "rest"
     return "easy"
 
@@ -114,6 +116,28 @@ def load_or_init_plan() -> dict:
     return plan
 
 
+def refresh_return_plan(plan_data: dict) -> None:
+    """Refresh revised prescriptions without replacing historical days or actuals."""
+    revised = {w["week"]: w for w in generate_plan_json()["weeks"]
+               if w["date"] >= RETURN_PLAN_START.isoformat()}
+    for week in plan_data["weeks"]:
+        new = revised.get(week["week"])
+        if new is None:
+            continue
+        for field in ("phase", "target_km", "long_km"):
+            week[field] = new[field]
+        by_date = {day["date"]: day for day in new["days"]}
+        for day in week["days"]:
+            if day["date"] in by_date:
+                for field in ("planned", "session_type"):
+                    day[field] = by_date[day["date"]][field]
+    plan_data["revision"] = {
+        "effective_from": RETURN_PLAN_START.isoformat(),
+        "status": "accelerated_draft_for_physio_review",
+        "note": RETURN_PLAN_NOTE,
+    }
+
+
 # ── Fill actuals ──────────────────────────────────────────────────────────────
 
 def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
@@ -153,7 +177,7 @@ def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
                     day["actual_name"] = " + ".join(act["names"])
             else:
                 # Explicitly mark past run days as 0 so the dashboard can show ✗
-                if day["session_type"] in ("easy", "quality", "long"):
+                if d < today_iso and day["session_type"] in ("easy", "quality", "long"):
                     day["actual_km"] = 0.0
 
     return plan_data
@@ -233,6 +257,7 @@ def main():
 
     # Load or create plan.json
     plan_data = load_or_init_plan()
+    refresh_return_plan(plan_data)
 
     # Refresh weekly targets from WEEKLY_PLAN so an existing plan.json follows
     # any change to the planned-km parsing (e.g. interval-session estimates)

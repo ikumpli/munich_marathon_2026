@@ -1,3 +1,27 @@
+# Revised Munich schedule — 7 September 2026
+
+**Accelerated review draft requested by Iker.** Your physio supports a faster return in general; the exact distances below have not been reported as cleared. This is not a medical recommendation to complete these distances. Review each increase using current strength, impact tolerance and the response to preceding runs. If not supported, repeat the last tolerated dose or rest. Do not make up missed distance.
+
+All runs easy and conversational, on flat routes. Distances are ceilings. Stop for increasing inner-ankle pain, swelling or altered stride, and check the following morning for stiffness, tenderness or swelling. The proposed build is aggressive after a four-week break. Neither a pain-free long run nor the load-model score establishes readiness for 42.2 km. Original sub-4 goal is on hold.
+
+| Week | Mon | Tue | Wed | Thu | Fri | Sat | Sun | Draft total |
+|---|---|---|---|---|---|---|---|---|
+| 7–13 Sep | 3 km or 20 min, whichever first | Rest | 5 km | Rest | 5 km | Rest / review | Proposed 10 km | Up to 23 km |
+| 14–20 Sep | Rest | 4 km | 4 km | 5 km | Rest | 3 km | Proposed 14 km | Up to 30 km |
+| 21–27 Sep | Rest / participation review | 4 km | 5 km | 5 km | Rest | 2 km or rest | Proposed 20 km | Up to 36 km |
+| 28 Sep–4 Oct | Rest / recovery review | 4 km | 4 km | 4 km | Rest | 2 km | 10 km if settled | Up to 24 km |
+| 5–11 Oct | Rest | 3 km | Rest | 3 km | Rest | Rest | Conditional marathon or rest | 6 km training; 48.2 km only with race |
+
+Before each proposed long run, your physio should review the exact increase. The 20 km option is on 27 September, two weeks before the event; it is not a mandatory test, and no 25–30 km run is included. If consecutive running days are not tolerated, drop a recovery run without redistributing its kilometres. Maintain two short sessions of already tolerated rehabilitation exercises and at least one genuine rest day.
+
+Review marathon participation by 21 September, ahead of the organiser's 27 September entry-change deadline. Completing this draft is not a clearance criterion. If participation is not supported, omit the race and continue an individually adjusted return.
+
+The dashboard and calendar use these revised daily prescriptions. Earlier weeks below are retained as **historical reference only**; they are superseded from 7 September onward, including all old pace, taper and automatic-plan recommendations.
+
+Sources: [official race](https://marathonmuenchen.org/en/the-marathon-one-lap-course-through-munich/), [entry rules](https://marathonmuenchen.org/en/questions/), [NHS posterior tibial load management](https://www.norfolkandwaveneycommunityhealth.nhs.uk/msk/self-help/foot-and-ankle/posterior-tibial-tendinopathy/), [HSS advice against catch-up long runs](https://news.hss.edu/cbs-newspath/).
+
+---
+
 # Marathon Training Plan — Munich Marathon 2026
 
 Assumptions
