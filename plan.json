@@ -1091,10 +1091,10 @@
           "day": "Sat",
           "session_type": "rest",
           "planned": "Rest; physio review before longer run",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 6.7,
+          "actual_pace_min_km": 6.0363,
+          "actual_hr": 151.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-09-13",
