@@ -1101,10 +1101,10 @@
           "day": "Sun",
           "session_type": "long",
           "planned": "PROPOSED long 10k ceiling — exact distance needs physio review; otherwise repeat tolerated dose",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 10.2,
+          "actual_pace_min_km": 5.5836,
+          "actual_hr": 150.0,
+          "actual_name": "Munich Running"
         }
       ]
     },
