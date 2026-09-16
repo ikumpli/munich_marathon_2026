@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-30",
-  "last_adjusted": "2026-09-15",
+  "last_adjusted": "2026-09-16",
   "weeks": [
     {
       "week": 1,
@@ -1130,10 +1130,10 @@
           "day": "Tue",
           "session_type": "easy",
           "planned": "Easy 4k ceiling",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 6.48,
+          "actual_pace_min_km": 5.8589,
+          "actual_hr": 153.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-09-16",
