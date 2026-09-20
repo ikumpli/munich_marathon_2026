@@ -1180,10 +1180,10 @@
           "day": "Sun",
           "session_type": "long",
           "planned": "PROPOSED long 14k ceiling — only after settled prior week and physio review; otherwise repeat tolerated dose",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 20.01,
+          "actual_pace_min_km": 5.7748,
+          "actual_hr": 158.0,
+          "actual_name": "Munich Running"
         }
       ]
     },
