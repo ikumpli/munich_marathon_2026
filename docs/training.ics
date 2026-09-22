@@ -884,11 +884,13 @@ DESCRIPTION:W16 · Sep 21 · Consolidate | Easy 5k\, conversational\; short
  ful easy-run reference\, not a tested zone or a target to chase. Distances
   are upper limits: shorten or skip for fatigue. If the injury pain returns
  \, increases\, changes your stride or leaves next-morning swelling/stiffne
- ss\, stop running and follow up with your physio. No missed-distance catch
- -up or new hard sessions.
+ ss\, stop running and follow up with your physio. Optional short goal-pace
+  rehearsal on 24 September only if settled. Race: conditional sub-4 attemp
+ t\; 5:45/km for 5 km\, then about 5:39/km only while controlled. Switch to
+  comfortable effort if strain rises\; no catch-up surges.
 CATEGORIES:Consolidate
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -904,11 +906,13 @@ DESCRIPTION:W16 · Sep 21 · Consolidate | Rest or gentle swim\; familiar p
  eference\, not a tested zone or a target to chase. Distances are upper lim
  its: shorten or skip for fatigue. If the injury pain returns\, increases\,
   changes your stride or leaves next-morning swelling/stiffness\, stop runn
- ing and follow up with your physio. No missed-distance catch-up or new har
- d sessions.
+ ing and follow up with your physio. Optional short goal-pace rehearsal on 
+ 24 September only if settled. Race: conditional sub-4 attempt\; 5:45/km fo
+ r 5 km\, then about 5:39/km only while controlled. Switch to comfortable e
+ ffort if strain rises\; no catch-up surges.
 CATEGORIES:Consolidate
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -916,19 +920,22 @@ UID:20260924-w16-thu@munich-marathon-2026
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
 SUMMARY:UPDATED — 🏃 Easy run — W16 Consolidate
-DESCRIPTION:W16 · Sep 21 · Consolidate | Easy 6k\; practice relaxed openi
- ng effort\, no fast finish\nUpdated 22 September after the 20 km run and y
- our reported physio okay. Three easy runs this week\, three next week\, th
- en two short runs before race day. Use conversational effort (2–3/10)\; 
- roughly 6:15–6:45/km or slower. An approximate 145–150 bpm is a useful
-  easy-run reference\, not a tested zone or a target to chase. Distances ar
- e upper limits: shorten or skip for fatigue. If the injury pain returns\, 
- increases\, changes your stride or leaves next-morning swelling/stiffness\
- , stop running and follow up with your physio. No missed-distance catch-up
-  or new hard sessions.
+DESCRIPTION:W16 · Sep 21 · Consolidate | Easy 6k total\; if fully settled
+ \, 2 km easy + 1 km at 5:40/km + 1 km easy + 1 km at 5:40/km + 1 km easy\;
+  otherwise all easy\nUpdated 22 September after the 20 km run and your rep
+ orted physio okay. Three easy runs this week\, three next week\, then two 
+ short runs before race day. Use conversational effort (2–3/10)\; roughly
+  6:15–6:45/km or slower. An approximate 145–150 bpm is a useful easy-r
+ un reference\, not a tested zone or a target to chase. Distances are upper
+  limits: shorten or skip for fatigue. If the injury pain returns\, increas
+ es\, changes your stride or leaves next-morning swelling/stiffness\, stop 
+ running and follow up with your physio. Optional short goal-pace rehearsal
+  on 24 September only if settled. Race: conditional sub-4 attempt\; 5:45/k
+ m for 5 km\, then about 5:39/km only while controlled. Switch to comfortab
+ le effort if strain rises\; no catch-up surges.
 CATEGORIES:Consolidate
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -944,11 +951,13 @@ DESCRIPTION:W16 · Sep 21 · Consolidate | Rest\; familiar light physio exe
  , not a tested zone or a target to chase. Distances are upper limits: shor
  ten or skip for fatigue. If the injury pain returns\, increases\, changes 
  your stride or leaves next-morning swelling/stiffness\, stop running and f
- ollow up with your physio. No missed-distance catch-up or new hard session
- s.
+ ollow up with your physio. Optional short goal-pace rehearsal on 24 Septem
+ ber only if settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, 
+ then about 5:39/km only while controlled. Switch to comfortable effort if 
+ strain rises\; no catch-up surges.
 CATEGORIES:Consolidate
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -964,10 +973,13 @@ DESCRIPTION:W16 · Sep 21 · Consolidate | Rest or easy walk\nUpdated 22 Se
  r a target to chase. Distances are upper limits: shorten or skip for fatig
  ue. If the injury pain returns\, increases\, changes your stride or leaves
   next-morning swelling/stiffness\, stop running and follow up with your ph
- ysio. No missed-distance catch-up or new hard sessions.
+ ysio. Optional short goal-pace rehearsal on 24 September only if settled. 
+ Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km on
+ ly while controlled. Switch to comfortable effort if strain rises\; no cat
+ ch-up surges.
 CATEGORIES:Consolidate
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -984,11 +996,13 @@ DESCRIPTION:W16 · Sep 21 · Consolidate | Long 18k maximum OR 110 min\, wh
  is a useful easy-run reference\, not a tested zone or a target to chase. D
  istances are upper limits: shorten or skip for fatigue. If the injury pain
   returns\, increases\, changes your stride or leaves next-morning swelling
- /stiffness\, stop running and follow up with your physio. No missed-distan
- ce catch-up or new hard sessions.
+ /stiffness\, stop running and follow up with your physio. Optional short g
+ oal-pace rehearsal on 24 September only if settled. Race: conditional sub-
+ 4 attempt\; 5:45/km for 5 km\, then about 5:39/km only while controlled. S
+ witch to comfortable effort if strain rises\; no catch-up surges.
 CATEGORIES:Consolidate
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1004,10 +1018,13 @@ DESCRIPTION:W17 · Sep 28 · Taper | Rest or gentle swim if recovered\nUpda
  ed zone or a target to chase. Distances are upper limits: shorten or skip 
  for fatigue. If the injury pain returns\, increases\, changes your stride 
  or leaves next-morning swelling/stiffness\, stop running and follow up wit
- h your physio. No missed-distance catch-up or new hard sessions.
+ h your physio. Optional short goal-pace rehearsal on 24 September only if 
+ settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5
+ :39/km only while controlled. Switch to comfortable effort if strain rises
+ \; no catch-up surges.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1023,10 +1040,13 @@ DESCRIPTION:W17 · Sep 28 · Taper | Easy 5k\; relaxed and conversational\n
  tested zone or a target to chase. Distances are upper limits: shorten or s
  kip for fatigue. If the injury pain returns\, increases\, changes your str
  ide or leaves next-morning swelling/stiffness\, stop running and follow up
-  with your physio. No missed-distance catch-up or new hard sessions.
+  with your physio. Optional short goal-pace rehearsal on 24 September only
+  if settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then abo
+ ut 5:39/km only while controlled. Switch to comfortable effort if strain r
+ ises\; no catch-up surges.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1042,10 +1062,13 @@ DESCRIPTION:W17 · Sep 28 · Taper | Rest\; light familiar physio exercises
  a tested zone or a target to chase. Distances are upper limits: shorten or
   skip for fatigue. If the injury pain returns\, increases\, changes your s
  tride or leaves next-morning swelling/stiffness\, stop running and follow 
- up with your physio. No missed-distance catch-up or new hard sessions.
+ up with your physio. Optional short goal-pace rehearsal on 24 September on
+ ly if settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then a
+ bout 5:39/km only while controlled. Switch to comfortable effort if strain
+  rises\; no catch-up surges.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1061,10 +1084,13 @@ DESCRIPTION:W17 · Sep 28 · Taper | Easy 5k\; no pace test\nUpdated 22 Sep
   a target to chase. Distances are upper limits: shorten or skip for fatigu
  e. If the injury pain returns\, increases\, changes your stride or leaves 
  next-morning swelling/stiffness\, stop running and follow up with your phy
- sio. No missed-distance catch-up or new hard sessions.
+ sio. Optional short goal-pace rehearsal on 24 September only if settled. R
+ ace: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km onl
+ y while controlled. Switch to comfortable effort if strain rises\; no catc
+ h-up surges.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1079,11 +1105,13 @@ DESCRIPTION:W17 · Sep 28 · Taper | Rest\nUpdated 22 September after the 2
  pm is a useful easy-run reference\, not a tested zone or a target to chase
  . Distances are upper limits: shorten or skip for fatigue. If the injury p
  ain returns\, increases\, changes your stride or leaves next-morning swell
- ing/stiffness\, stop running and follow up with your physio. No missed-dis
- tance catch-up or new hard sessions.
+ ing/stiffness\, stop running and follow up with your physio. Optional shor
+ t goal-pace rehearsal on 24 September only if settled. Race: conditional s
+ ub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km only while controlled
+ . Switch to comfortable effort if strain rises\; no catch-up surges.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1099,10 +1127,13 @@ DESCRIPTION:W17 · Sep 28 · Taper | Rest or easy walk\nUpdated 22 Septembe
  rget to chase. Distances are upper limits: shorten or skip for fatigue. If
   the injury pain returns\, increases\, changes your stride or leaves next-
  morning swelling/stiffness\, stop running and follow up with your physio. 
- No missed-distance catch-up or new hard sessions.
+ Optional short goal-pace rehearsal on 24 September only if settled. Race: 
+ conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km only whi
+ le controlled. Switch to comfortable effort if strain rises\; no catch-up 
+ surges.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1118,10 +1149,13 @@ DESCRIPTION:W17 · Sep 28 · Taper | Long 10k easy maximum\; finish fresh\n
  tested zone or a target to chase. Distances are upper limits: shorten or s
  kip for fatigue. If the injury pain returns\, increases\, changes your str
  ide or leaves next-morning swelling/stiffness\, stop running and follow up
-  with your physio. No missed-distance catch-up or new hard sessions.
+  with your physio. Optional short goal-pace rehearsal on 24 September only
+  if settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then abo
+ ut 5:39/km only while controlled. Switch to comfortable effort if strain r
+ ises\; no catch-up surges.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1136,11 +1170,13 @@ DESCRIPTION:W18 · Oct 5 · Race week | Rest\nUpdated 22 September after th
  0 bpm is a useful easy-run reference\, not a tested zone or a target to ch
  ase. Distances are upper limits: shorten or skip for fatigue. If the injur
  y pain returns\, increases\, changes your stride or leaves next-morning sw
- elling/stiffness\, stop running and follow up with your physio. No missed-
- distance catch-up or new hard sessions.
+ elling/stiffness\, stop running and follow up with your physio. Optional s
+ hort goal-pace rehearsal on 24 September only if settled. Race: conditiona
+ l sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km only while control
+ led. Switch to comfortable effort if strain rises\; no catch-up surges.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1156,10 +1192,13 @@ DESCRIPTION:W18 · Oct 5 · Race week | Easy 4k\; comfortable throughout\nU
  ested zone or a target to chase. Distances are upper limits: shorten or sk
  ip for fatigue. If the injury pain returns\, increases\, changes your stri
  de or leaves next-morning swelling/stiffness\, stop running and follow up 
- with your physio. No missed-distance catch-up or new hard sessions.
+ with your physio. Optional short goal-pace rehearsal on 24 September only 
+ if settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then abou
+ t 5:39/km only while controlled. Switch to comfortable effort if strain ri
+ ses\; no catch-up surges.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1175,10 +1214,13 @@ DESCRIPTION:W18 · Oct 5 · Race week | Rest\; gentle mobility\nUpdated 22
   or a target to chase. Distances are upper limits: shorten or skip for fat
  igue. If the injury pain returns\, increases\, changes your stride or leav
  es next-morning swelling/stiffness\, stop running and follow up with your 
- physio. No missed-distance catch-up or new hard sessions.
+ physio. Optional short goal-pace rehearsal on 24 September only if settled
+ . Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km 
+ only while controlled. Switch to comfortable effort if strain rises\; no c
+ atch-up surges.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1194,10 +1236,13 @@ DESCRIPTION:W18 · Oct 5 · Race week | Easy 3k\; stop feeling fresh\nUpdat
  d zone or a target to chase. Distances are upper limits: shorten or skip f
  or fatigue. If the injury pain returns\, increases\, changes your stride o
  r leaves next-morning swelling/stiffness\, stop running and follow up with
-  your physio. No missed-distance catch-up or new hard sessions.
+  your physio. Optional short goal-pace rehearsal on 24 September only if s
+ ettled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:
+ 39/km only while controlled. Switch to comfortable effort if strain rises\
+ ; no catch-up surges.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1213,10 +1258,13 @@ DESCRIPTION:W18 · Oct 5 · Race week | Rest\; familiar carb-rich meals\nUp
  sted zone or a target to chase. Distances are upper limits: shorten or ski
  p for fatigue. If the injury pain returns\, increases\, changes your strid
  e or leaves next-morning swelling/stiffness\, stop running and follow up w
- ith your physio. No missed-distance catch-up or new hard sessions.
+ ith your physio. Optional short goal-pace rehearsal on 24 September only i
+ f settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about
+  5:39/km only while controlled. Switch to comfortable effort if strain ris
+ es\; no catch-up surges.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1232,10 +1280,13 @@ DESCRIPTION:W18 · Oct 5 · Race week | Rest\; prepare kit and fuel\nUpdate
   zone or a target to chase. Distances are upper limits: shorten or skip fo
  r fatigue. If the injury pain returns\, increases\, changes your stride or
   leaves next-morning swelling/stiffness\, stop running and follow up with 
- your physio. No missed-distance catch-up or new hard sessions.
+ your physio. Optional short goal-pace rehearsal on 24 September only if se
+ ttled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:3
+ 9/km only while controlled. Switch to comfortable effort if strain rises\;
+  no catch-up surges.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
@@ -1243,19 +1294,23 @@ UID:20261011-w18-sun@munich-marathon-2026
 DTSTART;VALUE=DATE:20261011
 DTEND;VALUE=DATE:20261012
 SUMMARY:UPDATED — 🏁 RACE — Munich Marathon
-DESCRIPTION:W18 · Oct 5 · Race week | RACE 42.195k\; start 6:15–6:30/km
-  with easy breathing\; use Race Strategy\; slow or walk if needed\nUpdated
-  22 September after the 20 km run and your reported physio okay. Three eas
- y runs this week\, three next week\, then two short runs before race day. 
- Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. A
- n approximate 145–150 bpm is a useful easy-run reference\, not a tested 
- zone or a target to chase. Distances are upper limits: shorten or skip for
-  fatigue. If the injury pain returns\, increases\, changes your stride or 
- leaves next-morning swelling/stiffness\, stop running and follow up with y
- our physio. No missed-distance catch-up or new hard sessions.
+DESCRIPTION:W18 · Oct 5 · Race week | RACE 42.195k\; conditional sub-4 at
+ tempt: first 5 km at 5:45/km then about 5:39/km only if controlled\; use R
+ ace Strategy checkpoints and abandon time goal if effort rises\nUpdated 22
+  September after the 20 km run and your reported physio okay. Three easy r
+ uns this week\, three next week\, then two short runs before race day. Use
+  conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. An a
+ pproximate 145–150 bpm is a useful easy-run reference\, not a tested zon
+ e or a target to chase. Distances are upper limits: shorten or skip for fa
+ tigue. If the injury pain returns\, increases\, changes your stride or lea
+ ves next-morning swelling/stiffness\, stop running and follow up with your
+  physio. Optional short goal-pace rehearsal on 24 September only if settle
+ d. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km
+  only while controlled. Switch to comfortable effort if strain rises\; no 
+ catch-up surges.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260922
+SEQUENCE:20260923
 DTSTAMP:20260922T000000Z
 END:VEVENT
 END:VCALENDAR

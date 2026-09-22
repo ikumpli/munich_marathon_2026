@@ -364,7 +364,7 @@ def build_pace_chart(weekly, runs):
 
     ty = yp(target)
     p.append(f'<line x1="{pad_l}" y1="{ty:.1f}" x2="{W - pad_r}" y2="{ty:.1f}" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="5 4"/>')
-    p.append(f'<text x="{W - pad_r}" y="{ty - 5:.1f}" fill="#22c55e" font-size="10" text-anchor="end">Original MP 5:40 (on hold)</text>')
+    p.append(f'<text x="{W - pad_r}" y="{ty - 5:.1f}" fill="#22c55e" font-size="10" text-anchor="end">Sub-4 reference ~5:40 (conditional)</text>')
 
     wk_dates = list(pd.to_datetime(weekly['week_start']))
     wk_pace = [float(v) if pd.notna(v) else None for v in weekly['rolling_pace_4w']]
@@ -383,7 +383,7 @@ def build_pace_chart(weekly, runs):
         '<div class="chart-legend">'
         '<span class="ci"><span class="sw" style="background:#818cf8;width:10px;height:10px;border-radius:50%"></span>Session pace</span>'
         '<span class="ci"><span class="sw" style="background:#ec4899"></span>4-week avg</span>'
-        '<span class="ci"><span class="sw" style="background:#22c55e"></span>Original MP (on hold)</span>'
+        '<span class="ci"><span class="sw" style="background:#22c55e"></span>Sub-4 reference (conditional)</span>'
         '</div>'
     )
     return '<div class="chart-wrap">' + "".join(p) + legend + '</div>'
@@ -1145,7 +1145,7 @@ def build_dashboard(runs, weekly, targets):
           <span style="font-size:1.8rem">🏃</span>
           <h1 class="hero-title mb-0">Munich Marathon 2026</h1>
         </div>
-        <p class="hero-sub">Training Dashboard · Iker · Finish-focused taper &nbsp;·&nbsp; <span style="color:#93c5fd;font-weight:600">{today.strftime('%A, %B %d, %Y')}</span> &nbsp;·&nbsp; Last recorded run: {last_date}</p>
+        <p class="hero-sub">Training Dashboard · Iker · Conditional sub-4 attempt &nbsp;·&nbsp; <span style="color:#93c5fd;font-weight:600">{today.strftime('%A, %B %d, %Y')}</span> &nbsp;·&nbsp; Last recorded run: {last_date}</p>
         <div class="countdown-block">
           <div class="cdown-item">
             <div class="cdown-num">{days_to_race}</div>
@@ -1202,8 +1202,8 @@ def build_dashboard(runs, weekly, targets):
     <div class="col-6 col-md-2">
       <div class="kpi-card">
         <div class="kpi-icon">🎯</div>
-        <div class="kpi-value" style="font-size:1.35rem">6:15–6:30</div>
-        <div class="kpi-label">opening pace /km · effort first</div>
+        <div class="kpi-value" style="font-size:1.35rem">5:45</div>
+        <div class="kpi-label">first 5 km /km · conditional A goal</div>
       </div>
     </div>
     <div class="col-6 col-md-2">
@@ -1220,8 +1220,7 @@ def build_dashboard(runs, weekly, targets):
     <h6>Updated 22 September · 19 days to race at this review</h6>
     <p>You felt great over 20 km and report your physio’s okay. The next step is to absorb that run:
     <strong>29 km maximum this week, 20 km next week, then 7 km before the marathon.</strong></p>
-    <p class="mb-0">The Race Strategy tab explains Sunday’s rising pulse and when to hold, slow or
-    accelerate. The Training Plan tab has every remaining day. This is a dated coaching review;
+    <p class="mb-0">The Race Strategy tab now includes your requested conditional sub-4 attempt, elapsed-time splits and clear fallback checkpoints. The Training Plan tab has every remaining day. This is a dated coaching review;
     live activity charts update separately.</p>
   </div>
   {calendar_html}
@@ -1441,7 +1440,7 @@ def build_ics():
                 f'SUMMARY:{_ics_esc(summary)}',
                 f'DESCRIPTION:{_ics_esc(full_desc)}',
                 f'CATEGORIES:{_ics_esc(phase)}',
-                *(['STATUS:CONFIRMED', 'SEQUENCE:20260922', 'DTSTAMP:20260922T000000Z'] if revised else []),
+                *(['STATUS:CONFIRMED', 'SEQUENCE:20260923', 'DTSTAMP:20260922T000000Z'] if revised else []),
                 'END:VEVENT',
             ]
 

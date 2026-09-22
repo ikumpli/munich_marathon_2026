@@ -79,3 +79,5 @@ Regenerate locally with `python scripts/adjust_plan.py` followed by
 `python -m unittest discover -s scripts -p 'test_*.py'`.
 
 This local revision does not publish to GitHub Pages until you push it through the existing workflow.
+
+The race strategy now includes a user-requested conditional sub-4 attempt, verified elapsed-time splits, fallback checkpoints and an optional short goal-pace rehearsal inside the existing 6 km session. Training-volume ceilings remain unchanged.

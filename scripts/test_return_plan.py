@@ -53,7 +53,7 @@ class ReturnPlanTests(unittest.TestCase):
         self.assertIn('UID:20260927-w16-sun@munich-marathon-2026', proposed)
         self.assertIn('Long 18k maximum OR 110 min', proposed)
         self.assertIn('STATUS:CONFIRMED', proposed)
-        self.assertIn('SEQUENCE:20260922', proposed)
+        self.assertIn('SEQUENCE:20260923', proposed)
         self.assertIn(dashboard.RETURN_PLAN_NOTE.replace(',', '\\,').replace(';', '\\;'), proposed)
         saturday = next(e for e in events if 'DTSTART;VALUE=DATE:20260912' in e)
         self.assertIn('SUMMARY:💤 Rest', saturday)
@@ -111,6 +111,16 @@ class ReturnPlanTests(unittest.TestCase):
         missing = dashboard.review_metrics(runs, {})
         self.assertEqual(sum(s['n'] for s in missing['segments']), 0)
         self.assertIn('—', dashboard.strategy_html(missing, 'No curves available'))
+
+
+class SubFourTests(unittest.TestCase):
+    def test_split_math_and_existing_volume(self):
+        from coaching import sub4_elapsed_seconds, sub4_splits
+        self.assertAlmostEqual(sub4_elapsed_seconds(42.195), 14334.105)
+        self.assertEqual(dict(sub4_splits())['Halfway'], '1:59:42')
+        self.assertEqual(dict(sub4_splits())['30 km'], '2:50:00')
+        self.assertEqual(dict(sub4_splits())['42.195 km'], '3:58:54')
+        self.assertEqual(dashboard.make_targets()[-3:], [29, 20, 49.195])
 
 
 if __name__ == '__main__':

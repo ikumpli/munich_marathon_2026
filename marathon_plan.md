@@ -19,7 +19,7 @@ All **63 runs / 536.42 km** from 18 March to 20 September were reviewed, alongsi
 - You report feeling recovered, feeling fantastic on Sunday, and receiving your physio’s okay.
 
 Your earlier base is useful. The interruption and limited recent long-run preparation
-make a finish-focused marathon more defensible than restarting the original sub-4 goal.
+still favour a finish-focused marathon. At your request, sub-4 is now an ambitious conditional A goal with explicit fallback checkpoints; the evidence and uncertainty have not improved.
 Load scores and a comfortable 20 km do not establish readiness for 42.195 km.
 
 ## Sunday’s heart rate
@@ -59,7 +59,7 @@ September 20 was your last main long run.
 |---|---|---|
 | Tue 22 Sep | 5 km easy | Shorten if still tired from Sunday. |
 | Wed 23 Sep | Rest / gentle swim | Familiar physio exercises. |
-| Thu 24 Sep | 6 km easy | Relaxed breathing; no fast finish. |
+| Thu 24 Sep | 6 km total | If fully settled: 2 km easy + 1 km at 5:40/km + 1 km easy + 1 km at 5:40/km + 1 km easy. Otherwise all easy. |
 | Fri 25 Sep | Rest | Light familiar physio exercises. |
 | Sat 26 Sep | Rest / easy walk | Prepare breakfast, shoes and fuel. |
 | Sun 27 Sep | Up to 18 km **or 110 min**, whichever first | Easy throughout; rehearse fuel. Shorten to 12–14 km if recovery is incomplete; stop earlier for symptoms. |
@@ -81,43 +81,56 @@ September 20 was your last main long run.
 Easy means **2–3/10 effort and full-sentence breathing**, initially **6:15–6:45/km
 or slower**. Approximate easy-HR reference: **145–150 bpm**, not a number to chase.
 The Sunday time cap can make the run shorter than 18 km. Keep the three-run rhythm.
-No new hard intervals, hills, heavy strength or jumping sports; continue familiar
+The optional short goal-pace rehearsal is included in the 6 km total. Stop the faster portions for laboured breathing, persistently rising HR or injury symptoms. Even a comfortable rehearsal cannot prove marathon readiness. No new hard intervals, hills, heavy strength or jumping sports; continue familiar
 tolerated physio work. Shorten or skip for fatigue; never make up missed distance.
 Recurring/increasing injury pain, changed stride, or next-morning swelling/stiffness
 means stop running and follow up with your physio.
 
-## Race strategy
+## Race strategy: conditional sub-4 attempt
 
-**Start patiently, hold even effort, and consider acceleration only after 32 km.**
-The original sub-4 pace (~5:41/km) is not the recommended opening pace.
+Sub-4 is an ambitious A goal at your request, with greater risk of fading than the
+conservative strategy. Your evidence has not changed. Choose Plan B from the start
+if recovery is poor, you feel ill, conditions are unusually warm or running feels strained.
 
-| Stage | Pace approach | HR / effort reference | Action |
-|---|---|---|---|
-| 0–5 km | 6:15–6:30/km or slower | Full sentences; roughly 145–150 once settled | Let others go; do not bank time. |
-| 5–10 km | Stay easy; 6:10–6:25 only if comfortable | Prefer below about 155; effort 3/10 | If already 158–160, slow 15–30 sec/km; reassess after 3–5 min. |
-| 10–25 km | Hold sustainable effort | Roughly 150–158 if stable; effort 3–4/10 | A sustained rise at unchanged pace means ease off. |
-| 25–32 km | Maintain; accept slower splits | Controlled breathing, normal stride, fuel tolerated | No halfway acceleration. Slow or run–walk if strain grows. |
-| 32–37 km | Optional small increase | No pain; breathing and HR trend controlled | Try 5–10 sec/km faster for 1–2 km, then reassess. Otherwise hold or slow. |
-| 37–finish | Finish by feel | Symptoms override every HR number | Increase gradually only if still comfortable. |
+**Plan A: first 5 km at about 5:45/km, then about 5:39/km while controlled.**
+This totals **3:58:54** over the measured course, leaving only about **66 seconds**
+for extra distance/stops. It is a pacing calculation, not a performance prediction.
+Use elapsed time from crossing the start and official kilometre markers; moving pace hides stops.
 
-**High HR early:** before 25 km, sustained HR above about 160 at unchanged/slower pace
-is a pacing alert, not a medical threshold. Slow 15–30 sec/km, check breathing,
-take scheduled fuel and sip to thirst; reassess after 3–5 minutes. If effort stays
-high, walk 30–60 seconds and restart slower. A 9-minute easy run / 1-minute walk
-rhythm is an option to rehearse on 27 September.
+| Course marker | Cumulative elapsed time |
+|---|---:|
+| 5 km | 0:28:45 |
+| 10 km | 0:57:00 |
+| Halfway | 1:59:42 |
+| 30 km | 2:50:00 |
+| 35 km | 3:18:15 |
+| 40 km | 3:46:30 |
+| Finish | 3:58:54 |
 
-**Feeling fantastic early:** hold back. A negative split is optional, never forced.
-After 32 km, accelerate only with normal stride, no injury pain, controlled breathing,
-fuel tolerated and no sharply rising HR.
+Do not bank time or weave early. No large negative split from a 6:15–6:30/km start:
+that opening belongs to the conservative option and cannot reasonably be combined
+with this sub-4 attempt. No catching up minutes late if the plan slips.
 
-**Lost time:** do not surge after a crowd or aid station. Use lap pace and course
-markers rather than instantaneous GPS pace. Heat or wind can require slower splits.
-Check implausible HR spikes against effort and sensor contact; a familiar chest strap
-can help if available. Do not force water to try to lower HR.
+**5–10 km checkpoint:** breathing comfortable, effort around 3/10, stride normal,
+HR trend reasonably stable. Preferably still in the mid/high 150s. Sustained HR
+around/above 160 early warrants reassessment, especially if rising or accompanied
+by harder breathing. Check sensor plausibility rather than reacting to a brief spike.
 
-For context only, 6:10–6:30/km across 42.195 km is **4:20:12–4:34:16** before
-additional stops. This is arithmetic, not a finish prediction or compulsory target.
-A slower finish may be the correct outcome.
+**Halfway checkpoint:** around 1:59:42 only while effort remains controlled (roughly
+3–4/10), fuel is tolerated and legs feel normal. If holding pace already requires
+forcing it, abandon the time goal. A short successful rehearsal is not a readiness test.
+
+**Before 25–30 km:** persistent HR rise at unchanged/slower pace, laboured breathing,
+fueling failure or early leg fade means ease off. Slow 15–30 seconds/km and reassess
+over 3–5 minutes. If effort does not settle, switch to Plan B. No new higher HR cap
+has been invented to justify the faster target; these remain approximate warning references.
+
+**After 30 km:** maintaining pace is enough. Consider a tiny increase only after
+35 km if still controlled, pain-free and strong. Never sprint to recover minutes.
+
+**Plan B:** ease toward 6:10–6:30/km initially, then slower or run–walk as needed
+until effort is comfortable. There is no replacement time target and no later chase
+to recover sub-4. Drink to thirst and keep practiced fueling going; never force water to lower HR.
 
 Increasing injury pain or altered gait means stop. Chest pain, faintness, confusion
 or unusual severe breathlessness means stop and seek race medical help.

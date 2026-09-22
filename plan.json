@@ -1228,7 +1228,7 @@
           "date": "2026-09-24",
           "day": "Thu",
           "session_type": "easy",
-          "planned": "Easy 6k; practice relaxed opening effort, no fast finish",
+          "planned": "Easy 6k total; if fully settled, 2 km easy + 1 km at 5:40/km + 1 km easy + 1 km at 5:40/km + 1 km easy; otherwise all easy",
           "actual_km": null,
           "actual_pace_min_km": null,
           "actual_hr": null,
@@ -1416,7 +1416,7 @@
           "date": "2026-10-11",
           "day": "Sun",
           "session_type": "race",
-          "planned": "RACE 42.195k; start 6:15–6:30/km with easy breathing; use Race Strategy; slow or walk if needed",
+          "planned": "RACE 42.195k; conditional sub-4 attempt: first 5 km at 5:45/km then about 5:39/km only if controlled; use Race Strategy checkpoints and abandon time goal if effort rises",
           "actual_km": null,
           "actual_pace_min_km": null,
           "actual_hr": null,
@@ -1427,7 +1427,7 @@
   ],
   "revision": {
     "effective_from": "2026-09-22",
-    "status": "taper_review_2026_09_22",
-    "note": "Updated 22 September after the 20 km run and your reported physio okay. Three easy runs this week, three next week, then two short runs before race day. Use conversational effort (2–3/10); roughly 6:15–6:45/km or slower. An approximate 145–150 bpm is a useful easy-run reference, not a tested zone or a target to chase. Distances are upper limits: shorten or skip for fatigue. If the injury pain returns, increases, changes your stride or leaves next-morning swelling/stiffness, stop running and follow up with your physio. No missed-distance catch-up or new hard sessions."
+    "status": "conditional_sub4_review_2026_09_22",
+    "note": "Updated 22 September after the 20 km run and your reported physio okay. Three easy runs this week, three next week, then two short runs before race day. Use conversational effort (2–3/10); roughly 6:15–6:45/km or slower. An approximate 145–150 bpm is a useful easy-run reference, not a tested zone or a target to chase. Distances are upper limits: shorten or skip for fatigue. If the injury pain returns, increases, changes your stride or leaves next-morning swelling/stiffness, stop running and follow up with your physio. Optional short goal-pace rehearsal on 24 September only if settled. Race: conditional sub-4 attempt; 5:45/km for 5 km, then about 5:39/km only while controlled. Switch to comfortable effort if strain rises; no catch-up surges."
   }
 }

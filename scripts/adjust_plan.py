@@ -133,7 +133,7 @@ def refresh_return_plan(plan_data: dict) -> None:
                     day[field] = by_date[day["date"]][field]
     plan_data["revision"] = {
         "effective_from": RETURN_PLAN_START.isoformat(),
-        "status": "taper_review_2026_09_22",
+        "status": "conditional_sub4_review_2026_09_22",
         "note": RETURN_PLAN_NOTE,
     }
 

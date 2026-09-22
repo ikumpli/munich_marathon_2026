@@ -12,7 +12,9 @@ REVIEW_NOTE = (
     'An approximate 145–150 bpm is a useful easy-run reference, not a tested zone or a target to chase. '
     'Distances are upper limits: shorten or skip for fatigue. If the injury pain returns, '
     'increases, changes your stride or leaves next-morning swelling/stiffness, stop running '
-    'and follow up with your physio. No missed-distance catch-up or new hard sessions.'
+    'and follow up with your physio. Optional short goal-pace rehearsal on 24 September only if settled. '
+    'Race: conditional sub-4 attempt; 5:45/km for 5 km, then about 5:39/km only while controlled. '
+    'Switch to comfortable effort if strain rises; no catch-up surges.'
 )
 
 FINAL_WEEKS = [
@@ -20,7 +22,7 @@ FINAL_WEEKS = [
      'Mon: Rest; participation review before entry-change deadline · '
      'Tue: Easy 5k, conversational; shorten if still tired from Sunday · '
      'Wed: Rest or gentle swim; familiar physio exercises · '
-     'Thu: Easy 6k; practice relaxed opening effort, no fast finish · '
+     'Thu: Easy 6k total; if fully settled, 2 km easy + 1 km at 5:40/km + 1 km easy + 1 km at 5:40/km + 1 km easy; otherwise all easy · '
      'Fri: Rest; familiar light physio exercises · '
      'Sat: Rest or easy walk · '
      'Sun: Long 18k maximum OR 110 min, whichever first; easy throughout; rehearse breakfast and fuel; shorten to 12–14 km if recovery is incomplete',
@@ -37,7 +39,7 @@ FINAL_WEEKS = [
      'Mon: Rest · Tue: Easy 4k; comfortable throughout · '
      'Wed: Rest; gentle mobility · Thu: Easy 3k; stop feeling fresh · '
      'Fri: Rest; familiar carb-rich meals · Sat: Rest; prepare kit and fuel · '
-     'Sun: RACE 42.195k; start 6:15–6:30/km with easy breathing; use Race Strategy; slow or walk if needed',
+     'Sun: RACE 42.195k; conditional sub-4 attempt: first 5 km at 5:45/km then about 5:39/km only if controlled; use Race Strategy checkpoints and abandon time goal if effort rises',
      'Race week'),
 ]
 
@@ -142,7 +144,7 @@ def remaining_plan_html():
     rows = [
         ('22 Sep · Tue', '5 km easy', 'Shorten if Sunday still feels present in your legs.'),
         ('23 Sep · Wed', 'Rest / gentle swim', 'Familiar physio exercises only.'),
-        ('24 Sep · Thu', '6 km easy', 'Relaxed breathing; no fast finish.'),
+        ('24 Sep · Thu', '6 km total; optional goal-pace rehearsal', 'Only if fully recovered: 2 km easy + 1 km at 5:40/km + 1 km easy + 1 km at 5:40/km + 1 km easy. Otherwise all easy. No faster.'),
         ('25–26 Sep', 'Rest / easy walking', 'Light familiar exercises Friday, no heavy strength.'),
         ('27 Sep · Sun', 'Up to 18 km or 110 min', 'Whichever comes first. Rehearse breakfast, shoes and fuel. Shorten to 12–14 km if not fully recovered.'),
         ('28 Sep · Mon', 'Rest', 'Check next-morning response.'),
@@ -156,7 +158,7 @@ def remaining_plan_html():
         ('7 Oct · Wed', 'Rest', 'Gentle mobility.'),
         ('8 Oct · Thu', '3 km easy', 'Last short jog.'),
         ('9–10 Oct', 'Rest', 'Familiar carb-rich meals; prepare kit and fuel.'),
-        ('11 Oct · Sun', 'Marathon · 42.195 km', 'Follow the Race Strategy tab; finish time is secondary to sustainable effort.'),
+        ('11 Oct · Sun', 'Marathon · 42.195 km', 'Conditional sub-4 attempt using the Race Strategy checkpoints; switch to comfortable effort if needed.'),
     ]
     return f'''<section class="strategy-card mb-4">
       <h2 class="h5">The remaining 19 days</h2>
@@ -169,9 +171,22 @@ def remaining_plan_html():
       {_table(['Date', 'Session', 'Purpose / adjustment'], rows)}
       <p class="mb-0">All distances are ceilings. Skip or shorten for fatigue; do not redistribute
       missed kilometres. Continue tolerated rehab, but avoid new heavy strength, hard hills,
-      intervals and jumping sports. Recurring injury pain, altered stride or next-morning
+      hard intervals and jumping sports. The optional 2 × 1 km rehearsal is included in Thursday’s 6 km, not extra distance. Stop the faster portions if breathing becomes laboured, HR rises persistently or any injury symptom returns. Even an easy rehearsal cannot prove marathon readiness. Recurring injury pain, altered stride or next-morning
       swelling/stiffness means stop running and follow up with your physio.</p>
     </section>'''
+
+
+def sub4_elapsed_seconds(km):
+    return min(km, 5) * 345 + max(km - 5, 0) * 339
+
+
+def sub4_splits():
+    rows = []
+    for km in [5, 10, 21.0975, 30, 35, 40, RACE_DISTANCE_KM]:
+        seconds = int(sub4_elapsed_seconds(km) + 0.5)
+        label = 'Halfway' if km == 21.0975 else f'{km:g} km'
+        rows.append((label, f'{seconds // 3600}:{seconds // 60 % 60:02d}:{seconds % 60:02d}'))
+    return rows
 
 
 def strategy_html(metrics, curve_html):
@@ -180,23 +195,33 @@ def strategy_html(metrics, curve_html):
     sources = ''.join(f'<li><a href="{escape(url)}" target="_blank" rel="noopener">{escape(label)}</a></li>'
                       for label, url in SOURCES)
     stages = [
-        ('0–5 km', '6:15–6:30/km or slower', 'Relaxed, full sentences; about 145–150 bpm once settled.', 'Let people go. Ignore brief start-line HR spikes; do not bank time.'),
-        ('5–10 km', 'Stay relaxed; 6:10–6:25 only if easy', 'Prefer HR below about 155; effort 3/10.', 'If already 158–160, slow 15–30 sec/km and reassess after 3–5 min.'),
-        ('10–25 km', 'Hold sustainable effort', 'Roughly 150–158 if stable; effort 3–4/10.', 'A sustained rise at unchanged pace is a reason to ease off, not a cue to chase a pace.'),
-        ('25–32 km', 'Maintain; accept slower splits', 'Breathing controlled, form unchanged, fueling on track.', 'Do not accelerate at halfway. If HR/effort keeps climbing, slow or use run–walk.'),
-        ('32–37 km', 'Optional small increase', 'Only if legs, breathing and HR trend remain controlled.', 'Try 5–10 sec/km faster for 1–2 km, reassess. Otherwise hold or slow.'),
-        ('37–42.195 km', 'Finish by feel', 'No HR number grants permission to push through symptoms.', 'Increase gradually only if still comfortable. A controlled finish wins.'),
+        ('0–5 km', 'About 5:45/km', 'Comfortable breathing; roughly 3/10 effort after settling.', 'No weaving or banking time. If this already feels strained, choose Plan B immediately.'),
+        ('5–10 km', 'About 5:39/km only if controlled', 'Stable breathing and HR trend; preferably still in the mid/high 150s.', 'Sustained HR around/above 160 early, especially rising or with harder breathing, is a reason to ease off and reconsider sub-4.'),
+        ('10–21.1 km', 'Hold about 5:39/km', 'Effort around 3–4/10, normal stride, fuel tolerated.', 'Halfway reference ~1:59:42. If you need to force the pace, switch to Plan B.'),
+        ('21.1–30 km', 'Hold, without surges', 'No sharp HR rise at unchanged/slower pace; breathing still controlled.', '30 km reference 2:50:00. If working hard already or noticeably fading, let sub-4 go.'),
+        ('30–35 km', 'Maintain if sustainable', 'Assess legs, breathing, HR trend and fueling together.', 'No automatic permission to push HR higher. Holding pace is enough; acceleration is unnecessary.'),
+        ('35–42.195 km', 'Hold; optional tiny increase if strong', 'Normal stride, no injury pain, no concerning symptoms.', 'A small late increase is optional. Do not sprint to recover minutes or push through injury.'),
     ]
     return f'''<section class="strategy-card mb-4" style="border-color:#60a5fa">
       <div class="small text-info mb-2">RACE STRATEGY · REVIEWED 22 SEPTEMBER</div>
-      <h2>Start patiently. Decide about speed after 32 km.</h2>
-      <p>My recommendation is a finish-focused marathon with even effort and the option of a small
-      late acceleration. Start around <strong>6:15–6:30/km</strong> and let breathing and HR set
-      the limit. The original sub-4 pace (~5:41/km) is too aggressive as the opening plan given
-      the interruption and Sunday’s HR rise.</p>
-      <p class="mb-0">For context, 6:10–6:30/km across the full distance equals about
-      <strong>4:20–4:34</strong> before extra stops. This is pace arithmetic, not a finish prediction
-      or a target you must protect. A slower finish or planned walk breaks may be appropriate.</p>
+      <h2>A conditional attempt at four hours</h2>
+      <p>You want to keep sub-4 in play. This is an <strong>ambitious A goal</strong>, with a
+      higher risk of fading than the conservative plan. The training evidence has not changed:
+      your long-distance endurance remains uncertain after the break. The safer pacing choice
+      remains an easy-effort start; you can choose it at the start or at any checkpoint.</p>
+      <p>For the sub-4 attempt: run the first <strong>5 km around 5:45/km</strong>, then settle
+      near <strong>5:39/km</strong> only if the effort remains controlled. This gives about
+      <strong>3:58:54</strong> across the measured course, leaving only 66 seconds for extra stops
+      and distance. It is pace arithmetic, not a prediction or evidence that you can sustain it.</p>
+      <p class="mb-0">Use elapsed time from crossing the start line and official course markers.
+      The targets below include all elapsed time; watch moving pace can hide stops. Do not create
+      a larger buffer by going faster early. If the buffer disappears, never surge to repay it.</p>
+    </section>
+    <section class="strategy-card mb-4"><h6>Elapsed-time checkpoints for Plan A</h6>
+      {_table(['Course distance', 'Cumulative elapsed time'], sub4_splits())}
+      <p class="small mb-0">Calculated as 5 km at 345 seconds/km, then the remaining distance
+      at 339 seconds/km. On-course GPS distance can differ; check official markers. A large
+      negative split from a 6:15–6:30/km start is not part of this attempt.</p>
     </section>
     <div class="row g-3 mb-4">
       <div class="col-lg-7"><section class="strategy-card h-100">
@@ -221,8 +246,7 @@ def strategy_html(metrics, curve_html):
         and sensor contact; a chest strap can help if available and already familiar.</p>
         <p>Heat, hydration, accumulated fatigue and sensor error can change HR. They are possibilities,
         not a diagnosis of Sunday’s run. On a warm day, keep effort steady and accept slower pace.</p>
-        <p class="mb-0">Aim for a steady effort, not a forced negative split. Running the second half
-        faster is an option earned late in the race, never an obligation.</p>
+        <p class="mb-0">Do not raise the HR references just to make sub-4 fit. They remain approximate warning signals, not permission to run hard. A short successful rehearsal cannot validate four hours at the same effort.</p>
       </section></div>
     </div>
     <section class="strategy-card mb-4"><h6>Race stages</h6>
@@ -231,21 +255,21 @@ def strategy_html(metrics, curve_html):
     <div class="row g-3 mb-4">
       <div class="col-md-6"><section class="strategy-card h-100">
         <h6>If HR climbs or you need to slow</h6>
-        <p>Before 25 km, sustained HR above about 160 at an unchanged or slower pace is a
-        pacing alert. Slow 15–30 sec/km, check breathing, take your scheduled fuel and sip to thirst.
-        Reassess after 3–5 minutes. Do not try to lower HR by forcing water.</p>
+        <p>At 5–10 km, sustained HR around/above 160 deserves an early reassessment, especially if rising or accompanied by harder breathing. Before 25 km, a persistent rise at unchanged or slower pace is a pacing alert. Slow 15–30 sec/km, check breathing, take your scheduled fuel and sip to thirst.
+        Reassess after 3–5 minutes. If it does not settle, abandon sub-4 and stay with Plan B. Do not try to lower HR by forcing water.</p>
         <p>If effort stays high, walk 30–60 seconds, then restart slower. Repeat as needed;
         9 minutes easy running / 1 minute walking is an option to rehearse on 27 September.</p>
         <p class="mb-0">If you lose time in crowds or at a station, return to your sustainable effort.
         Never surge to repay it. A brief hill-related HR rise differs from a persistent rise on flat ground.</p>
       </section></div>
       <div class="col-md-6"><section class="strategy-card h-100">
-        <h6>If you feel fantastic early or late</h6>
-        <p>Before 30–32 km: keep holding back, even if it feels very easy. Sunday’s final
-        kilometres already showed extra cardiovascular strain while you felt good.</p>
-        <p>After 32 km: only accelerate if there is no injury pain, stride is normal, breathing
-        controlled, fuel tolerated, and HR is not already rising sharply. Increase just 5–10 sec/km
-        and reassess after 1–2 km.</p>
+        <h6>Plan B and the decision to let the clock go</h6>
+        <p>Choose Plan B from the start for poor recovery, illness, unusually warm conditions
+        or any doubt about comfortable running. Once racing, use it if breathing becomes laboured
+        early, HR keeps rising as pace falls, fueling fails or your legs start fading well before 30 km.</p>
+        <p>Ease toward 6:10–6:30/km initially, then slower or run–walk as needed until the effort
+        is comfortable. There is no replacement finish-time target and no late chase to get sub-4 back.
+        Injury symptoms override both plans.</p>
         <p class="mb-0">Increasing injury pain or altered gait means stop. Chest pain, faintness,
         confusion or unusual severe breathlessness means stop and seek race medical help.
         These symptoms override every pace or HR instruction.</p>
