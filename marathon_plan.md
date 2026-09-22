@@ -1,151 +1,156 @@
-# Revised Munich schedule — 7 September 2026
+# Munich Marathon — revised 22 September 2026
 
-**Accelerated review draft requested by Iker.** Your physio supports a faster return in general; the exact distances below have not been reported as cleared. This is not a medical recommendation to complete these distances. Review each increase using current strength, impact tolerance and the response to preceding runs. If not supported, repeat the last tolerated dose or rest. Do not make up missed distance.
+Race: **11 October 2026**, 42.195 km. **19 days remain** at this review.
+This schedule supersedes previous recommendations from 22 September onward.
+Historical prescriptions remain in the dashboard for comparison.
 
-All runs easy and conversational, on flat routes. Distances are ceilings. Stop for increasing inner-ankle pain, swelling or altered stride, and check the following morning for stiffness, tenderness or swelling. The proposed build is aggressive after a four-week break. Neither a pain-free long run nor the load-model score establishes readiness for 42.2 km. Original sub-4 goal is on hold.
+## Training assessment
 
-| Week | Mon | Tue | Wed | Thu | Fri | Sat | Sun | Draft total |
-|---|---|---|---|---|---|---|---|---|
-| 7–13 Sep | 3 km or 20 min, whichever first | Rest | 5 km | Rest | 5 km | Rest / review | Proposed 10 km | Up to 23 km |
-| 14–20 Sep | Rest | 4 km | 4 km | 5 km | Rest | 3 km | Proposed 14 km | Up to 30 km |
-| 21–27 Sep | Rest / participation review | 4 km | 5 km | 5 km | Rest | 2 km or rest | Proposed 20 km | Up to 36 km |
-| 28 Sep–4 Oct | Rest / recovery review | 4 km | 4 km | 4 km | Rest | 2 km | 10 km if settled | Up to 24 km |
-| 5–11 Oct | Rest | 3 km | Rest | 3 km | Rest | Rest | Conditional marathon or rest | 6 km training; 48.2 km only with race |
+All **63 runs / 536.42 km** from 18 March to 20 September were reviewed, alongside
+19 swims, 3 hikes, 2 padel sessions and the available load history and HR curves.
 
-Before each proposed long run, your physio should review the exact increase. The 20 km option is on 27 September, two weeks before the event; it is not a mandatory test, and no 25–30 km run is included. If consecutive running days are not tolerated, drop a recovery run without redistributing its kilometres. Maintain two short sessions of already tolerated rehabilitation exercises and at least one genuine rest day.
+- July/early August included 44.3, 51.4, 37.4, 55.1 and 61.0 km weeks.
+- Longest recorded run: 22.15 km on 9 August, 5:58/km, 149 bpm.
+- No recorded running from 10 August through 6 September.
+- Return weeks: **28.95 and 32.60 km**. Seven return runs total **61.54 km**.
+- The four complete calendar weeks average **15.39 km/week**, including two zero-running weeks.
+  The two return weeks average **30.77 km/week**.
+- The long run increased from 10.20 to 20.01 km (+96%) and supplied 61% of last week’s volume.
+- You report feeling recovered, feeling fantastic on Sunday, and receiving your physio’s okay.
 
-Review marathon participation by 21 September, ahead of the organiser's 27 September entry-change deadline. Completing this draft is not a clearance criterion. If participation is not supported, omit the race and continue an individually adjusted return.
+Your earlier base is useful. The interruption and limited recent long-run preparation
+make a finish-focused marathon more defensible than restarting the original sub-4 goal.
+Load scores and a comfortable 20 km do not establish readiness for 42.195 km.
 
-The dashboard and calendar use these revised daily prescriptions. Earlier weeks below are retained as **historical reference only**; they are superseded from 7 September onward, including all old pace, taper and automatic-plan recommendations.
+## Sunday’s heart rate
 
-Sources: [official race](https://marathonmuenchen.org/en/the-marathon-one-lap-course-through-munich/), [entry rules](https://marathonmuenchen.org/en/questions/), [NHS posterior tibial load management](https://www.norfolkandwaveneycommunityhealth.nhs.uk/msk/self-help/foot-and-ankle/posterior-tibial-tendinopathy/), [HSS advice against catch-up long runs](https://news.hss.edu/cbs-newspath/).
+**20 September: 20.0124 km, 1:55:34 moving, 5:46/km, 158 bpm average.**
+On 2 August you ran 20.01 km at 5:28/km and 147 bpm: approximately 18 sec/km faster
+at 11 bpm lower HR. Conditions and sensor differences prevent a clean fitness comparison.
 
----
+| Segment | Sampled mean HR | Median sampled pace |
+|---|---:|---:|
+| 0–5 km | 153 bpm | 5:48/km |
+| 5–10 km | 155 bpm | 5:52/km |
+| 10–15 km | 158 bpm | 5:53/km |
+| 15–20 km | 166 bpm | 5:54/km |
 
-# Marathon Training Plan — Munich Marathon 2026
+HR rose without faster sampled pace. These sparse samples are approximate, not official
+splits or a time-weighted decoupling test. One of 165 samples falls outside the table’s
+3–10 min/km filter. The curves lack timestamps, elevation and weather; the CSV gives
+moving time, not elapsed race-like time. Confirmed sensor type and fluid intake are unknown.
 
-Assumptions
-- Athlete: Iker (25 y, 182 cm, 74 kg). Good aerobic base; marathon debutant.
-- Race: Sunday, October 11, 2026. **Official plan start: Monday, June 8, 2026 (18 weeks).**
-- Goal: Sub 4:00 (target marathon pace ~5:40 / km).
-- Availability: 5 running days per week + 1 optional cross-training day.
-- Pre-plan runs (before Jun 8) are visible in the dashboard as historical context.
+You reported a maximum around **190 bpm**. If accurate, 158 is about 83% and 166 about
+87% of maximum. These percentages do not identify your aerobic or lactate thresholds.
+The references below are cautious coaching choices, not tested zones or medical limits.
 
-Overview & Phases (18 weeks)
-- Phase A — Base (Weeks 1–3): Build consistency and leg speed with 400m interval sessions on Tuesdays.
-- Phase B — Build (Weeks 4–11): Transition to longer intervals (1k VO2) and tempo runs; long run grows steadily.
-- Phase C — Specific (Weeks 12–15): Marathon-pace work enters long runs; MP interval blocks on Tuesdays.
-- Phase D — Taper (Weeks 16–18): Reduce volume, keep sharpness, race week rest.
+One gel at 10 km over almost two hours is modest fueling: **10–16 g/hour** if it
+contained 20–30 g carbs, excluding any unreported drink carbs. Your bagel with avocado
+and lack of prior-day carb loading do not establish why HR rose. Formal carb loading
+was not required just to complete a 20 km training run.
 
-Weekly template (5-run structure)
-- Mon: Rest or optional easy cross-train (swim).
-- Tue: Quality session — **400m intervals** in Base phase; VO2 / tempo in Build+ phase.
-- Wed: Easy recovery run + optional strength (30–40 min core/legs).
-- Thu: Tempo or marathon-pace run.
-- Fri: Easy run or rest.
-- Sat: Medium-long steady run (comfortable pace).
-- Sun: Long run (progressive; some weeks include marathon-pace segments).
+## Remaining schedule
 
-Training paces (approx.)
-- Easy: 6:00–6:40 / km
-- Long run: 5:50–6:20 / km (progressive later)
-- Marathon Pace (MP): ~5:40 / km
-- Tempo / Threshold: 4:50–5:20 / km
-- Intervals (VO2): 4:00–4:20 / km
-Adjust these conservatively; your heart rate zones and perceived effort matter more than rigid paces.
+Weekly training ceilings: **29 → 20 → 7 km**. Race distance is additional.
+Relative to last week’s 32.60 km, these are about 89%, 61% and 21%, excluding the race.
+September 20 was your last main long run.
 
-Weekly plan (Week = Monday start)
+| Date | Session | Adjustment |
+|---|---|---|
+| Tue 22 Sep | 5 km easy | Shorten if still tired from Sunday. |
+| Wed 23 Sep | Rest / gentle swim | Familiar physio exercises. |
+| Thu 24 Sep | 6 km easy | Relaxed breathing; no fast finish. |
+| Fri 25 Sep | Rest | Light familiar physio exercises. |
+| Sat 26 Sep | Rest / easy walk | Prepare breakfast, shoes and fuel. |
+| Sun 27 Sep | Up to 18 km **or 110 min**, whichever first | Easy throughout; rehearse fuel. Shorten to 12–14 km if recovery is incomplete; stop earlier for symptoms. |
+| Mon 28 Sep | Rest | Check next-morning response. |
+| Tue 29 Sep | 5 km easy | Comfortable throughout. |
+| Wed 30 Sep | Rest | Light familiar physio exercises. |
+| Thu 1 Oct | 5 km easy | No fitness test. |
+| Fri 2 Oct | Rest | |
+| Sat 3 Oct | Rest / easy walk | |
+| Sun 4 Oct | Up to 10 km easy | Finish fresh. |
+| Mon 5 Oct | Rest | |
+| Tue 6 Oct | 4 km easy | |
+| Wed 7 Oct | Rest / gentle mobility | |
+| Thu 8 Oct | 3 km easy | Last short jog. |
+| Fri 9 Oct | Rest | Familiar carb-rich meals. |
+| Sat 10 Oct | Rest | Prepare kit and fuel. |
+| Sun 11 Oct | **Marathon: 42.195 km** | Follow the race strategy below. |
 
-**Phase A — Base (revised after injury, weeks 1–3 largely missed)**
-- Week 1 (Jun 8): ~30 km — Long 14k easy — Quality: **6×400m** (3 reps steady ~4:50/km + 3 reps progressive↗, 2 min rest) *(mostly missed — injury)*
-- Week 2 (Jun 15): ~33 km — Long 16k easy — Quality: **6×400m** (3 steady ~4:45/km + 3 progressive↗, 2 min rest) *(missed — injury)*
-- Week 3 (Jun 22) ↩ Recovery: ~28 km — Long 12k easy — Quality: 4×400m easy strides *(comeback week — 16k Sunday, no pain)*
+Easy means **2–3/10 effort and full-sentence breathing**, initially **6:15–6:45/km
+or slower**. Approximate easy-HR reference: **145–150 bpm**, not a number to chase.
+The Sunday time cap can make the run shorter than 18 km. Keep the three-run rhythm.
+No new hard intervals, hills, heavy strength or jumping sports; continue familiar
+tolerated physio work. Shorten or skip for fatigue; never make up missed distance.
+Recurring/increasing injury pain, changed stride, or next-morning swelling/stiffness
+means stop running and follow up with your physio.
 
-**Phase A — Base (compressed re-entry, weeks 4–7)**
-- Week 4 (Jun 29) ↩ Return: ~26 km — Long 14k easy — Quality: **4×400m very easy strides** — gentle return, no pressure
-- Week 5 (Jul 6): ~30 km — Long 16k easy — Quality: **6×400m** (3 steady ~4:50/km + 3 progressive↗, 2 min rest)
-- Week 6 (Jul 13): ~33 km — Long 18k easy — Quality: **6×400m** (3 steady ~4:45/km + 3 progressive↗, 2 min rest)
-- Week 7 (Jul 20) ↩ Recovery: ~28 km — Long 12k easy — Quality: 4×400m easy strides
+## Race strategy
 
-**Phase B — Build (weeks 8–11, peak volume reduced ~10% from original)**
-- Week 8 (Jul 27): ~42 km — Long 20k — Quality: 8k tempo (4:50–5:20/km)
-- Week 9 (Aug 3): ~46 km — Long 22k — Quality: 6×1k @VO2 (4:10–4:20/km, 90s rest)
-- Week 10 (Aug 10): ~50 km — Long 24k — Quality: 10k tempo
-- Week 11 (Aug 17) ↩ Recovery: ~40 km — Long 18k — Quality: 5×1k @VO2 easy
+**Start patiently, hold even effort, and consider acceleration only after 32 km.**
+The original sub-4 pace (~5:41/km) is not the recommended opening pace.
 
-**Phase C — Specific (weeks 12–15, long run peak 30k instead of 32k)**
-- Week 12 (Aug 24): ~54 km — Long 28k (incl 6k @MP) — Quality: 6×2k @MP (5:40/km)
-- Week 13 (Aug 31): ~56 km — Long 30k (final 8k @MP) — Quality: 8×1k @MP strides
-- Week 14 (Sep 7): ~56 km — Long 30k (14–16k @MP blocks) — Quality: 4×2k @MP intervals
-- Week 15 (Sep 14) ↩ Recovery: ~46 km — Long 22k (short MP effort) — Quality: 6×1k @MP
+| Stage | Pace approach | HR / effort reference | Action |
+|---|---|---|---|
+| 0–5 km | 6:15–6:30/km or slower | Full sentences; roughly 145–150 once settled | Let others go; do not bank time. |
+| 5–10 km | Stay easy; 6:10–6:25 only if comfortable | Prefer below about 155; effort 3/10 | If already 158–160, slow 15–30 sec/km; reassess after 3–5 min. |
+| 10–25 km | Hold sustainable effort | Roughly 150–158 if stable; effort 3–4/10 | A sustained rise at unchanged pace means ease off. |
+| 25–32 km | Maintain; accept slower splits | Controlled breathing, normal stride, fuel tolerated | No halfway acceleration. Slow or run–walk if strain grows. |
+| 32–37 km | Optional small increase | No pain; breathing and HR trend controlled | Try 5–10 sec/km faster for 1–2 km, then reassess. Otherwise hold or slow. |
+| 37–finish | Finish by feel | Symptoms override every HR number | Increase gradually only if still comfortable. |
 
-**Phase D — Taper**
-- Week 16 (Sep 21): ~40 km — Long 16k — Quality: short sharp intervals, stride-outs
-- Week 17 (Sep 28): ~28 km — Long 12k easy — Quality: few strides only
-- Week 18 / Race (Oct 5): ~20 km total — Mon easy 4k · Wed 3k strides · Thu–Sat rest · **Sun Oct 11: RACE DAY 🏁**
+**High HR early:** before 25 km, sustained HR above about 160 at unchanged/slower pace
+is a pacing alert, not a medical threshold. Slow 15–30 sec/km, check breathing,
+take scheduled fuel and sip to thirst; reassess after 3–5 minutes. If effort stays
+high, walk 30–60 seconds and restart slower. A 9-minute easy run / 1-minute walk
+rhythm is an option to rehearse on 27 September.
 
-Notes on long runs
-- Build the long run progressively (no more than ~10% weekly increase overall). Every 3–4 weeks, step-back week reduces volume for recovery.
-- From Week 13 onward include marathon-pace segments in long runs. Example: 32k long run = 20k comfortable + 12k @MP.
+**Feeling fantastic early:** hold back. A negative split is optional, never forced.
+After 32 km, accelerate only with normal stride, no injury pain, controlled breathing,
+fuel tolerated and no sharply rising HR.
 
-Key sessions explained
-- **400m intervals (Base, W1–3):** 6×400m with 2 min rest — first 3 reps at constant steady rhythm (~4:45–4:50/km), last 3 reps progressive getting a bit faster each rep (down toward 4:10–4:20/km). This builds leg turnover and aerobic speed without over-stressing your body. Progress to 8 reps in W3 when you feel ready. Do this on **Tuesday** (not Wednesday) — you want fresh legs after Monday rest and a full recovery day before Thursday's tempo.
-- VO2 intervals: Short repeats (e.g., 6×1k or 5×1200m) at 3–5k effort with 2–3 min recovery.
-- Tempo / Threshold: Sustained 20–40 minute efforts at comfortably hard pace (about 10–20 sec/km faster than MP).
-- Marathon-pace runs: Practice holding target pace for blocks (e.g., 8–16k at MP) once per week in the specific phase.
+**Lost time:** do not surge after a crowd or aid station. Use lap pace and course
+markers rather than instantaneous GPS pace. Heat or wind can require slower splits.
+Check implausible HR spikes against effort and sensor contact; a familiar chest strap
+can help if available. Do not force water to try to lower HR.
 
-Strength & recovery
-- 2x/week 20–40 min strength/stability sessions focusing on glutes, core, single-leg strength.
-- Prioritize sleep, hydration, and protein for recovery. Swim as low-impact cross-training if legs need a break.
+For context only, 6:10–6:30/km across 42.195 km is **4:20:12–4:34:16** before
+additional stops. This is arithmetic, not a finish prediction or compulsory target.
+A slower finish may be the correct outcome.
 
-Injury prevention
-- Keep at least 80% of weekly km at easy effort.
-- If persistent fatigue or elevated resting heart rate appears, take an extra rest day or swap a quality session for easy miles.
+Increasing injury pain or altered gait means stop. Chest pain, faintness, confusion
+or unusual severe breathlessness means stop and seek race medical help.
 
-Race week checklist
-- Final longish run 2–3 weeks out; then drop volume.
-- Carb-load 48 hours pre-race, hydrate, plan race morning practice (breakfast, warm-up).
-- Plan race pacing strategy: negative-split target (slightly slower first half, aim for even/negative second half).
+## Fueling
 
-Next steps (recommended)
-1. I can adapt this plan to your true current base if you want: I will parse `i600311_activities.csv` and compute your recent 4-week average weekly mileage and longest recent long run.
-2. Optionally I can export the plan as a calendar (CSV/ICS) or integrate weekly targets into your pipeline visualizations.
+Practice **30–60 g carbohydrate/hour** on 27 September, aiming toward **45–60** only
+if tolerated. Example: familiar **25 g gels at 20, 50 and 80 minutes**, then every
+30 minutes during the race: approximately 50 g/hour over longer durations. Count
+sports-drink carbs too. Do not jump to 90 g/hour on race day without practice.
 
-— Coach & Data Scientist
+If this pattern works, plan 9 gels through 4:20 plus one spare for a longer race;
+adjust for gel size, drinks and duration. Carry your own familiar supply: the organiser
+currently lists course gels only from **26.5 km**, too late for your first fuel.
 
-**Adapted plan based on your recent training (automatic analysis)**
+Drink to thirst in small amounts, and take water with gels as their labels recommend.
+No forced fixed fluid volume. Weather and sweat-rate data are absent.
+Repeat a familiar carb-rich breakfast 2–3 hours before the rehearsal and race.
+A bagel can work; reduce avocado/fat if heavy and add familiar easy carbs such as jam
+or banana. During the final 36–48 hours, increase familiar carbohydrate foods across
+meals and snacks; avoid one huge dinner or new supplements/caffeine products.
 
-- Analysis snapshot (data through 2026-06-01):
-	- Recent 4-week total: 40.3 km (avg ~10.1 km/week)
-	- Longest run in last 12 weeks: 13.3 km
+## Sources and method
 
-- Recommendation summary:
-	- Your current base is modest (≈10 km/week). We'll increase volume conservatively using ~+10% weekly progression with step-back weeks every 4th week.
-	- This progression reaches a conservative peak of ~56 km/week about 12–14 weeks into the plan, which is a safe target to support a sub-4 marathon while keeping injury risk low.
+Activity CSV, HR/pace curves and load history were reviewed as of 22 September.
+No duplicate activity IDs were found. Weekly totals include zero-running calendar
+weeks. Aggregate pace = moving time / distance; aggregate HR is weighted by moving time.
+This coaching review is fixed; future data syncs update charts, not these judgments.
 
-- Suggested weekly totals (Week 1 = 2026-06-01 start; 19 weeks total):
-	- Week 1: 10.1 km
-	- Week 2: 11.1 km
-	- Week 3: 12.2 km
-	- Week 4 (step-back): 11.4 km
-	- Week 5: 14.8 km
-	- Week 6: 16.3 km
-	- Week 7: 17.9 km
-	- Week 8 (step-back): 16.7 km
-	- Week 9: 21.7 km
-	- Week 10: 23.8 km
-	- Week 11: 26.2 km
-	- Week 12 (step-back): 24.5 km
-	- Week 13: 31.7 km
-	- Week 14: 34.9 km
-	- Week 15: 38.4 km
-	- Week 16 (taper start): 35.9 km
-	- Week 17: 46.4 km
-	- Week 18 (taper): 51.1 km
-	- Week 19 (race week): 56.2 km (note: final two weeks will include tapering and race-day adjustments)
-
-Notes:
-- These weekly totals are a high-level target. The weekly template (quality/easy/long) from the original plan still applies — distribute the km across 4–5 runs as your schedule allows.
-- If any week feels unusually hard, respect fatigue and swap quality for easy miles or take an extra rest day. We will re-run the analysis periodically and adapt targets.
-
-If you'd like, I will now create a small Python pipeline that reads `i600311_activities.csv`, generates an interactive dashboard (`docs/index.html`) with weekly volume, pace trends, and your weekly goals, and add a GitHub Actions workflow to publish it to GitHub Pages. Say yes and I'll finish the implementation and push the files here.
+- [Official Munich Marathon: date, distance and course services](https://marathonmuenchen.org/en/the-marathon-one-lap-course-through-munich/).
+- [Wang et al. (2023): endurance taper review](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0282838).
+  Supports reducing pre-race volume, but does not validate this specific return from injury.
+- [Heaps et al. (1994): hydration and cardiovascular drift](https://pubmed.ncbi.nlm.nih.gov/8157372/).
+  Hydration can affect HR; this experiment cannot identify the cause of your run’s pattern.
+- [Australian Institute of Sport: carbohydrate during exercise](https://www.ausport.gov.au/ais/nutrition/supplements/group_a/sports-foods2/sports-drink/how-and-when-do-i-use-it).
+  The practical recommendation here reflects unknown gut tolerance and the short rehearsal period.

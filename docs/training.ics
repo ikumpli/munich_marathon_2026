@@ -2,8 +2,8 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Munich Marathon 2026//Training Calendar//EN
 X-WR-CALNAME:Munich Marathon 2026 — Training
-X-WR-CALDESC:18-week training history; accelerated return draft from Sep 7.
-  Sub-4 on hold. Future sessions conditional on review.
+X-WR-CALDESC:Training history and 22 September taper revision. Race effort 
+ and fueling in dashboard.
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
@@ -748,669 +748,514 @@ BEGIN:VEVENT
 UID:20260907-w14-mon@munich-marathon-2026
 DTSTART;VALUE=DATE:20260907
 DTEND;VALUE=DATE:20260908
-SUMMARY:DRAFT — 🏃 Easy run — W14 Return draft
+SUMMARY:🏃 Easy run — W14 Return draft
 DESCRIPTION:W14 · Sep 7 · Return draft | Easy 3k ceiling or 20 min\, whic
- hever first\nAccelerated draft requested on 7 September. Distances are cond
- itional ceilings\, not a medically cleared prescription. Review the exact p
- rogression and each longer run with your physio first. Progress only when p
- receding runs and next-morning walking\, stiffness and swelling remain sett
- led\; otherwise repeat the last tolerated dose or rest. Stop for increasing
-  inner-ankle pain\, swelling or a changed stride. All runs easy and convers
- ational\; no catch-up miles or speedwork. Completing a long run does not es
- tablish marathon readiness. Sub-4 is on hold.
+ hever first
 CATEGORIES:Return draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260908-w14-tue@munich-marathon-2026
 DTSTART;VALUE=DATE:20260908
 DTEND;VALUE=DATE:20260909
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W14 · Sep 7 · Return draft | Rest\nAccelerated draft requeste
- d on 7 September. Distances are conditional ceilings\, not a medically clea
- red prescription. Review the exact progression and each longer run with you
- r physio first. Progress only when preceding runs and next-morning walking\
- , stiffness and swelling remain settled\; otherwise repeat the last tolerat
- ed dose or rest. Stop for increasing inner-ankle pain\, swelling or a chang
- ed stride. All runs easy and conversational\; no catch-up miles or speedwor
- k. Completing a long run does not establish marathon readiness. Sub-4 is on
-  hold.
+SUMMARY:💤 Rest
+DESCRIPTION:W14 · Sep 7 · Return draft | Rest
 CATEGORIES:Return draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260909-w14-wed@munich-marathon-2026
 DTSTART;VALUE=DATE:20260909
 DTEND;VALUE=DATE:20260910
-SUMMARY:DRAFT — 🏃 Easy run — W14 Return draft
-DESCRIPTION:W14 · Sep 7 · Return draft | Easy 5k ceiling if settled\nAcce
- lerated draft requested on 7 September. Distances are conditional ceilings\
- , not a medically cleared prescription. Review the exact progression and ea
- ch longer run with your physio first. Progress only when preceding runs and
-  next-morning walking\, stiffness and swelling remain settled\; otherwise r
- epeat the last tolerated dose or rest. Stop for increasing inner-ankle pain
- \, swelling or a changed stride. All runs easy and conversational\; no catc
- h-up miles or speedwork. Completing a long run does not establish marathon 
- readiness. Sub-4 is on hold.
+SUMMARY:🏃 Easy run — W14 Return draft
+DESCRIPTION:W14 · Sep 7 · Return draft | Easy 5k ceiling if settled
 CATEGORIES:Return draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260910-w14-thu@munich-marathon-2026
 DTSTART;VALUE=DATE:20260910
 DTEND;VALUE=DATE:20260911
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W14 · Sep 7 · Return draft | Rest\nAccelerated draft requeste
- d on 7 September. Distances are conditional ceilings\, not a medically clea
- red prescription. Review the exact progression and each longer run with you
- r physio first. Progress only when preceding runs and next-morning walking\
- , stiffness and swelling remain settled\; otherwise repeat the last tolerat
- ed dose or rest. Stop for increasing inner-ankle pain\, swelling or a chang
- ed stride. All runs easy and conversational\; no catch-up miles or speedwor
- k. Completing a long run does not establish marathon readiness. Sub-4 is on
-  hold.
+SUMMARY:💤 Rest
+DESCRIPTION:W14 · Sep 7 · Return draft | Rest
 CATEGORIES:Return draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260911-w14-fri@munich-marathon-2026
 DTSTART;VALUE=DATE:20260911
 DTEND;VALUE=DATE:20260912
-SUMMARY:DRAFT — 🏃 Easy run — W14 Return draft
-DESCRIPTION:W14 · Sep 7 · Return draft | Easy 5k ceiling if settled\nAcce
- lerated draft requested on 7 September. Distances are conditional ceilings\
- , not a medically cleared prescription. Review the exact progression and ea
- ch longer run with your physio first. Progress only when preceding runs and
-  next-morning walking\, stiffness and swelling remain settled\; otherwise r
- epeat the last tolerated dose or rest. Stop for increasing inner-ankle pain
- \, swelling or a changed stride. All runs easy and conversational\; no catc
- h-up miles or speedwork. Completing a long run does not establish marathon 
- readiness. Sub-4 is on hold.
+SUMMARY:🏃 Easy run — W14 Return draft
+DESCRIPTION:W14 · Sep 7 · Return draft | Easy 5k ceiling if settled
 CATEGORIES:Return draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260912-w14-sat@munich-marathon-2026
 DTSTART;VALUE=DATE:20260912
 DTEND;VALUE=DATE:20260913
-SUMMARY:DRAFT — 💤 Rest
+SUMMARY:💤 Rest
 DESCRIPTION:W14 · Sep 7 · Return draft | Rest\; physio review before long
- er run\nAccelerated draft requested on 7 September. Distances are condition
- al ceilings\, not a medically cleared prescription. Review the exact progre
- ssion and each longer run with your physio first. Progress only when preced
- ing runs and next-morning walking\, stiffness and swelling remain settled\;
-  otherwise repeat the last tolerated dose or rest. Stop for increasing inne
- r-ankle pain\, swelling or a changed stride. All runs easy and conversation
- al\; no catch-up miles or speedwork. Completing a long run does not establi
- sh marathon readiness. Sub-4 is on hold.
+ er run
 CATEGORIES:Return draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260913-w14-sun@munich-marathon-2026
 DTSTART;VALUE=DATE:20260913
 DTEND;VALUE=DATE:20260914
-SUMMARY:DRAFT — 📏 Long run — W14 Return draft
+SUMMARY:📏 Long run — W14 Return draft
 DESCRIPTION:W14 · Sep 7 · Return draft | PROPOSED long 10k ceiling — ex
- act distance needs physio review\; otherwise repeat tolerated dose\nAcceler
- ated draft requested on 7 September. Distances are conditional ceilings\, n
- ot a medically cleared prescription. Review the exact progression and each 
- longer run with your physio first. Progress only when preceding runs and ne
- xt-morning walking\, stiffness and swelling remain settled\; otherwise repe
- at the last tolerated dose or rest. Stop for increasing inner-ankle pain\, 
- swelling or a changed stride. All runs easy and conversational\; no catch-u
- p miles or speedwork. Completing a long run does not establish marathon rea
- diness. Sub-4 is on hold.
+ act distance needs physio review\; otherwise repeat tolerated dose
 CATEGORIES:Return draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260914-w15-mon@munich-marathon-2026
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W15 · Sep 14 · Build draft | Rest\nAccelerated draft requeste
- d on 7 September. Distances are conditional ceilings\, not a medically clea
- red prescription. Review the exact progression and each longer run with you
- r physio first. Progress only when preceding runs and next-morning walking\
- , stiffness and swelling remain settled\; otherwise repeat the last tolerat
- ed dose or rest. Stop for increasing inner-ankle pain\, swelling or a chang
- ed stride. All runs easy and conversational\; no catch-up miles or speedwor
- k. Completing a long run does not establish marathon readiness. Sub-4 is on
-  hold.
+SUMMARY:💤 Rest
+DESCRIPTION:W15 · Sep 14 · Build draft | Rest
 CATEGORIES:Build draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260915-w15-tue@munich-marathon-2026
 DTSTART;VALUE=DATE:20260915
 DTEND;VALUE=DATE:20260916
-SUMMARY:DRAFT — 🏃 Easy run — W15 Build draft
-DESCRIPTION:W15 · Sep 14 · Build draft | Easy 4k ceiling\nAccelerated dra
- ft requested on 7 September. Distances are conditional ceilings\, not a med
- ically cleared prescription. Review the exact progression and each longer r
- un with your physio first. Progress only when preceding runs and next-morni
- ng walking\, stiffness and swelling remain settled\; otherwise repeat the l
- ast tolerated dose or rest. Stop for increasing inner-ankle pain\, swelling
-  or a changed stride. All runs easy and conversational\; no catch-up miles 
- or speedwork. Completing a long run does not establish marathon readiness. 
- Sub-4 is on hold.
+SUMMARY:🏃 Easy run — W15 Build draft
+DESCRIPTION:W15 · Sep 14 · Build draft | Easy 4k ceiling
 CATEGORIES:Build draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260916-w15-wed@munich-marathon-2026
 DTSTART;VALUE=DATE:20260916
 DTEND;VALUE=DATE:20260917
-SUMMARY:DRAFT — 🏃 Easy run — W15 Build draft
+SUMMARY:🏃 Easy run — W15 Build draft
 DESCRIPTION:W15 · Sep 14 · Build draft | Recovery 4k ceiling — omit if 
- consecutive days not tolerated\nAccelerated draft requested on 7 September.
-  Distances are conditional ceilings\, not a medically cleared prescription.
-  Review the exact progression and each longer run with your physio first. P
- rogress only when preceding runs and next-morning walking\, stiffness and s
- welling remain settled\; otherwise repeat the last tolerated dose or rest. 
- Stop for increasing inner-ankle pain\, swelling or a changed stride. All ru
- ns easy and conversational\; no catch-up miles or speedwork. Completing a l
- ong run does not establish marathon readiness. Sub-4 is on hold.
+ consecutive days not tolerated
 CATEGORIES:Build draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260917-w15-thu@munich-marathon-2026
 DTSTART;VALUE=DATE:20260917
 DTEND;VALUE=DATE:20260918
-SUMMARY:DRAFT — 🏃 Easy run — W15 Build draft
-DESCRIPTION:W15 · Sep 14 · Build draft | Easy 5k ceiling\nAccelerated dra
- ft requested on 7 September. Distances are conditional ceilings\, not a med
- ically cleared prescription. Review the exact progression and each longer r
- un with your physio first. Progress only when preceding runs and next-morni
- ng walking\, stiffness and swelling remain settled\; otherwise repeat the l
- ast tolerated dose or rest. Stop for increasing inner-ankle pain\, swelling
-  or a changed stride. All runs easy and conversational\; no catch-up miles 
- or speedwork. Completing a long run does not establish marathon readiness. 
- Sub-4 is on hold.
+SUMMARY:🏃 Easy run — W15 Build draft
+DESCRIPTION:W15 · Sep 14 · Build draft | Easy 5k ceiling
 CATEGORIES:Build draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260918-w15-fri@munich-marathon-2026
 DTSTART;VALUE=DATE:20260918
 DTEND;VALUE=DATE:20260919
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W15 · Sep 14 · Build draft | Rest\nAccelerated draft requeste
- d on 7 September. Distances are conditional ceilings\, not a medically clea
- red prescription. Review the exact progression and each longer run with you
- r physio first. Progress only when preceding runs and next-morning walking\
- , stiffness and swelling remain settled\; otherwise repeat the last tolerat
- ed dose or rest. Stop for increasing inner-ankle pain\, swelling or a chang
- ed stride. All runs easy and conversational\; no catch-up miles or speedwor
- k. Completing a long run does not establish marathon readiness. Sub-4 is on
-  hold.
+SUMMARY:💤 Rest
+DESCRIPTION:W15 · Sep 14 · Build draft | Rest
 CATEGORIES:Build draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260919-w15-sat@munich-marathon-2026
 DTSTART;VALUE=DATE:20260919
 DTEND;VALUE=DATE:20260920
-SUMMARY:DRAFT — 🏃 Easy run — W15 Build draft
-DESCRIPTION:W15 · Sep 14 · Build draft | Recovery 3k ceiling\nAccelerated
-  draft requested on 7 September. Distances are conditional ceilings\, not a
-  medically cleared prescription. Review the exact progression and each long
- er run with your physio first. Progress only when preceding runs and next-m
- orning walking\, stiffness and swelling remain settled\; otherwise repeat t
- he last tolerated dose or rest. Stop for increasing inner-ankle pain\, swel
- ling or a changed stride. All runs easy and conversational\; no catch-up mi
- les or speedwork. Completing a long run does not establish marathon readine
- ss. Sub-4 is on hold.
+SUMMARY:🏃 Easy run — W15 Build draft
+DESCRIPTION:W15 · Sep 14 · Build draft | Recovery 3k ceiling
 CATEGORIES:Build draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260920-w15-sun@munich-marathon-2026
 DTSTART;VALUE=DATE:20260920
 DTEND;VALUE=DATE:20260921
-SUMMARY:DRAFT — 📏 Long run — W15 Build draft
+SUMMARY:📏 Long run — W15 Build draft
 DESCRIPTION:W15 · Sep 14 · Build draft | PROPOSED long 14k ceiling — on
- ly after settled prior week and physio review\; otherwise repeat tolerated 
- dose\nAccelerated draft requested on 7 September. Distances are conditional
-  ceilings\, not a medically cleared prescription. Review the exact progress
- ion and each longer run with your physio first. Progress only when precedin
- g runs and next-morning walking\, stiffness and swelling remain settled\; o
- therwise repeat the last tolerated dose or rest. Stop for increasing inner-
- ankle pain\, swelling or a changed stride. All runs easy and conversational
- \; no catch-up miles or speedwork. Completing a long run does not establish
-  marathon readiness. Sub-4 is on hold.
+ ly after settled prior week and physio review\; otherwise repeat tolerated
+  dose
 CATEGORIES:Build draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260921-w16-mon@munich-marathon-2026
 DTSTART;VALUE=DATE:20260921
 DTEND;VALUE=DATE:20260922
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W16 · Sep 21 · Long-run draft | Rest\; participation review b
- efore entry-change deadline\nAccelerated draft requested on 7 September. Di
- stances are conditional ceilings\, not a medically cleared prescription. Re
- view the exact progression and each longer run with your physio first. Prog
- ress only when preceding runs and next-morning walking\, stiffness and swel
- ling remain settled\; otherwise repeat the last tolerated dose or rest. Sto
- p for increasing inner-ankle pain\, swelling or a changed stride. All runs 
- easy and conversational\; no catch-up miles or speedwork. Completing a long
-  run does not establish marathon readiness. Sub-4 is on hold.
-CATEGORIES:Long-run draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:💤 Rest
+DESCRIPTION:W16 · Sep 21 · Consolidate | Rest\; participation review befo
+ re entry-change deadline
+CATEGORIES:Consolidate
 END:VEVENT
 BEGIN:VEVENT
 UID:20260922-w16-tue@munich-marathon-2026
 DTSTART;VALUE=DATE:20260922
 DTEND;VALUE=DATE:20260923
-SUMMARY:DRAFT — 🏃 Easy run — W16 Long-run draft
-DESCRIPTION:W16 · Sep 21 · Long-run draft | Easy 4k ceiling\nAccelerated 
- draft requested on 7 September. Distances are conditional ceilings\, not a 
- medically cleared prescription. Review the exact progression and each longe
- r run with your physio first. Progress only when preceding runs and next-mo
- rning walking\, stiffness and swelling remain settled\; otherwise repeat th
- e last tolerated dose or rest. Stop for increasing inner-ankle pain\, swell
- ing or a changed stride. All runs easy and conversational\; no catch-up mil
- es or speedwork. Completing a long run does not establish marathon readines
- s. Sub-4 is on hold.
-CATEGORIES:Long-run draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏃 Easy run — W16 Consolidate
+DESCRIPTION:W16 · Sep 21 · Consolidate | Easy 5k\, conversational\; short
+ en if still tired from Sunday\nUpdated 22 September after the 20 km run an
+ d your reported physio okay. Three easy runs this week\, three next week\,
+  then two short runs before race day. Use conversational effort (2–3/10)
+ \; roughly 6:15–6:45/km or slower. An approximate 145–150 bpm is a use
+ ful easy-run reference\, not a tested zone or a target to chase. Distances
+  are upper limits: shorten or skip for fatigue. If the injury pain returns
+ \, increases\, changes your stride or leaves next-morning swelling/stiffne
+ ss\, stop running and follow up with your physio. No missed-distance catch
+ -up or new hard sessions.
+CATEGORIES:Consolidate
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260923-w16-wed@munich-marathon-2026
 DTSTART;VALUE=DATE:20260923
 DTEND;VALUE=DATE:20260924
-SUMMARY:DRAFT — 🏃 Easy run — W16 Long-run draft
-DESCRIPTION:W16 · Sep 21 · Long-run draft | Recovery 5k ceiling\nAccelera
- ted draft requested on 7 September. Distances are conditional ceilings\, no
- t a medically cleared prescription. Review the exact progression and each l
- onger run with your physio first. Progress only when preceding runs and nex
- t-morning walking\, stiffness and swelling remain settled\; otherwise repea
- t the last tolerated dose or rest. Stop for increasing inner-ankle pain\, s
- welling or a changed stride. All runs easy and conversational\; no catch-up
-  miles or speedwork. Completing a long run does not establish marathon read
- iness. Sub-4 is on hold.
-CATEGORIES:Long-run draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏊 Rest / Swim
+DESCRIPTION:W16 · Sep 21 · Consolidate | Rest or gentle swim\; familiar p
+ hysio exercises\nUpdated 22 September after the 20 km run and your reporte
+ d physio okay. Three easy runs this week\, three next week\, then two shor
+ t runs before race day. Use conversational effort (2–3/10)\; roughly 6:1
+ 5–6:45/km or slower. An approximate 145–150 bpm is a useful easy-run r
+ eference\, not a tested zone or a target to chase. Distances are upper lim
+ its: shorten or skip for fatigue. If the injury pain returns\, increases\,
+  changes your stride or leaves next-morning swelling/stiffness\, stop runn
+ ing and follow up with your physio. No missed-distance catch-up or new har
+ d sessions.
+CATEGORIES:Consolidate
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260924-w16-thu@munich-marathon-2026
 DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260925
-SUMMARY:DRAFT — 🏃 Easy run — W16 Long-run draft
-DESCRIPTION:W16 · Sep 21 · Long-run draft | Easy 5k ceiling\nAccelerated 
- draft requested on 7 September. Distances are conditional ceilings\, not a 
- medically cleared prescription. Review the exact progression and each longe
- r run with your physio first. Progress only when preceding runs and next-mo
- rning walking\, stiffness and swelling remain settled\; otherwise repeat th
- e last tolerated dose or rest. Stop for increasing inner-ankle pain\, swell
- ing or a changed stride. All runs easy and conversational\; no catch-up mil
- es or speedwork. Completing a long run does not establish marathon readines
- s. Sub-4 is on hold.
-CATEGORIES:Long-run draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏃 Easy run — W16 Consolidate
+DESCRIPTION:W16 · Sep 21 · Consolidate | Easy 6k\; practice relaxed openi
+ ng effort\, no fast finish\nUpdated 22 September after the 20 km run and y
+ our reported physio okay. Three easy runs this week\, three next week\, th
+ en two short runs before race day. Use conversational effort (2–3/10)\; 
+ roughly 6:15–6:45/km or slower. An approximate 145–150 bpm is a useful
+  easy-run reference\, not a tested zone or a target to chase. Distances ar
+ e upper limits: shorten or skip for fatigue. If the injury pain returns\, 
+ increases\, changes your stride or leaves next-morning swelling/stiffness\
+ , stop running and follow up with your physio. No missed-distance catch-up
+  or new hard sessions.
+CATEGORIES:Consolidate
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260925-w16-fri@munich-marathon-2026
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W16 · Sep 21 · Long-run draft | Rest\nAccelerated draft reque
- sted on 7 September. Distances are conditional ceilings\, not a medically c
- leared prescription. Review the exact progression and each longer run with 
- your physio first. Progress only when preceding runs and next-morning walki
- ng\, stiffness and swelling remain settled\; otherwise repeat the last tole
- rated dose or rest. Stop for increasing inner-ankle pain\, swelling or a ch
- anged stride. All runs easy and conversational\; no catch-up miles or speed
- work. Completing a long run does not establish marathon readiness. Sub-4 is
-  on hold.
-CATEGORIES:Long-run draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W16 · Sep 21 · Consolidate | Rest\; familiar light physio exe
+ rcises\nUpdated 22 September after the 20 km run and your reported physio 
+ okay. Three easy runs this week\, three next week\, then two short runs be
+ fore race day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/
+ km or slower. An approximate 145–150 bpm is a useful easy-run reference\
+ , not a tested zone or a target to chase. Distances are upper limits: shor
+ ten or skip for fatigue. If the injury pain returns\, increases\, changes 
+ your stride or leaves next-morning swelling/stiffness\, stop running and f
+ ollow up with your physio. No missed-distance catch-up or new hard session
+ s.
+CATEGORIES:Consolidate
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260926-w16-sat@munich-marathon-2026
 DTSTART;VALUE=DATE:20260926
 DTEND;VALUE=DATE:20260927
-SUMMARY:DRAFT — 🏃 Easy run — W16 Long-run draft
-DESCRIPTION:W16 · Sep 21 · Long-run draft | Recovery 2k ceiling or rest\n
- Accelerated draft requested on 7 September. Distances are conditional ceili
- ngs\, not a medically cleared prescription. Review the exact progression an
- d each longer run with your physio first. Progress only when preceding runs
-  and next-morning walking\, stiffness and swelling remain settled\; otherwi
- se repeat the last tolerated dose or rest. Stop for increasing inner-ankle 
- pain\, swelling or a changed stride. All runs easy and conversational\; no 
- catch-up miles or speedwork. Completing a long run does not establish marat
- hon readiness. Sub-4 is on hold.
-CATEGORIES:Long-run draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W16 · Sep 21 · Consolidate | Rest or easy walk\nUpdated 22 Se
+ ptember after the 20 km run and your reported physio okay. Three easy runs
+  this week\, three next week\, then two short runs before race day. Use co
+ nversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. An appr
+ oximate 145–150 bpm is a useful easy-run reference\, not a tested zone o
+ r a target to chase. Distances are upper limits: shorten or skip for fatig
+ ue. If the injury pain returns\, increases\, changes your stride or leaves
+  next-morning swelling/stiffness\, stop running and follow up with your ph
+ ysio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Consolidate
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260927-w16-sun@munich-marathon-2026
 DTSTART;VALUE=DATE:20260927
 DTEND;VALUE=DATE:20260928
-SUMMARY:DRAFT — 📏 Long run — W16 Long-run draft
-DESCRIPTION:W16 · Sep 21 · Long-run draft | PROPOSED long 20k ceiling —
-  physio review of prior long-run recovery required\; otherwise repeat toler
- ated dose\; no finish-time test\nAccelerated draft requested on 7 September
- . Distances are conditional ceilings\, not a medically cleared prescription
- . Review the exact progression and each longer run with your physio first. 
- Progress only when preceding runs and next-morning walking\, stiffness and 
- swelling remain settled\; otherwise repeat the last tolerated dose or rest.
-  Stop for increasing inner-ankle pain\, swelling or a changed stride. All r
- uns easy and conversational\; no catch-up miles or speedwork. Completing a 
- long run does not establish marathon readiness. Sub-4 is on hold.
-CATEGORIES:Long-run draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 📏 Long run — W16 Consolidate
+DESCRIPTION:W16 · Sep 21 · Consolidate | Long 18k maximum OR 110 min\, wh
+ ichever first\; easy throughout\; rehearse breakfast and fuel\; shorten to
+  12–14 km if recovery is incomplete\nUpdated 22 September after the 20 k
+ m run and your reported physio okay. Three easy runs this week\, three nex
+ t week\, then two short runs before race day. Use conversational effort (2
+ –3/10)\; roughly 6:15–6:45/km or slower. An approximate 145–150 bpm 
+ is a useful easy-run reference\, not a tested zone or a target to chase. D
+ istances are upper limits: shorten or skip for fatigue. If the injury pain
+  returns\, increases\, changes your stride or leaves next-morning swelling
+ /stiffness\, stop running and follow up with your physio. No missed-distan
+ ce catch-up or new hard sessions.
+CATEGORIES:Consolidate
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260928-w17-mon@munich-marathon-2026
 DTSTART;VALUE=DATE:20260928
 DTEND;VALUE=DATE:20260929
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W17 · Sep 28 · Taper draft | Rest\; review response to longer
-  run\nAccelerated draft requested on 7 September. Distances are conditional
-  ceilings\, not a medically cleared prescription. Review the exact progress
- ion and each longer run with your physio first. Progress only when precedin
- g runs and next-morning walking\, stiffness and swelling remain settled\; o
- therwise repeat the last tolerated dose or rest. Stop for increasing inner-
- ankle pain\, swelling or a changed stride. All runs easy and conversational
- \; no catch-up miles or speedwork. Completing a long run does not establish
-  marathon readiness. Sub-4 is on hold.
-CATEGORIES:Taper draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏊 Rest / Swim
+DESCRIPTION:W17 · Sep 28 · Taper | Rest or gentle swim if recovered\nUpda
+ ted 22 September after the 20 km run and your reported physio okay. Three 
+ easy runs this week\, three next week\, then two short runs before race da
+ y. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower
+ . An approximate 145–150 bpm is a useful easy-run reference\, not a test
+ ed zone or a target to chase. Distances are upper limits: shorten or skip 
+ for fatigue. If the injury pain returns\, increases\, changes your stride 
+ or leaves next-morning swelling/stiffness\, stop running and follow up wit
+ h your physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Taper
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260929-w17-tue@munich-marathon-2026
 DTSTART;VALUE=DATE:20260929
 DTEND;VALUE=DATE:20260930
-SUMMARY:DRAFT — 🏃 Easy run — W17 Taper draft
-DESCRIPTION:W17 · Sep 28 · Taper draft | Easy 4k ceiling\nAccelerated dra
- ft requested on 7 September. Distances are conditional ceilings\, not a med
- ically cleared prescription. Review the exact progression and each longer r
- un with your physio first. Progress only when preceding runs and next-morni
- ng walking\, stiffness and swelling remain settled\; otherwise repeat the l
- ast tolerated dose or rest. Stop for increasing inner-ankle pain\, swelling
-  or a changed stride. All runs easy and conversational\; no catch-up miles 
- or speedwork. Completing a long run does not establish marathon readiness. 
- Sub-4 is on hold.
-CATEGORIES:Taper draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏃 Easy run — W17 Taper
+DESCRIPTION:W17 · Sep 28 · Taper | Easy 5k\; relaxed and conversational\n
+ Updated 22 September after the 20 km run and your reported physio okay. Th
+ ree easy runs this week\, three next week\, then two short runs before rac
+ e day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or sl
+ ower. An approximate 145–150 bpm is a useful easy-run reference\, not a 
+ tested zone or a target to chase. Distances are upper limits: shorten or s
+ kip for fatigue. If the injury pain returns\, increases\, changes your str
+ ide or leaves next-morning swelling/stiffness\, stop running and follow up
+  with your physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Taper
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20260930-w17-wed@munich-marathon-2026
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
-SUMMARY:DRAFT — 🏃 Easy run — W17 Taper draft
-DESCRIPTION:W17 · Sep 28 · Taper draft | Recovery 4k ceiling\nAccelerated
-  draft requested on 7 September. Distances are conditional ceilings\, not a
-  medically cleared prescription. Review the exact progression and each long
- er run with your physio first. Progress only when preceding runs and next-m
- orning walking\, stiffness and swelling remain settled\; otherwise repeat t
- he last tolerated dose or rest. Stop for increasing inner-ankle pain\, swel
- ling or a changed stride. All runs easy and conversational\; no catch-up mi
- les or speedwork. Completing a long run does not establish marathon readine
- ss. Sub-4 is on hold.
-CATEGORIES:Taper draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W17 · Sep 28 · Taper | Rest\; light familiar physio exercises
+ \nUpdated 22 September after the 20 km run and your reported physio okay. 
+ Three easy runs this week\, three next week\, then two short runs before r
+ ace day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or 
+ slower. An approximate 145–150 bpm is a useful easy-run reference\, not 
+ a tested zone or a target to chase. Distances are upper limits: shorten or
+  skip for fatigue. If the injury pain returns\, increases\, changes your s
+ tride or leaves next-morning swelling/stiffness\, stop running and follow 
+ up with your physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Taper
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261001-w17-thu@munich-marathon-2026
 DTSTART;VALUE=DATE:20261001
 DTEND;VALUE=DATE:20261002
-SUMMARY:DRAFT — 🏃 Easy run — W17 Taper draft
-DESCRIPTION:W17 · Sep 28 · Taper draft | Easy 4k ceiling\nAccelerated dra
- ft requested on 7 September. Distances are conditional ceilings\, not a med
- ically cleared prescription. Review the exact progression and each longer r
- un with your physio first. Progress only when preceding runs and next-morni
- ng walking\, stiffness and swelling remain settled\; otherwise repeat the l
- ast tolerated dose or rest. Stop for increasing inner-ankle pain\, swelling
-  or a changed stride. All runs easy and conversational\; no catch-up miles 
- or speedwork. Completing a long run does not establish marathon readiness. 
- Sub-4 is on hold.
-CATEGORIES:Taper draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏃 Easy run — W17 Taper
+DESCRIPTION:W17 · Sep 28 · Taper | Easy 5k\; no pace test\nUpdated 22 Sep
+ tember after the 20 km run and your reported physio okay. Three easy runs 
+ this week\, three next week\, then two short runs before race day. Use con
+ versational effort (2–3/10)\; roughly 6:15–6:45/km or slower. An appro
+ ximate 145–150 bpm is a useful easy-run reference\, not a tested zone or
+  a target to chase. Distances are upper limits: shorten or skip for fatigu
+ e. If the injury pain returns\, increases\, changes your stride or leaves 
+ next-morning swelling/stiffness\, stop running and follow up with your phy
+ sio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Taper
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261002-w17-fri@munich-marathon-2026
 DTSTART;VALUE=DATE:20261002
 DTEND;VALUE=DATE:20261003
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W17 · Sep 28 · Taper draft | Rest\nAccelerated draft requeste
- d on 7 September. Distances are conditional ceilings\, not a medically clea
- red prescription. Review the exact progression and each longer run with you
- r physio first. Progress only when preceding runs and next-morning walking\
- , stiffness and swelling remain settled\; otherwise repeat the last tolerat
- ed dose or rest. Stop for increasing inner-ankle pain\, swelling or a chang
- ed stride. All runs easy and conversational\; no catch-up miles or speedwor
- k. Completing a long run does not establish marathon readiness. Sub-4 is on
-  hold.
-CATEGORIES:Taper draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W17 · Sep 28 · Taper | Rest\nUpdated 22 September after the 2
+ 0 km run and your reported physio okay. Three easy runs this week\, three 
+ next week\, then two short runs before race day. Use conversational effort
+  (2–3/10)\; roughly 6:15–6:45/km or slower. An approximate 145–150 b
+ pm is a useful easy-run reference\, not a tested zone or a target to chase
+ . Distances are upper limits: shorten or skip for fatigue. If the injury p
+ ain returns\, increases\, changes your stride or leaves next-morning swell
+ ing/stiffness\, stop running and follow up with your physio. No missed-dis
+ tance catch-up or new hard sessions.
+CATEGORIES:Taper
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261003-w17-sat@munich-marathon-2026
 DTSTART;VALUE=DATE:20261003
 DTEND;VALUE=DATE:20261004
-SUMMARY:DRAFT — 🏃 Easy run — W17 Taper draft
-DESCRIPTION:W17 · Sep 28 · Taper draft | Recovery 2k ceiling\nAccelerated
-  draft requested on 7 September. Distances are conditional ceilings\, not a
-  medically cleared prescription. Review the exact progression and each long
- er run with your physio first. Progress only when preceding runs and next-m
- orning walking\, stiffness and swelling remain settled\; otherwise repeat t
- he last tolerated dose or rest. Stop for increasing inner-ankle pain\, swel
- ling or a changed stride. All runs easy and conversational\; no catch-up mi
- les or speedwork. Completing a long run does not establish marathon readine
- ss. Sub-4 is on hold.
-CATEGORIES:Taper draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W17 · Sep 28 · Taper | Rest or easy walk\nUpdated 22 Septembe
+ r after the 20 km run and your reported physio okay. Three easy runs this 
+ week\, three next week\, then two short runs before race day. Use conversa
+ tional effort (2–3/10)\; roughly 6:15–6:45/km or slower. An approximat
+ e 145–150 bpm is a useful easy-run reference\, not a tested zone or a ta
+ rget to chase. Distances are upper limits: shorten or skip for fatigue. If
+  the injury pain returns\, increases\, changes your stride or leaves next-
+ morning swelling/stiffness\, stop running and follow up with your physio. 
+ No missed-distance catch-up or new hard sessions.
+CATEGORIES:Taper
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261004-w17-sun@munich-marathon-2026
 DTSTART;VALUE=DATE:20261004
 DTEND;VALUE=DATE:20261005
-SUMMARY:DRAFT — 📏 Long run — W17 Taper draft
-DESCRIPTION:W17 · Sep 28 · Taper draft | Easy long 10k ceiling if settled
-  — no late catch-up\nAccelerated draft requested on 7 September. Distance
- s are conditional ceilings\, not a medically cleared prescription. Review t
- he exact progression and each longer run with your physio first. Progress o
- nly when preceding runs and next-morning walking\, stiffness and swelling r
- emain settled\; otherwise repeat the last tolerated dose or rest. Stop for 
- increasing inner-ankle pain\, swelling or a changed stride. All runs easy a
- nd conversational\; no catch-up miles or speedwork. Completing a long run d
- oes not establish marathon readiness. Sub-4 is on hold.
-CATEGORIES:Taper draft
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 📏 Long run — W17 Taper
+DESCRIPTION:W17 · Sep 28 · Taper | Long 10k easy maximum\; finish fresh\n
+ Updated 22 September after the 20 km run and your reported physio okay. Th
+ ree easy runs this week\, three next week\, then two short runs before rac
+ e day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or sl
+ ower. An approximate 145–150 bpm is a useful easy-run reference\, not a 
+ tested zone or a target to chase. Distances are upper limits: shorten or s
+ kip for fatigue. If the injury pain returns\, increases\, changes your str
+ ide or leaves next-morning swelling/stiffness\, stop running and follow up
+  with your physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Taper
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261005-w18-mon@munich-marathon-2026
 DTSTART;VALUE=DATE:20261005
 DTEND;VALUE=DATE:20261006
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W18 · Oct 5 · Race decision | Rest\nAccelerated draft request
- ed on 7 September. Distances are conditional ceilings\, not a medically cle
- ared prescription. Review the exact progression and each longer run with yo
- ur physio first. Progress only when preceding runs and next-morning walking
- \, stiffness and swelling remain settled\; otherwise repeat the last tolera
- ted dose or rest. Stop for increasing inner-ankle pain\, swelling or a chan
- ged stride. All runs easy and conversational\; no catch-up miles or speedwo
- rk. Completing a long run does not establish marathon readiness. Sub-4 is o
- n hold.
-CATEGORIES:Race decision
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W18 · Oct 5 · Race week | Rest\nUpdated 22 September after th
+ e 20 km run and your reported physio okay. Three easy runs this week\, thr
+ ee next week\, then two short runs before race day. Use conversational eff
+ ort (2–3/10)\; roughly 6:15–6:45/km or slower. An approximate 145–15
+ 0 bpm is a useful easy-run reference\, not a tested zone or a target to ch
+ ase. Distances are upper limits: shorten or skip for fatigue. If the injur
+ y pain returns\, increases\, changes your stride or leaves next-morning sw
+ elling/stiffness\, stop running and follow up with your physio. No missed-
+ distance catch-up or new hard sessions.
+CATEGORIES:Race week
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261006-w18-tue@munich-marathon-2026
 DTSTART;VALUE=DATE:20261006
 DTEND;VALUE=DATE:20261007
-SUMMARY:DRAFT — 🏃 Easy run — W18 Race decision
-DESCRIPTION:W18 · Oct 5 · Race decision | Easy 3k ceiling\nAccelerated dr
- aft requested on 7 September. Distances are conditional ceilings\, not a me
- dically cleared prescription. Review the exact progression and each longer 
- run with your physio first. Progress only when preceding runs and next-morn
- ing walking\, stiffness and swelling remain settled\; otherwise repeat the 
- last tolerated dose or rest. Stop for increasing inner-ankle pain\, swellin
- g or a changed stride. All runs easy and conversational\; no catch-up miles
-  or speedwork. Completing a long run does not establish marathon readiness.
-  Sub-4 is on hold.
-CATEGORIES:Race decision
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏃 Easy run — W18 Race week
+DESCRIPTION:W18 · Oct 5 · Race week | Easy 4k\; comfortable throughout\nU
+ pdated 22 September after the 20 km run and your reported physio okay. Thr
+ ee easy runs this week\, three next week\, then two short runs before race
+  day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slo
+ wer. An approximate 145–150 bpm is a useful easy-run reference\, not a t
+ ested zone or a target to chase. Distances are upper limits: shorten or sk
+ ip for fatigue. If the injury pain returns\, increases\, changes your stri
+ de or leaves next-morning swelling/stiffness\, stop running and follow up 
+ with your physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Race week
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261007-w18-wed@munich-marathon-2026
 DTSTART;VALUE=DATE:20261007
 DTEND;VALUE=DATE:20261008
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W18 · Oct 5 · Race decision | Rest\nAccelerated draft request
- ed on 7 September. Distances are conditional ceilings\, not a medically cle
- ared prescription. Review the exact progression and each longer run with yo
- ur physio first. Progress only when preceding runs and next-morning walking
- \, stiffness and swelling remain settled\; otherwise repeat the last tolera
- ted dose or rest. Stop for increasing inner-ankle pain\, swelling or a chan
- ged stride. All runs easy and conversational\; no catch-up miles or speedwo
- rk. Completing a long run does not establish marathon readiness. Sub-4 is o
- n hold.
-CATEGORIES:Race decision
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W18 · Oct 5 · Race week | Rest\; gentle mobility\nUpdated 22 
+ September after the 20 km run and your reported physio okay. Three easy ru
+ ns this week\, three next week\, then two short runs before race day. Use 
+ conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. An ap
+ proximate 145–150 bpm is a useful easy-run reference\, not a tested zone
+  or a target to chase. Distances are upper limits: shorten or skip for fat
+ igue. If the injury pain returns\, increases\, changes your stride or leav
+ es next-morning swelling/stiffness\, stop running and follow up with your 
+ physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Race week
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261008-w18-thu@munich-marathon-2026
 DTSTART;VALUE=DATE:20261008
 DTEND;VALUE=DATE:20261009
-SUMMARY:DRAFT — 🏃 Easy run — W18 Race decision
-DESCRIPTION:W18 · Oct 5 · Race decision | Easy 3k ceiling\nAccelerated dr
- aft requested on 7 September. Distances are conditional ceilings\, not a me
- dically cleared prescription. Review the exact progression and each longer 
- run with your physio first. Progress only when preceding runs and next-morn
- ing walking\, stiffness and swelling remain settled\; otherwise repeat the 
- last tolerated dose or rest. Stop for increasing inner-ankle pain\, swellin
- g or a changed stride. All runs easy and conversational\; no catch-up miles
-  or speedwork. Completing a long run does not establish marathon readiness.
-  Sub-4 is on hold.
-CATEGORIES:Race decision
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏃 Easy run — W18 Race week
+DESCRIPTION:W18 · Oct 5 · Race week | Easy 3k\; stop feeling fresh\nUpdat
+ ed 22 September after the 20 km run and your reported physio okay. Three e
+ asy runs this week\, three next week\, then two short runs before race day
+ . Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower.
+  An approximate 145–150 bpm is a useful easy-run reference\, not a teste
+ d zone or a target to chase. Distances are upper limits: shorten or skip f
+ or fatigue. If the injury pain returns\, increases\, changes your stride o
+ r leaves next-morning swelling/stiffness\, stop running and follow up with
+  your physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Race week
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261009-w18-fri@munich-marathon-2026
 DTSTART;VALUE=DATE:20261009
 DTEND;VALUE=DATE:20261010
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W18 · Oct 5 · Race decision | Rest\nAccelerated draft request
- ed on 7 September. Distances are conditional ceilings\, not a medically cle
- ared prescription. Review the exact progression and each longer run with yo
- ur physio first. Progress only when preceding runs and next-morning walking
- \, stiffness and swelling remain settled\; otherwise repeat the last tolera
- ted dose or rest. Stop for increasing inner-ankle pain\, swelling or a chan
- ged stride. All runs easy and conversational\; no catch-up miles or speedwo
- rk. Completing a long run does not establish marathon readiness. Sub-4 is o
- n hold.
-CATEGORIES:Race decision
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W18 · Oct 5 · Race week | Rest\; familiar carb-rich meals\nUp
+ dated 22 September after the 20 km run and your reported physio okay. Thre
+ e easy runs this week\, three next week\, then two short runs before race 
+ day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slow
+ er. An approximate 145–150 bpm is a useful easy-run reference\, not a te
+ sted zone or a target to chase. Distances are upper limits: shorten or ski
+ p for fatigue. If the injury pain returns\, increases\, changes your strid
+ e or leaves next-morning swelling/stiffness\, stop running and follow up w
+ ith your physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Race week
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261010-w18-sat@munich-marathon-2026
 DTSTART;VALUE=DATE:20261010
 DTEND;VALUE=DATE:20261011
-SUMMARY:DRAFT — 💤 Rest
-DESCRIPTION:W18 · Oct 5 · Race decision | Rest\nAccelerated draft request
- ed on 7 September. Distances are conditional ceilings\, not a medically cle
- ared prescription. Review the exact progression and each longer run with yo
- ur physio first. Progress only when preceding runs and next-morning walking
- \, stiffness and swelling remain settled\; otherwise repeat the last tolera
- ted dose or rest. Stop for increasing inner-ankle pain\, swelling or a chan
- ged stride. All runs easy and conversational\; no catch-up miles or speedwo
- rk. Completing a long run does not establish marathon readiness. Sub-4 is o
- n hold.
-CATEGORIES:Race decision
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W18 · Oct 5 · Race week | Rest\; prepare kit and fuel\nUpdate
+ d 22 September after the 20 km run and your reported physio okay. Three ea
+ sy runs this week\, three next week\, then two short runs before race day.
+  Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. 
+ An approximate 145–150 bpm is a useful easy-run reference\, not a tested
+  zone or a target to chase. Distances are upper limits: shorten or skip fo
+ r fatigue. If the injury pain returns\, increases\, changes your stride or
+  leaves next-morning swelling/stiffness\, stop running and follow up with 
+ your physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Race week
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261011-w18-sun@munich-marathon-2026
 DTSTART;VALUE=DATE:20261011
 DTEND;VALUE=DATE:20261012
-SUMMARY:DRAFT — 🏁 RACE — Munich Marathon
-DESCRIPTION:W18 · Oct 5 · Race decision | CONDITIONAL RACE 42.2k — part
- icipation requires separate reassessment\; no sub-4 target\; otherwise rest
- \nAccelerated draft requested on 7 September. Distances are conditional cei
- lings\, not a medically cleared prescription. Review the exact progression 
- and each longer run with your physio first. Progress only when preceding ru
- ns and next-morning walking\, stiffness and swelling remain settled\; other
- wise repeat the last tolerated dose or rest. Stop for increasing inner-ankl
- e pain\, swelling or a changed stride. All runs easy and conversational\; n
- o catch-up miles or speedwork. Completing a long run does not establish mar
- athon readiness. Sub-4 is on hold.
-CATEGORIES:Race decision
-STATUS:TENTATIVE
-SEQUENCE:20260907
-DTSTAMP:20260907T000000Z
+SUMMARY:UPDATED — 🏁 RACE — Munich Marathon
+DESCRIPTION:W18 · Oct 5 · Race week | RACE 42.195k\; start 6:15–6:30/km
+  with easy breathing\; use Race Strategy\; slow or walk if needed\nUpdated
+  22 September after the 20 km run and your reported physio okay. Three eas
+ y runs this week\, three next week\, then two short runs before race day. 
+ Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. A
+ n approximate 145–150 bpm is a useful easy-run reference\, not a tested 
+ zone or a target to chase. Distances are upper limits: shorten or skip for
+  fatigue. If the injury pain returns\, increases\, changes your stride or 
+ leaves next-morning swelling/stiffness\, stop running and follow up with y
+ our physio. No missed-distance catch-up or new hard sessions.
+CATEGORIES:Race week
+STATUS:CONFIRMED
+SEQUENCE:20260922
+DTSTAMP:20260922T000000Z
 END:VEVENT
 END:VCALENDAR

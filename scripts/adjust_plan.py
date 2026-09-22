@@ -44,7 +44,7 @@ def classify_session(desc: str) -> str:
     d = desc.lower()
     if d.startswith("rest"):
         return "rest"
-    if "race" in d:
+    if d.startswith(("race ", "conditional race")):
         return "race"
     if "long" in d:
         return "long"
@@ -119,7 +119,7 @@ def load_or_init_plan() -> dict:
 def refresh_return_plan(plan_data: dict) -> None:
     """Refresh revised prescriptions without replacing historical days or actuals."""
     revised = {w["week"]: w for w in generate_plan_json()["weeks"]
-               if w["date"] >= RETURN_PLAN_START.isoformat()}
+               if any(d["date"] >= RETURN_PLAN_START.isoformat() for d in w["days"])}
     for week in plan_data["weeks"]:
         new = revised.get(week["week"])
         if new is None:
@@ -128,12 +128,12 @@ def refresh_return_plan(plan_data: dict) -> None:
             week[field] = new[field]
         by_date = {day["date"]: day for day in new["days"]}
         for day in week["days"]:
-            if day["date"] in by_date:
+            if day["date"] in by_date and day["date"] >= RETURN_PLAN_START.isoformat():
                 for field in ("planned", "session_type"):
                     day[field] = by_date[day["date"]][field]
     plan_data["revision"] = {
         "effective_from": RETURN_PLAN_START.isoformat(),
-        "status": "accelerated_draft_for_physio_review",
+        "status": "taper_review_2026_09_22",
         "note": RETURN_PLAN_NOTE,
     }
 
@@ -149,12 +149,13 @@ def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
     for _, row in runs_df.iterrows():
         d = row["Date"].date().isoformat()
         if d not in activity_by_date:
-            activity_by_date[d] = {"km": 0.0, "paces": [], "hrs": [], "names": []}
+            activity_by_date[d] = {"km": 0.0, "minutes": 0.0, "hr_minutes": 0.0, "hr_duration": 0.0, "names": []}
         activity_by_date[d]["km"] += row["distance_km"]
-        activity_by_date[d]["paces"].append(row["pace"])
+        activity_by_date[d]["minutes"] += row["moving_time_min"]
         hr = row.get("avg_hr") if "avg_hr" in row.index else None
         if hr and pd.notna(hr):
-            activity_by_date[d]["hrs"].append(float(hr))
+            activity_by_date[d]["hr_minutes"] += float(hr) * row["moving_time_min"]
+            activity_by_date[d]["hr_duration"] += row["moving_time_min"]
         name = row.get("Name") if "Name" in row.index else None
         if name and pd.notna(name):
             activity_by_date[d]["names"].append(str(name))
@@ -167,12 +168,9 @@ def fill_actuals(plan_data: dict, runs_df: pd.DataFrame) -> dict:
             if d in activity_by_date:
                 act = activity_by_date[d]
                 day["actual_km"] = round(act["km"], 2)
-                if act["paces"]:
-                    day["actual_pace_min_km"] = round(
-                        sum(act["paces"]) / len(act["paces"]), 4
-                    )
-                if act["hrs"]:
-                    day["actual_hr"] = round(sum(act["hrs"]) / len(act["hrs"]), 0)
+                day["actual_pace_min_km"] = round(act["minutes"] / act["km"], 4)
+                if act["hr_duration"]:
+                    day["actual_hr"] = round(act["hr_minutes"] / act["hr_duration"], 0)
                 if act["names"]:
                     day["actual_name"] = " + ".join(act["names"])
             else:

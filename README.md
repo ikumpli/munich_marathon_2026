@@ -65,3 +65,17 @@ git push
 - **Pace history chart** — session pace scatter + rolling average + target marathon pace reference.
 - **Recent sessions table** — last 10 runs with distance, pace, and average HR.
 
+
+## Coaching revision — 22 September 2026
+
+The updated dashboard includes a full training review, the remaining daily schedule,
+and a rebuilt Race Strategy tab with HR trends, staged pacing, slowdown rules and fueling.
+Weekly training ceilings are 29 km, 20 km and 7 km before the 42.195 km race.
+`scripts/coaching.py` owns the dated review and final three weekly prescriptions.
+Future data syncs refresh activity charts; they do not silently rewrite coaching advice.
+
+Regenerate locally with `python scripts/adjust_plan.py` followed by
+`python scripts/generate_dashboard.py`. Run regression checks using
+`python -m unittest discover -s scripts -p 'test_*.py'`.
+
+This local revision does not publish to GitHub Pages until you push it through the existing workflow.
