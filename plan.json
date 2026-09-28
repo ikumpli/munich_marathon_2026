@@ -1,6 +1,6 @@
 {
   "generated": "2026-06-30",
-  "last_adjusted": "2026-09-27",
+  "last_adjusted": "2026-09-28",
   "weeks": [
     {
       "week": 1,
@@ -1259,10 +1259,10 @@
           "day": "Sun",
           "session_type": "long",
           "planned": "Long 18k maximum OR 110 min, whichever first; easy throughout; rehearse breakfast and fuel; shorten to 12–14 km if recovery is incomplete",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 18.02,
+          "actual_pace_min_km": 5.8844,
+          "actual_hr": 150.0,
+          "actual_name": "Munich Running"
         }
       ]
     },
