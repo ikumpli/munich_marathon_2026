@@ -74,6 +74,33 @@ class ReturnPlanTests(unittest.TestCase):
         self.assertIn('PROPOSED long 10k ceiling', html)
         self.assertIn('7 km training + 42.195 km', html)
 
+    def test_race_week_moves_jog_without_catch_up_and_preserves_history(self):
+        plan = tracker.generate_plan_json()
+        history = copy.deepcopy(plan['weeks'][:16])
+        last = plan['weeks'][-1]
+        self.assertEqual([d['session_type'] for d in last['days']],
+                         ['easy', 'rest', 'rest', 'easy', 'rest', 'rest', 'race'])
+        self.assertEqual(dashboard._day_planned_km(last['days'][0]['planned']), 4)
+        self.assertEqual(dashboard._day_planned_km(last['days'][3]['planned']), 3)
+        self.assertAlmostEqual(last['target_km'], 49.195)
+        tracker.refresh_return_plan(plan)
+        self.assertEqual(plan['weeks'][:16], history)
+        skipped = {d['date']: d for d in plan['weeks'][-2]['days']}
+        for key in ['2026-10-01', '2026-10-04']:
+            self.assertEqual(skipped[key]['actual_km'], 0)
+            self.assertIn('no time', skipped[key]['completion_note'])
+        self.assertIn('10k', skipped['2026-10-04']['planned'])
+        with tempfile.TemporaryDirectory() as directory, patch.object(dashboard, 'OUT', Path(directory)):
+            dashboard.build_ics()
+            text = (Path(directory) / 'training.ics').read_bytes().decode().replace('\r\n ', '')
+        events = text.split('BEGIN:VEVENT')[1:]
+        monday = next(e for e in events if 'DTSTART;VALUE=DATE:20261005' in e)
+        tuesday = next(e for e in events if 'DTSTART;VALUE=DATE:20261006' in e)
+        self.assertIn('UID:20261005-w18-mon@munich-marathon-2026', monday)
+        self.assertIn('Easy 4k maximum', monday)
+        self.assertIn('SEQUENCE:20261004', monday)
+        self.assertIn('SUMMARY:UPDATED — 💤 Rest', tuesday)
+
     def test_calendar_gaps_and_weighted_pace(self):
         self.assertEqual(dashboard.pace_clock(5.875), '5:53')
         self.assertEqual(dashboard.pace_clock(5.9999), '6:00')

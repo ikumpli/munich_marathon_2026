@@ -1311,7 +1311,8 @@
           "actual_km": 0.0,
           "actual_pace_min_km": null,
           "actual_hr": null,
-          "actual_name": null
+          "actual_name": null,
+          "completion_note": "Reported skipped on 4 October: no time; do not make up the 5 km."
         },
         {
           "date": "2026-10-02",
@@ -1341,7 +1342,8 @@
           "actual_km": 0.0,
           "actual_pace_min_km": null,
           "actual_hr": null,
-          "actual_name": null
+          "actual_name": null,
+          "completion_note": "Reported skipped on 4 October: no time; do not make up the 10 km."
         }
       ]
     },
@@ -1355,8 +1357,8 @@
         {
           "date": "2026-10-05",
           "day": "Mon",
-          "session_type": "rest",
-          "planned": "Rest",
+          "session_type": "easy",
+          "planned": "Easy 4k maximum; conversational; replaces Tuesday jog, no catch-up distance",
           "actual_km": null,
           "actual_pace_min_km": null,
           "actual_hr": null,
@@ -1365,8 +1367,8 @@
         {
           "date": "2026-10-06",
           "day": "Tue",
-          "session_type": "easy",
-          "planned": "Easy 4k; comfortable throughout",
+          "session_type": "rest",
+          "planned": "Rest; absorb Monday jog",
           "actual_km": null,
           "actual_pace_min_km": null,
           "actual_hr": null,
@@ -1427,7 +1429,9 @@
   ],
   "revision": {
     "effective_from": "2026-09-22",
-    "status": "conditional_sub4_review_2026_09_22",
-    "note": "Updated 22 September after the 20 km run and your reported physio okay. Three easy runs this week, three next week, then two short runs before race day. Use conversational effort (2–3/10); roughly 6:15–6:45/km or slower. An approximate 145–150 bpm is a useful easy-run reference, not a tested zone or a target to chase. Distances are upper limits: shorten or skip for fatigue. If the injury pain returns, increases, changes your stride or leaves next-morning swelling/stiffness, stop running and follow up with your physio. Optional short goal-pace rehearsal on 24 September only if settled. Race: conditional sub-4 attempt; 5:45/km for 5 km, then about 5:39/km only while controlled. Switch to comfortable effort if strain rises; no catch-up surges."
+    "status": "race_week_review_2026_10_04",
+    "reviewed_on": "2026-10-04",
+    "race_week_effective_from": "2026-10-05",
+    "note": "Updated 4 October: you report missing the 5 km on 1 October and the 10 km on 4 October for lack of time, and feeling fit. The log includes 18.02 km on 27 September (1:46:01 moving, 150 bpm) and 5.07 km on 30 September (150 bpm). Do not make up the missed 15 km. Move the existing 4 km jog from Tuesday to Monday 5 October; rest Tuesday and Wednesday; jog up to 3 km Thursday; rest Friday and Saturday. Maximum 7 km training before Sunday’s marathon. Keep both runs conversational at 2–3/10 effort, roughly 6:15–6:45/km or slower; shorten or skip if tired or sore. Feeling fit does not validate a faster race target. Use familiar meals, breakfast and fuel; prioritize sleep and prepare kit. If injury pain returns or changes your stride, stop and contact your physio."
   }
 }

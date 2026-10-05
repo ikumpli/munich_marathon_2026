@@ -4,6 +4,7 @@ from html import escape
 import pandas as pd
 
 REVIEW_DATE = date(2026, 9, 22)
+REVIEW_EVIDENCE_THROUGH = date(2026, 9, 20)
 RACE_DISTANCE_KM = 42.195
 REVIEW_NOTE = (
     'Updated 22 September after the 20 km run and your reported physio okay. '
@@ -16,6 +17,24 @@ REVIEW_NOTE = (
     'Race: conditional sub-4 attempt; 5:45/km for 5 km, then about 5:39/km only while controlled. '
     'Switch to comfortable effort if strain rises; no catch-up surges.'
 )
+
+RACE_WEEK_REVISION_DATE = date(2026, 10, 4)
+RACE_WEEK_NOTE = (
+    'Updated 4 October: you report missing the 5 km on 1 October and the 10 km on '
+    '4 October for lack of time, and feeling fit. The log includes 18.02 km on '
+    '27 September (1:46:01 moving, 150 bpm) and 5.07 km on 30 September (150 bpm). '
+    'Do not make up the missed 15 km. Move the existing 4 km jog from Tuesday to '
+    'Monday 5 October; rest Tuesday and Wednesday; jog up to 3 km Thursday; '
+    'rest Friday and Saturday. Maximum 7 km training before Sunday’s marathon. '
+    'Keep both runs conversational at 2–3/10 effort, roughly 6:15–6:45/km or slower; '
+    'shorten or skip if tired or sore. Feeling fit does not validate a faster race target. '
+    'Use familiar meals, breakfast and fuel; prioritize sleep and prepare kit. '
+    'If injury pain returns or changes your stride, stop and contact your physio.'
+)
+USER_REPORTED_MISSED_RUNS = {
+    '2026-10-01': 'Reported skipped on 4 October: no time; do not make up the 5 km.',
+    '2026-10-04': 'Reported skipped on 4 October: no time; do not make up the 10 km.',
+}
 
 FINAL_WEEKS = [
     (16, 'Sep 21', 29, 18,
@@ -36,7 +55,8 @@ FINAL_WEEKS = [
      'Sat: Rest or easy walk · '
      'Sun: Long 10k easy maximum; finish fresh', 'Taper'),
     (18, 'Oct 5', 49.195, 0,
-     'Mon: Rest · Tue: Easy 4k; comfortable throughout · '
+     'Mon: Easy 4k maximum; conversational; replaces Tuesday jog, no catch-up distance · '
+     'Tue: Rest; absorb Monday jog · '
      'Wed: Rest; gentle mobility · Thu: Easy 3k; stop feeling fresh · '
      'Fri: Rest; familiar carb-rich meals · Sat: Rest; prepare kit and fuel · '
      'Sun: RACE 42.195k; conditional sub-4 attempt: first 5 km at 5:45/km then about 5:39/km only if controlled; use Race Strategy checkpoints and abandon time goal if effort rises',
@@ -44,6 +64,8 @@ FINAL_WEEKS = [
 ]
 
 SOURCES = [
+    ('London Marathon Events: tapering and avoiding catch-up training',
+     'https://www.londonmarathonevents.co.uk/brighton-marathon-weekend/medical-advice'),
     ('Official Munich Marathon: 11 October 2026 and course services',
      'https://marathonmuenchen.org/en/the-marathon-one-lap-course-through-munich/'),
     ('Wang et al. (2023): endurance taper systematic review',
@@ -64,7 +86,7 @@ def pace_clock(minutes):
 
 def review_metrics(runs, curves):
     """Freeze review evidence as of the review date; newer runs remain in live charts."""
-    sample = runs[runs.Date.dt.date <= REVIEW_DATE].copy()
+    sample = runs[runs.Date.dt.date <= REVIEW_EVIDENCE_THROUGH].copy()
     weekly = sample.groupby('week_start').agg(
         km=('distance_km', 'sum'), count=('id', 'count'), longest=('distance_km', 'max'))
     weeks = pd.date_range('2026-07-06', '2026-09-14', freq='7D')
@@ -150,22 +172,26 @@ def remaining_plan_html():
         ('28 Sep · Mon', 'Rest', 'Check next-morning response.'),
         ('29 Sep · Tue', '5 km easy', 'Comfortable all the way.'),
         ('30 Sep · Wed', 'Rest', 'Light familiar physio exercises.'),
-        ('1 Oct · Thu', '5 km easy', 'No fitness test.'),
+        ('1 Oct · Thu', '5 km easy · skipped', 'You report no time; no catch-up distance.'),
         ('2–3 Oct', 'Rest / easy walking', 'Keep legs fresh.'),
-        ('4 Oct · Sun', 'Up to 10 km easy', 'Finish with plenty left.'),
-        ('5 Oct · Mon', 'Rest', 'Prioritize sleep and normal meals.'),
-        ('6 Oct · Tue', '4 km easy', 'Easy means conversational.'),
+        ('4 Oct · Sun', '10 km easy · skipped', 'You report no time and feeling fit; keep the taper.'),
+        ('5 Oct · Mon', 'Up to 4 km easy', 'Move Tuesday’s existing jog here; about 25–30 min, conversational, finish fresh.'),
+        ('6 Oct · Tue', 'Rest', 'No extra run after Monday.'),
         ('7 Oct · Wed', 'Rest', 'Gentle mobility.'),
         ('8 Oct · Thu', '3 km easy', 'Last short jog.'),
         ('9–10 Oct', 'Rest', 'Familiar carb-rich meals; prepare kit and fuel.'),
         ('11 Oct · Sun', 'Marathon · 42.195 km', 'Conditional sub-4 attempt using the Race Strategy checkpoints; switch to comfortable effort if needed.'),
     ]
     return f'''<section class="strategy-card mb-4">
-      <h2 class="h5">The remaining 19 days</h2>
-      <p>Weekly training ceilings: <strong>29 km → 20 km → 7 km</strong> before the race.
-      The race adds 42.195 km separately. Sunday’s 20 km was your last main long run.
+      <h2 class="h5">Race week · updated 4 October · 7 days to go</h2>
+      <p>{escape(RACE_WEEK_NOTE)}</p>
+      <h6>Earlier taper prescriptions and the revised final week</h6>
+      <p>Original weekly training ceilings: <strong>29 km → 20 km → 7 km</strong> before the race.
+      The final-week ceiling remains 7 km; missed runs are not added back.
+      The race adds 42.195 km separately. 20 September was the last main long run in the original review; the log now also records
+      18.02 km on 27 September. No further long run is scheduled.
       Another distance increase now would add fatigue with little time to absorb it.</p>
-      <p>Keep the three-run rhythm you just completed. Run at 2–3/10 effort with full-sentence
+      <p>This final week has two short easy runs before the marathon. Run at 2–3/10 effort with full-sentence
       breathing, initially around 6:15–6:45/km or slower. Approximate easy HR reference:
       145–150 bpm; ease off if HR keeps rising, but do not force a number against how you feel.</p>
       {_table(['Date', 'Session', 'Purpose / adjustment'], rows)}

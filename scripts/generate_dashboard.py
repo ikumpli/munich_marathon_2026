@@ -11,6 +11,7 @@ import pandas as pd
 from pathlib import Path
 from datetime import date, timedelta
 from coaching import (REVIEW_DATE, REVIEW_NOTE, FINAL_WEEKS, RACE_DISTANCE_KM,
+                      RACE_WEEK_REVISION_DATE, RACE_WEEK_NOTE, USER_REPORTED_MISSED_RUNS,
                       review_metrics, analysis_html, remaining_plan_html,
                       strategy_html, nutrition_html, pace_clock)
 
@@ -1217,11 +1218,14 @@ def build_dashboard(runs, weekly, targets):
 
   <!-- CURRENT WEEK CALENDAR -->
   <div class="strategy-card mb-4" style="border-color:#60a5fa" role="note">
-    <h6>Updated 22 September · 19 days to race at this review</h6>
-    <p>You felt great over 20 km and report your physio’s okay. The next step is to absorb that run:
-    <strong>29 km maximum this week, 20 km next week, then 7 km before the marathon.</strong></p>
-    <p class="mb-0">The Race Strategy tab now includes your requested conditional sub-4 attempt, elapsed-time splits and clear fallback checkpoints. The Training Plan tab has every remaining day. This is a dated coaching review;
-    live activity charts update separately.</p>
+    <h6>Updated 4 October · 7 days to race</h6>
+    <p><strong>Monday: up to 4 km easy. Thursday: up to 3 km easy. Rest on the other days.</strong>
+    Do not move the missed 10 km into Monday or add back Thursday’s missed 5 km.</p>
+    <p>You report feeling fit. Your latest logged runs are 18.02 km on 27 September and
+    5.07 km on 30 September, both averaging 150 bpm. Preserve that freshness for Sunday.</p>
+    <p class="mb-0">Maximum 7 km training before the marathon. The Training Plan tab shows the
+    revised schedule; the Race Strategy tab retains the conditional sub-4 checkpoints.
+    The detailed training assessment remains dated 22 September; live charts update separately.</p>
   </div>
   {calendar_html}
 
@@ -1384,7 +1388,7 @@ def build_ics():
         'VERSION:2.0',
         'PRODID:-//Munich Marathon 2026//Training Calendar//EN',
         'X-WR-CALNAME:Munich Marathon 2026 — Training',
-        'X-WR-CALDESC:Training history and 22 September taper revision. Race effort and fueling in dashboard.',
+        'X-WR-CALDESC:Training history and 4 October race-week revision. No catch-up mileage. Race effort and fueling in dashboard.',
         'CALSCALE:GREGORIAN',
         'METHOD:PUBLISH',
     ]
@@ -1428,9 +1432,13 @@ def build_ics():
             dtend = (day_date + timedelta(days=1)).strftime('%Y%m%d')
             full_desc = f"W{wnum} · {wdate_str} · {phase} | {desc}"
             revised = day_date >= RETURN_PLAN_START
+            race_week_revised = day_date >= RACE_WEEK_REVISION_DATE
             if revised:
                 summary = f'UPDATED — {summary}'
-                full_desc += '\n' + RETURN_PLAN_NOTE
+                full_desc += '\n' + (RACE_WEEK_NOTE if race_week_revised else RETURN_PLAN_NOTE)
+            if day_date.isoformat() in USER_REPORTED_MISSED_RUNS:
+                summary = 'SKIPPED — ' + summary
+                full_desc += '\n' + USER_REPORTED_MISSED_RUNS[day_date.isoformat()]
 
             lines += [
                 'BEGIN:VEVENT',
@@ -1440,7 +1448,9 @@ def build_ics():
                 f'SUMMARY:{_ics_esc(summary)}',
                 f'DESCRIPTION:{_ics_esc(full_desc)}',
                 f'CATEGORIES:{_ics_esc(phase)}',
-                *(['STATUS:CONFIRMED', 'SEQUENCE:20260923', 'DTSTAMP:20260922T000000Z'] if revised else []),
+                *(['STATUS:CONFIRMED',
+                   'SEQUENCE:20261004' if race_week_revised or day_date.isoformat() in USER_REPORTED_MISSED_RUNS else 'SEQUENCE:20260923',
+                   'DTSTAMP:20261004T000000Z' if race_week_revised or day_date.isoformat() in USER_REPORTED_MISSED_RUNS else 'DTSTAMP:20260922T000000Z'] if revised else []),
                 'END:VEVENT',
             ]
 

@@ -2,8 +2,8 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Munich Marathon 2026//Training Calendar//EN
 X-WR-CALNAME:Munich Marathon 2026 — Training
-X-WR-CALDESC:Training history and 22 September taper revision. Race effort 
- and fueling in dashboard.
+X-WR-CALDESC:Training history and 4 October race-week revision. No catch-up
+  mileage. Race effort and fueling in dashboard.
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
@@ -1075,7 +1075,7 @@ BEGIN:VEVENT
 UID:20261001-w17-thu@munich-marathon-2026
 DTSTART;VALUE=DATE:20261001
 DTEND;VALUE=DATE:20261002
-SUMMARY:UPDATED — 🏃 Easy run — W17 Taper
+SUMMARY:SKIPPED — UPDATED — 🏃 Easy run — W17 Taper
 DESCRIPTION:W17 · Sep 28 · Taper | Easy 5k\; no pace test\nUpdated 22 Sep
  tember after the 20 km run and your reported physio okay. Three easy runs 
  this week\, three next week\, then two short runs before race day. Use con
@@ -1087,11 +1087,12 @@ DESCRIPTION:W17 · Sep 28 · Taper | Easy 5k\; no pace test\nUpdated 22 Sep
  sio. Optional short goal-pace rehearsal on 24 September only if settled. R
  ace: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km onl
  y while controlled. Switch to comfortable effort if strain rises\; no catc
- h-up surges.
+ h-up surges.\nReported skipped on 4 October: no time\; do not make up the 
+ 5 km.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261002-w17-fri@munich-marathon-2026
@@ -1140,88 +1141,91 @@ BEGIN:VEVENT
 UID:20261004-w17-sun@munich-marathon-2026
 DTSTART;VALUE=DATE:20261004
 DTEND;VALUE=DATE:20261005
-SUMMARY:UPDATED — 📏 Long run — W17 Taper
+SUMMARY:SKIPPED — UPDATED — 📏 Long run — W17 Taper
 DESCRIPTION:W17 · Sep 28 · Taper | Long 10k easy maximum\; finish fresh\n
- Updated 22 September after the 20 km run and your reported physio okay. Th
- ree easy runs this week\, three next week\, then two short runs before rac
- e day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or sl
- ower. An approximate 145–150 bpm is a useful easy-run reference\, not a 
- tested zone or a target to chase. Distances are upper limits: shorten or s
- kip for fatigue. If the injury pain returns\, increases\, changes your str
- ide or leaves next-morning swelling/stiffness\, stop running and follow up
-  with your physio. Optional short goal-pace rehearsal on 24 September only
-  if settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then abo
- ut 5:39/km only while controlled. Switch to comfortable effort if strain r
- ises\; no catch-up surges.
+ Updated 4 October: you report missing the 5 km on 1 October and the 10 km 
+ on 4 October for lack of time\, and feeling fit. The log includes 18.02 km
+  on 27 September (1:46:01 moving\, 150 bpm) and 5.07 km on 30 September (1
+ 50 bpm). Do not make up the missed 15 km. Move the existing 4 km jog from 
+ Tuesday to Monday 5 October\; rest Tuesday and Wednesday\; jog up to 3 km 
+ Thursday\; rest Friday and Saturday. Maximum 7 km training before Sunday
+ ’s marathon. Keep both runs conversational at 2–3/10 effort\, roughly 
+ 6:15–6:45/km or slower\; shorten or skip if tired or sore. Feeling fit d
+ oes not validate a faster race target. Use familiar meals\, breakfast and 
+ fuel\; prioritize sleep and prepare kit. If injury pain returns or changes
+  your stride\, stop and contact your physio.\nReported skipped on 4 Octobe
+ r: no time\; do not make up the 10 km.
 CATEGORIES:Taper
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261005-w18-mon@munich-marathon-2026
 DTSTART;VALUE=DATE:20261005
 DTEND;VALUE=DATE:20261006
-SUMMARY:UPDATED — 💤 Rest
-DESCRIPTION:W18 · Oct 5 · Race week | Rest\nUpdated 22 September after th
- e 20 km run and your reported physio okay. Three easy runs this week\, thr
- ee next week\, then two short runs before race day. Use conversational eff
- ort (2–3/10)\; roughly 6:15–6:45/km or slower. An approximate 145–15
- 0 bpm is a useful easy-run reference\, not a tested zone or a target to ch
- ase. Distances are upper limits: shorten or skip for fatigue. If the injur
- y pain returns\, increases\, changes your stride or leaves next-morning sw
- elling/stiffness\, stop running and follow up with your physio. Optional s
- hort goal-pace rehearsal on 24 September only if settled. Race: conditiona
- l sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km only while control
- led. Switch to comfortable effort if strain rises\; no catch-up surges.
+SUMMARY:UPDATED — 🏃 Easy run — W18 Race week
+DESCRIPTION:W18 · Oct 5 · Race week | Easy 4k maximum\; conversational\; 
+ replaces Tuesday jog\, no catch-up distance\nUpdated 4 October: you report
+  missing the 5 km on 1 October and the 10 km on 4 October for lack of time
+ \, and feeling fit. The log includes 18.02 km on 27 September (1:46:01 mov
+ ing\, 150 bpm) and 5.07 km on 30 September (150 bpm). Do not make up the m
+ issed 15 km. Move the existing 4 km jog from Tuesday to Monday 5 October\;
+  rest Tuesday and Wednesday\; jog up to 3 km Thursday\; rest Friday and Sa
+ turday. Maximum 7 km training before Sunday’s marathon. Keep both runs c
+ onversational at 2–3/10 effort\, roughly 6:15–6:45/km or slower\; shor
+ ten or skip if tired or sore. Feeling fit does not validate a faster race 
+ target. Use familiar meals\, breakfast and fuel\; prioritize sleep and pre
+ pare kit. If injury pain returns or changes your stride\, stop and contact
+  your physio.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261006-w18-tue@munich-marathon-2026
 DTSTART;VALUE=DATE:20261006
 DTEND;VALUE=DATE:20261007
-SUMMARY:UPDATED — 🏃 Easy run — W18 Race week
-DESCRIPTION:W18 · Oct 5 · Race week | Easy 4k\; comfortable throughout\nU
- pdated 22 September after the 20 km run and your reported physio okay. Thr
- ee easy runs this week\, three next week\, then two short runs before race
-  day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slo
- wer. An approximate 145–150 bpm is a useful easy-run reference\, not a t
- ested zone or a target to chase. Distances are upper limits: shorten or sk
- ip for fatigue. If the injury pain returns\, increases\, changes your stri
- de or leaves next-morning swelling/stiffness\, stop running and follow up 
- with your physio. Optional short goal-pace rehearsal on 24 September only 
- if settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then abou
- t 5:39/km only while controlled. Switch to comfortable effort if strain ri
- ses\; no catch-up surges.
+SUMMARY:UPDATED — 💤 Rest
+DESCRIPTION:W18 · Oct 5 · Race week | Rest\; absorb Monday jog\nUpdated 4
+  October: you report missing the 5 km on 1 October and the 10 km on 4 Octo
+ ber for lack of time\, and feeling fit. The log includes 18.02 km on 27 Se
+ ptember (1:46:01 moving\, 150 bpm) and 5.07 km on 30 September (150 bpm). 
+ Do not make up the missed 15 km. Move the existing 4 km jog from Tuesday t
+ o Monday 5 October\; rest Tuesday and Wednesday\; jog up to 3 km Thursday\
+ ; rest Friday and Saturday. Maximum 7 km training before Sunday’s marath
+ on. Keep both runs conversational at 2–3/10 effort\, roughly 6:15–6:45
+ /km or slower\; shorten or skip if tired or sore. Feeling fit does not val
+ idate a faster race target. Use familiar meals\, breakfast and fuel\; prio
+ ritize sleep and prepare kit. If injury pain returns or changes your strid
+ e\, stop and contact your physio.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261007-w18-wed@munich-marathon-2026
 DTSTART;VALUE=DATE:20261007
 DTEND;VALUE=DATE:20261008
 SUMMARY:UPDATED — 💤 Rest
-DESCRIPTION:W18 · Oct 5 · Race week | Rest\; gentle mobility\nUpdated 22 
- September after the 20 km run and your reported physio okay. Three easy ru
- ns this week\, three next week\, then two short runs before race day. Use 
- conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. An ap
- proximate 145–150 bpm is a useful easy-run reference\, not a tested zone
-  or a target to chase. Distances are upper limits: shorten or skip for fat
- igue. If the injury pain returns\, increases\, changes your stride or leav
- es next-morning swelling/stiffness\, stop running and follow up with your 
- physio. Optional short goal-pace rehearsal on 24 September only if settled
- . Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km 
- only while controlled. Switch to comfortable effort if strain rises\; no c
- atch-up surges.
+DESCRIPTION:W18 · Oct 5 · Race week | Rest\; gentle mobility\nUpdated 4 O
+ ctober: you report missing the 5 km on 1 October and the 10 km on 4 Octobe
+ r for lack of time\, and feeling fit. The log includes 18.02 km on 27 Sept
+ ember (1:46:01 moving\, 150 bpm) and 5.07 km on 30 September (150 bpm). Do
+  not make up the missed 15 km. Move the existing 4 km jog from Tuesday to 
+ Monday 5 October\; rest Tuesday and Wednesday\; jog up to 3 km Thursday\; 
+ rest Friday and Saturday. Maximum 7 km training before Sunday’s marathon
+ . Keep both runs conversational at 2–3/10 effort\, roughly 6:15–6:45/k
+ m or slower\; shorten or skip if tired or sore. Feeling fit does not valid
+ ate a faster race target. Use familiar meals\, breakfast and fuel\; priori
+ tize sleep and prepare kit. If injury pain returns or changes your stride\
+ , stop and contact your physio.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261008-w18-thu@munich-marathon-2026
@@ -1229,21 +1233,21 @@ DTSTART;VALUE=DATE:20261008
 DTEND;VALUE=DATE:20261009
 SUMMARY:UPDATED — 🏃 Easy run — W18 Race week
 DESCRIPTION:W18 · Oct 5 · Race week | Easy 3k\; stop feeling fresh\nUpdat
- ed 22 September after the 20 km run and your reported physio okay. Three e
- asy runs this week\, three next week\, then two short runs before race day
- . Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower.
-  An approximate 145–150 bpm is a useful easy-run reference\, not a teste
- d zone or a target to chase. Distances are upper limits: shorten or skip f
- or fatigue. If the injury pain returns\, increases\, changes your stride o
- r leaves next-morning swelling/stiffness\, stop running and follow up with
-  your physio. Optional short goal-pace rehearsal on 24 September only if s
- ettled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:
- 39/km only while controlled. Switch to comfortable effort if strain rises\
- ; no catch-up surges.
+ ed 4 October: you report missing the 5 km on 1 October and the 10 km on 4 
+ October for lack of time\, and feeling fit. The log includes 18.02 km on 2
+ 7 September (1:46:01 moving\, 150 bpm) and 5.07 km on 30 September (150 bp
+ m). Do not make up the missed 15 km. Move the existing 4 km jog from Tuesd
+ ay to Monday 5 October\; rest Tuesday and Wednesday\; jog up to 3 km Thurs
+ day\; rest Friday and Saturday. Maximum 7 km training before Sunday’s ma
+ rathon. Keep both runs conversational at 2–3/10 effort\, roughly 6:15–
+ 6:45/km or slower\; shorten or skip if tired or sore. Feeling fit does not
+  validate a faster race target. Use familiar meals\, breakfast and fuel\; 
+ prioritize sleep and prepare kit. If injury pain returns or changes your s
+ tride\, stop and contact your physio.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261009-w18-fri@munich-marathon-2026
@@ -1251,21 +1255,21 @@ DTSTART;VALUE=DATE:20261009
 DTEND;VALUE=DATE:20261010
 SUMMARY:UPDATED — 💤 Rest
 DESCRIPTION:W18 · Oct 5 · Race week | Rest\; familiar carb-rich meals\nUp
- dated 22 September after the 20 km run and your reported physio okay. Thre
- e easy runs this week\, three next week\, then two short runs before race 
- day. Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slow
- er. An approximate 145–150 bpm is a useful easy-run reference\, not a te
- sted zone or a target to chase. Distances are upper limits: shorten or ski
- p for fatigue. If the injury pain returns\, increases\, changes your strid
- e or leaves next-morning swelling/stiffness\, stop running and follow up w
- ith your physio. Optional short goal-pace rehearsal on 24 September only i
- f settled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about
-  5:39/km only while controlled. Switch to comfortable effort if strain ris
- es\; no catch-up surges.
+ dated 4 October: you report missing the 5 km on 1 October and the 10 km on
+  4 October for lack of time\, and feeling fit. The log includes 18.02 km o
+ n 27 September (1:46:01 moving\, 150 bpm) and 5.07 km on 30 September (150
+  bpm). Do not make up the missed 15 km. Move the existing 4 km jog from Tu
+ esday to Monday 5 October\; rest Tuesday and Wednesday\; jog up to 3 km Th
+ ursday\; rest Friday and Saturday. Maximum 7 km training before Sunday’s
+  marathon. Keep both runs conversational at 2–3/10 effort\, roughly 6:15
+ –6:45/km or slower\; shorten or skip if tired or sore. Feeling fit does 
+ not validate a faster race target. Use familiar meals\, breakfast and fuel
+ \; prioritize sleep and prepare kit. If injury pain returns or changes you
+ r stride\, stop and contact your physio.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261010-w18-sat@munich-marathon-2026
@@ -1273,21 +1277,21 @@ DTSTART;VALUE=DATE:20261010
 DTEND;VALUE=DATE:20261011
 SUMMARY:UPDATED — 💤 Rest
 DESCRIPTION:W18 · Oct 5 · Race week | Rest\; prepare kit and fuel\nUpdate
- d 22 September after the 20 km run and your reported physio okay. Three ea
- sy runs this week\, three next week\, then two short runs before race day.
-  Use conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. 
- An approximate 145–150 bpm is a useful easy-run reference\, not a tested
-  zone or a target to chase. Distances are upper limits: shorten or skip fo
- r fatigue. If the injury pain returns\, increases\, changes your stride or
-  leaves next-morning swelling/stiffness\, stop running and follow up with 
- your physio. Optional short goal-pace rehearsal on 24 September only if se
- ttled. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:3
- 9/km only while controlled. Switch to comfortable effort if strain rises\;
-  no catch-up surges.
+ d 4 October: you report missing the 5 km on 1 October and the 10 km on 4 O
+ ctober for lack of time\, and feeling fit. The log includes 18.02 km on 27
+  September (1:46:01 moving\, 150 bpm) and 5.07 km on 30 September (150 bpm
+ ). Do not make up the missed 15 km. Move the existing 4 km jog from Tuesda
+ y to Monday 5 October\; rest Tuesday and Wednesday\; jog up to 3 km Thursd
+ ay\; rest Friday and Saturday. Maximum 7 km training before Sunday’s mar
+ athon. Keep both runs conversational at 2–3/10 effort\, roughly 6:15–6
+ :45/km or slower\; shorten or skip if tired or sore. Feeling fit does not 
+ validate a faster race target. Use familiar meals\, breakfast and fuel\; p
+ rioritize sleep and prepare kit. If injury pain returns or changes your st
+ ride\, stop and contact your physio.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 BEGIN:VEVENT
 UID:20261011-w18-sun@munich-marathon-2026
@@ -1296,21 +1300,21 @@ DTEND;VALUE=DATE:20261012
 SUMMARY:UPDATED — 🏁 RACE — Munich Marathon
 DESCRIPTION:W18 · Oct 5 · Race week | RACE 42.195k\; conditional sub-4 at
  tempt: first 5 km at 5:45/km then about 5:39/km only if controlled\; use R
- ace Strategy checkpoints and abandon time goal if effort rises\nUpdated 22
-  September after the 20 km run and your reported physio okay. Three easy r
- uns this week\, three next week\, then two short runs before race day. Use
-  conversational effort (2–3/10)\; roughly 6:15–6:45/km or slower. An a
- pproximate 145–150 bpm is a useful easy-run reference\, not a tested zon
- e or a target to chase. Distances are upper limits: shorten or skip for fa
- tigue. If the injury pain returns\, increases\, changes your stride or lea
- ves next-morning swelling/stiffness\, stop running and follow up with your
-  physio. Optional short goal-pace rehearsal on 24 September only if settle
- d. Race: conditional sub-4 attempt\; 5:45/km for 5 km\, then about 5:39/km
-  only while controlled. Switch to comfortable effort if strain rises\; no 
- catch-up surges.
+ ace Strategy checkpoints and abandon time goal if effort rises\nUpdated 4 
+ October: you report missing the 5 km on 1 October and the 10 km on 4 Octob
+ er for lack of time\, and feeling fit. The log includes 18.02 km on 27 Sep
+ tember (1:46:01 moving\, 150 bpm) and 5.07 km on 30 September (150 bpm). D
+ o not make up the missed 15 km. Move the existing 4 km jog from Tuesday to
+  Monday 5 October\; rest Tuesday and Wednesday\; jog up to 3 km Thursday\;
+  rest Friday and Saturday. Maximum 7 km training before Sunday’s maratho
+ n. Keep both runs conversational at 2–3/10 effort\, roughly 6:15–6:45/
+ km or slower\; shorten or skip if tired or sore. Feeling fit does not vali
+ date a faster race target. Use familiar meals\, breakfast and fuel\; prior
+ itize sleep and prepare kit. If injury pain returns or changes your stride
+ \, stop and contact your physio.
 CATEGORIES:Race week
 STATUS:CONFIRMED
-SEQUENCE:20260923
-DTSTAMP:20260922T000000Z
+SEQUENCE:20261004
+DTSTAMP:20261004T000000Z
 END:VEVENT
 END:VCALENDAR

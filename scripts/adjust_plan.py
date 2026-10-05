@@ -21,6 +21,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).parent))
+from coaching import RACE_WEEK_REVISION_DATE, RACE_WEEK_NOTE, USER_REPORTED_MISSED_RUNS
 from generate_dashboard import WEEKLY_PLAN, PLAN_START, RETURN_PLAN_START, RETURN_PLAN_NOTE, _week_planned_km  # type: ignore
 
 DATA = ROOT / "i600311_activities.csv"
@@ -131,10 +132,18 @@ def refresh_return_plan(plan_data: dict) -> None:
             if day["date"] in by_date and day["date"] >= RETURN_PLAN_START.isoformat():
                 for field in ("planned", "session_type"):
                     day[field] = by_date[day["date"]][field]
+    for week in plan_data["weeks"]:
+        for day in week["days"]:
+            if day['date'] in USER_REPORTED_MISSED_RUNS:
+                day['completion_note'] = USER_REPORTED_MISSED_RUNS[day['date']]
+                if day.get('actual_km') is None:
+                    day['actual_km'] = 0.0
     plan_data["revision"] = {
         "effective_from": RETURN_PLAN_START.isoformat(),
-        "status": "conditional_sub4_review_2026_09_22",
-        "note": RETURN_PLAN_NOTE,
+        "status": "race_week_review_2026_10_04",
+        "reviewed_on": RACE_WEEK_REVISION_DATE.isoformat(),
+        "race_week_effective_from": "2026-10-05",
+        "note": RACE_WEEK_NOTE,
     }
 
 

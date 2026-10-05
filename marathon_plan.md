@@ -1,8 +1,37 @@
-# Munich Marathon — revised 22 September 2026
+# Munich Marathon — race week revised 4 October 2026
 
-Race: **11 October 2026**, 42.195 km. **19 days remain** at this review.
-This schedule supersedes previous recommendations from 22 September onward.
+Race: **Sunday 11 October 2026**, 42.195 km. **7 days remain** at this update.
+The final-week schedule below supersedes the previous Monday/Tuesday prescription.
+The detailed training and HR assessment remains dated 22 September.
 Historical prescriptions remain in the dashboard for comparison.
+
+## Final-week update — Sunday 4 October
+
+You report missing Thursday’s 5 km and today’s 10 km because of time constraints,
+and feeling fit. The latest export records **18.02 km on 27 September in 1:46:01
+moving (5:53/km), 150 bpm**, then **5.07 km on 30 September (5:53/km), 150 bpm**.
+These are useful recent runs; feeling fresh does not establish marathon readiness
+or justify raising the race target.
+
+**Skip the 10 km catch-up. Run up to 4 km easy on Monday instead**, moving the
+existing Tuesday jog forward. Rest Tuesday and Wednesday, then up to 3 km easy on
+Thursday. Keep the final-week training ceiling at **7 km, plus the race**. Neither
+missed run needs to be made up. The purpose now is to keep running familiar and
+arrive rested, rather than try to build endurance in the last six days.
+
+Monday’s jog should take roughly 25–30 minutes, with full-sentence breathing and
+2–3/10 effort. Start around 6:15–6:45/km or slower; effort matters more than pace.
+Shorten or skip if soreness or fatigue appears. No tempo finish, pace test or extra
+Tuesday run. Thursday is the last short jog; Friday and Saturday are rest days.
+
+Keep normal sleep routines, use familiar carb-rich foods during the final 36–48
+hours, and prepare shoes, bib, breakfast and your practiced fuel. Do not use this
+week to test new gels or heavy strength sessions. Keep the existing race checkpoints
+and fallback plan; abandon the time goal if effort is strained or injury symptoms return.
+
+This specific schedule is a coaching judgment, informed by
+[London Marathon Events’ taper guidance](https://www.londonmarathonevents.co.uk/brighton-marathon-weekend/medical-advice):
+reduce final-week mileage and avoid cramming in missed training.
 
 ## Training assessment
 
@@ -66,12 +95,12 @@ September 20 was your last main long run.
 | Mon 28 Sep | Rest | Check next-morning response. |
 | Tue 29 Sep | 5 km easy | Comfortable throughout. |
 | Wed 30 Sep | Rest | Light familiar physio exercises. |
-| Thu 1 Oct | 5 km easy | No fitness test. |
+| Thu 1 Oct | 5 km easy — **skipped** | User reports no time; no catch-up. |
 | Fri 2 Oct | Rest | |
 | Sat 3 Oct | Rest / easy walk | |
-| Sun 4 Oct | Up to 10 km easy | Finish fresh. |
-| Mon 5 Oct | Rest | |
-| Tue 6 Oct | 4 km easy | |
+| Sun 4 Oct | 10 km easy — **skipped** | User reports no time; no catch-up. |
+| Mon 5 Oct | **Up to 4 km easy** | Move Tuesday’s jog here; about 25–30 min, finish fresh. |
+| Tue 6 Oct | **Rest** | No extra run after Monday. |
 | Wed 7 Oct | Rest / gentle mobility | |
 | Thu 8 Oct | 3 km easy | Last short jog. |
 | Fri 9 Oct | Rest | Familiar carb-rich meals. |
@@ -80,7 +109,7 @@ September 20 was your last main long run.
 
 Easy means **2–3/10 effort and full-sentence breathing**, initially **6:15–6:45/km
 or slower**. Approximate easy-HR reference: **145–150 bpm**, not a number to chase.
-The Sunday time cap can make the run shorter than 18 km. Keep the three-run rhythm.
+The 27 September time cap could make that run shorter than 18 km. The revised final week has two short jogs before the marathon.
 The optional short goal-pace rehearsal is included in the 6 km total. Stop the faster portions for laboured breathing, persistently rising HR or injury symptoms. Even a comfortable rehearsal cannot prove marathon readiness. No new hard intervals, hills, heavy strength or jumping sports; continue familiar
 tolerated physio work. Shorten or skip for fatigue; never make up missed distance.
 Recurring/increasing injury pain, changed stride, or next-morning swelling/stiffness
@@ -158,7 +187,9 @@ meals and snacks; avoid one huge dinner or new supplements/caffeine products.
 Activity CSV, HR/pace curves and load history were reviewed as of 22 September.
 No duplicate activity IDs were found. Weekly totals include zero-running calendar
 weeks. Aggregate pace = moving time / distance; aggregate HR is weighted by moving time.
-This coaching review is fixed; future data syncs update charts, not these judgments.
+The 22 September assessment is retained. The final-week schedule was revised on 4 October
+using your report and the export through 30 September; future data syncs update charts,
+not these judgments.
 
 - [Official Munich Marathon: date, distance and course services](https://marathonmuenchen.org/en/the-marathon-one-lap-course-through-munich/).
 - [Wang et al. (2023): endurance taper review](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0282838).

@@ -81,3 +81,13 @@ Regenerate locally with `python scripts/adjust_plan.py` followed by
 This local revision does not publish to GitHub Pages until you push it through the existing workflow.
 
 The race strategy now includes a user-requested conditional sub-4 attempt, verified elapsed-time splits, fallback checkpoints and an optional short goal-pace rehearsal inside the existing 6 km session. Training-volume ceilings remain unchanged.
+
+## Race-week revision — 4 October 2026
+
+After the user reported skipping 1 October’s 5 km and 4 October’s 10 km for lack of
+time, the existing 4 km easy jog moves from Tuesday to Monday 5 October. Thursday
+remains 3 km easy; all other days before Sunday’s marathon are rest days. Training
+stays at a maximum of 7 km plus the race, with no catch-up mileage. The dashboard,
+plan JSON and calendar share these prescriptions; the two skipped runs are noted
+without removing their historical prescriptions. The detailed 22 September assessment
+and conditional sub-4 strategy remain dated evidence, not a new fitness prediction.
