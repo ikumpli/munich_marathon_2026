@@ -1379,10 +1379,10 @@
           "day": "Wed",
           "session_type": "rest",
           "planned": "Rest; gentle mobility",
-          "actual_km": null,
-          "actual_pace_min_km": null,
-          "actual_hr": null,
-          "actual_name": null
+          "actual_km": 4.01,
+          "actual_pace_min_km": 5.6053,
+          "actual_hr": 151.0,
+          "actual_name": "Munich Running"
         },
         {
           "date": "2026-10-08",
