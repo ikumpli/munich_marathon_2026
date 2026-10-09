@@ -10,6 +10,7 @@ import re
 import pandas as pd
 from pathlib import Path
 from datetime import date, timedelta
+from pre_marathon import PRE_MARATHON_CSS, PRE_MARATHON_JS, pre_marathon_html
 from coaching import (REVIEW_DATE, REVIEW_NOTE, FINAL_WEEKS, RACE_DISTANCE_KM,
                       RACE_WEEK_REVISION_DATE, RACE_WEEK_NOTE, USER_REPORTED_MISSED_RUNS,
                       review_metrics, analysis_html, remaining_plan_html,
@@ -983,6 +984,7 @@ def build_dashboard(runs, weekly, targets):
     remaining_html = remaining_plan_html()
     race_html = strategy_html(review, build_run_curve_html(review['curve']))
     fuel_html = nutrition_html()
+    pre_race_html = pre_marathon_html()
 
     html = f"""<!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
@@ -997,6 +999,7 @@ def build_dashboard(runs, weekly, targets):
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
+    {PRE_MARATHON_CSS}
     :root {{ color-scheme: dark; }}
     body {{
       background: #0f172a;
@@ -1229,6 +1232,14 @@ def build_dashboard(runs, weekly, targets):
   </div>
   {calendar_html}
 
+  <div class="strategy-card mb-4" style="border-color:#335563">
+    <h6 style="color:#a7f3d0">Final weekend · updated 9 October</h6>
+    <p class="mb-2">Your new Pre-Marathon tab has Friday and Saturday meals, sleep and gentle movement,
+    plus a Sunday morning schedule for your 09:20 start. It uses your latest report: 4 km Wednesday,
+    mild illness earlier this week, no fever and feeling healthy today.</p>
+    <button type="button" class="btn btn-sm btn-outline-success" onclick="bootstrap.Tab.getOrCreateInstance(document.getElementById('pre-marathon-tab')).show()">Open Pre-Marathon plan →</button>
+  </div>
+
   <!-- TABS -->
   <ul class="nav nav-tabs" id="mainTabs" role="tablist">
     <li class="nav-item">
@@ -1244,6 +1255,11 @@ def build_dashboard(runs, weekly, targets):
     <li class="nav-item">
       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-strategy">
         🧠 Race Strategy
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pre-marathon-tab" type="button" role="tab" aria-controls="tab-pre-marathon" aria-selected="false" data-bs-toggle="tab" data-bs-target="#tab-pre-marathon">
+        ☀️ Pre-Marathon
       </button>
     </li>
     <li class="nav-item">
@@ -1308,6 +1324,10 @@ def build_dashboard(runs, weekly, targets):
   <div class="tab-pane fade content-card" id="tab-strategy">
     {race_html}
   </div>
+  <!-- TAB: PRE-MARATHON -->
+  <div class="tab-pane fade content-card" id="tab-pre-marathon" role="tabpanel" aria-labelledby="pre-marathon-tab" tabindex="0">
+    {pre_race_html}
+  </div>
   <!-- TAB: NUTRITION -->
   <div class="tab-pane fade content-card" id="tab-nutrition">
     {fuel_html}
@@ -1351,6 +1371,9 @@ function toggleCurve(id){{
     document.querySelectorAll('[data-tip]').forEach(attach);
   }});
 }})();
+</script>
+<script>
+{PRE_MARATHON_JS}
 </script>
 </body>
 </html>

@@ -91,3 +91,13 @@ stays at a maximum of 7 km plus the race, with no catch-up mileage. The dashboar
 plan JSON and calendar share these prescriptions; the two skipped runs are noted
 without removing their historical prescriptions. The detailed 22 September assessment
 and conditional sub-4 strategy remain dated evidence, not a new fitness prediction.
+
+## Pre-Marathon tab — 9 October 2026
+
+`scripts/pre_marathon.py` provides a dated Friday/Saturday preparation plan and a
+Sunday morning timeline for the 09:20 start: familiar meal suggestions, sleep,
+optional gentle activation, illness precautions and collection logistics. Its packing
+checklist saves in the browser and can be reset. Open the dashboard with
+`#tab-pre-marathon` to select this tab directly. Regenerate with
+`python scripts/generate_dashboard.py`; activity actuals and the historical taper
+prescriptions remain separate from this user-reported weekend update.
